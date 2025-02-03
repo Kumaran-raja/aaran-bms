@@ -14,7 +14,7 @@ class AaranUiServiceProvider extends ServiceProvider
 
         Blade::component('components.alert', 'alert'); // Name in view, class name (optional)
 //        Blade::component('components.form.input', 'form-input');
-        Blade::component('layout.app', 'app-layout'); // Example with a different alias
-        Blade::component('layout.guest', 'guest-layout'); // Example with a different alias
+//        Blade::component('layout.app', 'app-layout'); // Example with a different alias
+//        Blade::component('layout.guest', 'guest-layout'); // Example with a different alias
     }
 }
