@@ -1,13 +1,13 @@
 <?php
 
-namespace Aaran\Master\Database\Factories;
+namespace Aaran\Docs\Database\Factories;
 
-use Aaran\Master\Models\Style;
+use Aaran\Docs\Models\Docs;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class DocsFactory extends Factory
 {
-    protected $model = Style::class;
+    protected $model = Docs::class;
     public function definition(): array
     {
         return [

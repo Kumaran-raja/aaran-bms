@@ -1,12 +1,12 @@
 <?php
 
-namespace Aaran\Master\Models;
+namespace Aaran\Docs\Models;
 
 use Aaran\Common\Models\City;
 use Aaran\Common\Models\Common;
 use Aaran\Common\Models\Pincode;
 use Aaran\Common\Models\State;
-use Aaran\Master\Database\Factories\CompanyFactory;
+use Aaran\Docs\Database\Factories\DocsFactory;
 use App\Models\Tenant;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Collection;
 
-class Company extends Model
+class Docs extends Model
 {
     use HasFactory;
 
@@ -80,9 +80,9 @@ class Company extends Model
         return $this->belongsTo(Pincode::class);
     }
 
-    protected static function newFactory(): CompanyFactory
+    protected static function newFactory(): DocsFactory
     {
-        return new CompanyFactory();
+        return new DocsFactory();
     }
 
     public function companyDetail():HasMany
