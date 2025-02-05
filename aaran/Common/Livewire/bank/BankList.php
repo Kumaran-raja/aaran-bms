@@ -2,7 +2,7 @@
 
 namespace Aaran\Common\Livewire\bank;
 
-use Aaran\AaranCore\Trait\CommonTrait;
+use Aaran\Assets\Trait\CommonTrait;
 use Aaran\Common\Models\Bank;
 use Illuminate\Support\Str;
 use Livewire\Attributes\Validate;

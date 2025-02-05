@@ -2,7 +2,7 @@
 
 namespace Aaran\Common\Livewire\city;
 
-use Aaran\AaranCore\Trait\CommonTrait;
+use Aaran\Assets\Trait\CommonTrait;
 use Aaran\Common\Models\City;
 use Illuminate\Support\Str;
 use Livewire\Attributes\Validate;

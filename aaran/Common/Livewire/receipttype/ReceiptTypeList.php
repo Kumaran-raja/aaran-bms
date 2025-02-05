@@ -3,7 +3,7 @@
 namespace Aaran\Common\Livewire\receipttype;
 
 
-use Aaran\AaranCore\Trait\CommonTrait;
+use Aaran\Assets\Trait\CommonTrait;
 use Aaran\Common\Models\ReceiptType;
 use Illuminate\Support\Str;
 use Livewire\Attributes\Validate;

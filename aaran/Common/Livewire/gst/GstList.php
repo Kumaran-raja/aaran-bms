@@ -2,7 +2,7 @@
 
 namespace Aaran\Common\Livewire\gst;
 
-use Aaran\AaranCore\Trait\CommonTrait;
+use Aaran\Assets\Trait\CommonTrait;
 use Aaran\Common\Models\GstPercent;
 use Illuminate\Support\Str;
 use Livewire\Attributes\Validate;

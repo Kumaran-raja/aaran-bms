@@ -2,7 +2,7 @@
 
 namespace Aaran\Common\Livewire\transport;
 
-use Aaran\AaranCore\Trait\CommonTrait;
+use Aaran\Assets\Trait\CommonTrait;
 use Aaran\Common\Models\Transport;
 use Illuminate\Support\Str;
 use Livewire\Attributes\Validate;

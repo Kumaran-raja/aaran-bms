@@ -4,7 +4,7 @@ namespace Aaran\Docs\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
-use Aaran\Base\Livewire\Tenet;
+use Aaran\Temp\Livewire\Template;
 
 class DocsServiceProvider extends ServiceProvider
 {
@@ -22,7 +22,7 @@ class DocsServiceProvider extends ServiceProvider
     {
         $this->loadMigrations();
 
-        Livewire::component('docs::index', Tenet\Index::class);
+        Livewire::component('docs::index', Template\Index::class);
     }
 
     protected function loadConfigs(): void

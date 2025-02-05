@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration {
     public function up(): void
     {
-        if (Aaran\AaranCore\Src\Customise::hasCommon()) {
+        if (\Aaran\Assets\Features\Customise::hasCommon()) {
 
             Schema::create('gst_percents', function (Blueprint $table) {
                 $table->id();

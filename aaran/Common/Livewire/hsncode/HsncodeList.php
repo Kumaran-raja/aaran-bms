@@ -2,7 +2,7 @@
 
 namespace Aaran\Common\Livewire\hsncode;
 
-use Aaran\AaranCore\Trait\CommonTrait;
+use Aaran\Assets\Trait\CommonTrait;
 use Aaran\Common\Models\Hsncode;
 use Illuminate\Support\Str;
 use Livewire\Attributes\Validate;

@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration {
     public function up(): void
     {
-        if (Aaran\AaranCore\Src\Customise::hasMaster()) {
+        if (\Aaran\Assets\Features\Customise::hasMaster()) {
 
             Schema::create('companies', function (Blueprint $table) {
                 $table->id();

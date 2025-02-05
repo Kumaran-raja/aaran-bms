@@ -3,7 +3,7 @@
 namespace Aaran\Common\Livewire\country;
 
 
-use Aaran\AaranCore\Trait\CommonTrait;
+use Aaran\Assets\Trait\CommonTrait;
 use Aaran\Common\Models\Country;
 use Illuminate\Support\Str;
 use Livewire\Attributes\Validate;

@@ -4,7 +4,7 @@ namespace Aaran\Common\Models;
 
 use Aaran\Blog\Models\BlogTag;
 use Aaran\Common\Database\Factories\CommonFactory;
-use Aaran\Master\Database\Factories\CompanyFactory;
+use Aaran\Core\Database\Factories\CompanyFactory;
 use Aaran\Docs\Models\Product;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
