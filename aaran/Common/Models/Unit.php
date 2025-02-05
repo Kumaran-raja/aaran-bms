@@ -2,7 +2,7 @@
 
 namespace Aaran\Common\Models;
 
-use Aaran\Common\Database\Factories\Factories\UnitFactory;
+use Aaran\Common\Database\Factories\UnitFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 

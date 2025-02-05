@@ -1,6 +1,6 @@
 <?php
 
-namespace Aaran\Common\Database\Factories\Factories;
+namespace Aaran\Common\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
