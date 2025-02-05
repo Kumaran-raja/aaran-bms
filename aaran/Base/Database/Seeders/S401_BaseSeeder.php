@@ -1,11 +1,11 @@
 <?php
 
-namespace Aaran\Master\Database\Seeders;
+namespace Aaran\Base\Database\Seeders;
 
 use Aaran\Base\Models\Company;
 use Illuminate\Database\Seeder;
 
-class S401_CompanySeeder extends Seeder
+class S401_BaseSeeder extends Seeder
 {
     public static function run(): void
     {

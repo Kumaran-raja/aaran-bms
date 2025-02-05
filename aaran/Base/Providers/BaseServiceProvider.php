@@ -1,19 +1,19 @@
 <?php
 
-namespace Aaran\Docs\Providers;
+namespace Aaran\Base\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
 use Aaran\Base\Livewire\Tenet;
 
-class DocsServiceProvider extends ServiceProvider
+class BaseServiceProvider extends ServiceProvider
 {
     protected string $moduleName = 'Docs';
     protected string $moduleNameLower = 'docs';
 
     public function register(): void
     {
-        $this->app->register(DocsRouteServiceProvider::class);
+        $this->app->register(BaseRouteServiceProvider::class);
         $this->loadConfigs();
         $this->loadViews();
     }

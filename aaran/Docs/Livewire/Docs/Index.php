@@ -18,7 +18,7 @@ class Index extends Component
     }
 
     #region[render]
-    #[Layout('layouts.markdown')]
+    #[Layout('layouts.app')]
     public function render()
     {
         return view('docs::Docs.index')->with([

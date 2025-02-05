@@ -2,9 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
-//Master
+//Common
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
-    Route::get('/docs', Aaran\Base\Livewire\Tenet\Index::class)->name('docs');
 
 });

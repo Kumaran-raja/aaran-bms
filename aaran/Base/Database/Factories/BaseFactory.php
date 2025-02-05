@@ -1,19 +1,17 @@
 <?php
 
-namespace Aaran\Docs\Database\Factories;
+namespace Aaran\Base\Database\Factories;
 
-use Aaran\Docs\Models\Docs;
+use Aaran\Base\Models\Base;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class DocsFactory extends Factory
+class BaseFactory extends Factory
 {
-    protected $model = Docs::class;
+    protected $model = Base::class;
     public function definition(): array
     {
         return [
             'vname' => $this->faker->name(),
-            'desc' => $this->faker->text(200),
-            'company_id' => 1,
             'active_id' => '1',
         ];
     }
