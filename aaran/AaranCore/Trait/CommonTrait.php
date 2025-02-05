@@ -1,32 +1,45 @@
 <?php
 
-namespace App\Livewire\Trait;
+namespace Aaran\AaranCore\Trait;
 
-use App\Livewire\Forms\CommonForm;
-use App\Livewire\Forms\GetListForm;
-use JetBrains\PhpStorm\NoReturn;
 use Livewire\WithPagination;
 
-trait CommonTraitNew
-
+trait CommonTrait
 {
     use WithPagination;
-
-    public CommonForm $common;
-    public GetListForm $getListForm;
 
     public bool $showEditModal = false;
     public bool $showFilters = false;
     public bool $showDeleteModal = false;
+
+    public bool $sortAsc = true;
+    public string $perPage = "50";
+
+    public string $searches = "";
+    public string $sortField = 'id';
+    public string $activeRecord = "1";
+
+    public $vid = '';
 
     public function toggleShowFilters(): void
     {
         $this->showFilters = !$this->showFilters;
     }
 
-    public function sortBy($field)
+    public function deleteSelect($id): void
     {
-        $this->getListForm->sortBy($field);
+        $this->showDeleteModal = true;
+        $this->vid = $id;
+    }
+
+    public function sortBy($field): void
+    {
+        if ($this->sortField === $field) {
+            $this->sortAsc = !$this->sortAsc;
+        } else {
+            $this->sortAsc = true;
+        }
+        $this->sortField = $field;
     }
 
     public function create(): void
@@ -37,15 +50,15 @@ trait CommonTraitNew
 
     public function resetFilters()
     {
-        $this->getListForm->activeRecord='1';
-        $this->getListForm->perPage='25';
+        $this->activeRecord='1';
+        $this->resetPage();
         $this->showFilters = false;
+
     }
 
     public function save(): void
     {
         $message = $this->getSave();
-        session()->flash('success', '"' . $this->common->vname . '"  has been' . $message . ' .');
         $this->clearFields();
         $this->showEditModal = false;
     }
@@ -65,20 +78,15 @@ trait CommonTraitNew
             $this->showDeleteModal = true;
         }
     }
-    public function trashData()
+
+    public function delete(): void
     {
-        if ($this->common->vid) {
-            $obj = $this->getObj($this->common->vid);
+
+        if ($this->vid) {
+            $obj = $this->getObj($this->vid);
             $obj->delete();
             $this->showDeleteModal = false;
             $this->clearFields();
         }
-    }
-
-    public function clearFields():void
-    {
-        $this->common->vid='';
-        $this->common->vname = '';
-        $this->common->active_id = 1;
     }
 }

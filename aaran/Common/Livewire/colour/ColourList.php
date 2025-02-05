@@ -2,8 +2,8 @@
 
 namespace Aaran\Common\Livewire\colour;
 
+use Aaran\AaranCore\Trait\CommonTrait;
 use Aaran\Common\Models\Colour;
-use App\Livewire\Trait\CommonTrait;
 use Illuminate\Support\Str;
 use Livewire\Attributes\Validate;
 use Livewire\Component;

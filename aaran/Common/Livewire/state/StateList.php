@@ -2,8 +2,8 @@
 
 namespace Aaran\Common\Livewire\state;
 
+use Aaran\AaranCore\Trait\CommonTrait;
 use Aaran\Common\Models\State;
-use App\Livewire\Trait\CommonTrait;
 use Illuminate\Support\Str;
 use Livewire\Attributes\Validate;
 use Livewire\Component;

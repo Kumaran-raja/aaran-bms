@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Trait;
+namespace Aaran\AaranCore\Trait;
 
 use Illuminate\Support\Collection;
 use Livewire\Component;

@@ -3,8 +3,8 @@
 namespace Aaran\Common\Livewire\pincode;
 
 
+use Aaran\AaranCore\Trait\CommonTrait;
 use Aaran\Common\Models\Pincode;
-use App\Livewire\Trait\CommonTrait;
 use Illuminate\Support\Str;
 use Livewire\Attributes\Validate;
 use Livewire\Component;

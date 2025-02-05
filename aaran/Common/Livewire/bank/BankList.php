@@ -2,8 +2,8 @@
 
 namespace Aaran\Common\Livewire\bank;
 
+use Aaran\AaranCore\Trait\CommonTrait;
 use Aaran\Common\Models\Bank;
-use App\Livewire\Trait\CommonTrait;
 use Illuminate\Support\Str;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
