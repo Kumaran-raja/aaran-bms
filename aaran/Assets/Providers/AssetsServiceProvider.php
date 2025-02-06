@@ -63,6 +63,9 @@ class AssetsServiceProvider extends ServiceProvider
         Blade::component('components.menu.app.top-menu', 'app.top-menu');
         Blade::component('components.menu.app.sub.logout', 'menu-logout');
 
+        Blade::component('components.menu.app.sub.common', 'common-header');
+        Blade::component('components.menu.app.base.route-menuitem', 'common-header');
+
 
 
 //        Blade::component('components.form.input', 'form-input');

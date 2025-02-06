@@ -6,8 +6,7 @@
     <div class="flex justify-between px-5 py-6">
         <a href="{{route('dashboard')}}" class="flex gap-3">
 
-{{--            <x-aaran::logo.cxlogo :icon="'dark'" class="h-10 w-auto block"/>--}}
-
+            <x-aaran-ui::logo.cxlogo :icon="'dark'" class="h-10 w-auto block"/>
 
             <span class="font-bold text-2xl sm:text-3xl tracking-widest">Codexsun</span>
         </a>
@@ -29,45 +28,43 @@
             x-data="{selected:null}">
 
 
-{{--            @if(Aaran\Aadmin\Src\Customise::hasEntries())--}}
-{{--                <x-menu.sub.entries/>--}}
-{{--            @endif--}}
+            {{--            @if(Aaran\Aadmin\Src\Customise::hasEntries())--}}
+            {{--                <x-menu.sub.entries/>--}}
+            {{--            @endif--}}
 
-{{--            @if(Aaran\Aadmin\Src\Customise::hasTransaction())--}}
-{{--                <x-menu.sub.transaction/>--}}
+            {{--            @if(Aaran\Aadmin\Src\Customise::hasTransaction())--}}
+            {{--                <x-menu.sub.transaction/>--}}
 
-{{--            @endif--}}
+            {{--            @endif--}}
 
-{{--            @if(Aaran\Aadmin\Src\Customise::hasMaster())--}}
-{{--                <x-menu.sub.master/>--}}
-{{--            @endif--}}
+            {{--            @if(Aaran\Aadmin\Src\Customise::hasMaster())--}}
+            {{--                <x-menu.sub.master/>--}}
+            {{--            @endif--}}
 
-{{--            @if(Aaran\Aadmin\Src\Customise::hasCommon())--}}
-{{--                <x-menu.sub.common/>--}}
-{{--            @endif--}}
+{{--                        @if(\Aaran\Assets\Features\Customise::hasCommon())--}}
+                            <x-aaran-ui::menu.app.sub.common/>
+{{--                        @endif--}}
 
-{{--            @if(Aaran\Aadmin\Src\Customise::hasReport())--}}
-{{--                <x-menu.sub.reports/>--}}
-{{--            @endif--}}
+            {{--            @if(Aaran\Aadmin\Src\Customise::hasReport())--}}
+            {{--                <x-menu.sub.reports/>--}}
+            {{--            @endif--}}
 
-{{--            @if(Aaran\Aadmin\Src\Customise::hasDemoData())--}}
-{{--                <x-menu.sub.demodata/>--}}
-{{--            @endif--}}
+            {{--            @if(Aaran\Aadmin\Src\Customise::hasDemoData())--}}
+            {{--                <x-menu.sub.demodata/>--}}
+            {{--            @endif--}}
 
-{{--            @if(Aaran\Aadmin\Src\Customise::hasTaskManager())--}}
-{{--                <x-menu.sub.task/>--}}
-{{--            @endif--}}
+            {{--            @if(Aaran\Aadmin\Src\Customise::hasTaskManager())--}}
+            {{--                <x-menu.sub.task/>--}}
+            {{--            @endif--}}
 
-{{--            @if(Aaran\Aadmin\Src\Customise::hasLogbook())--}}
-{{--                <x-menu.sub.logbook/>--}}
-{{--            @endif--}}
+            {{--            @if(Aaran\Aadmin\Src\Customise::hasLogbook())--}}
+            {{--                <x-menu.sub.logbook/>--}}
+            {{--            @endif--}}
 
-{{--                @if(Aaran\Aadmin\Src\Customise::hasAccounts())--}}
-{{--                    <x-menu.sub.accounts/>--}}
-{{--                @endif--}}
+            {{--                @if(Aaran\Aadmin\Src\Customise::hasAccounts())--}}
+            {{--                    <x-menu.sub.accounts/>--}}
+            {{--                @endif--}}
 
-
-{{--            <x-menu.sub.logout/>--}}
             <x-aaran-ui::menu.app.sub.logout/>
 
         </ul>
