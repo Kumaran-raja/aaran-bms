@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\User;
+use Aaran\Core\Models\User;
 use Laravel\Jetstream\Http\Livewire\UpdateProfileInformationForm;
 use Livewire\Livewire;
 

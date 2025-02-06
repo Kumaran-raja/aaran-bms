@@ -4,7 +4,7 @@ namespace App\Livewire\Demo\Data\Product;
 
 use Aaran\Common\Models\Common;
 use Aaran\Master\Models\Product;
-use App\Models\User;
+use Aaran\Core\Models\User;
 use Livewire\Component;
 
 class Index extends Component

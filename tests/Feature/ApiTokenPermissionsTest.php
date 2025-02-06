@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\User;
+use Aaran\Core\Models\User;
 use Illuminate\Support\Str;
 use Laravel\Jetstream\Features;
 use Laravel\Jetstream\Http\Livewire\ApiTokenManager;

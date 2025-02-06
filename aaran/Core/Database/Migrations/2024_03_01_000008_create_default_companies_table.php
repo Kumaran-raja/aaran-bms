@@ -5,21 +5,22 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration {
+
     public function up(): void
     {
         if (Aaran\Assets\Features\Customise::hasCore()) {
 
-            Schema::create('tenants', function (Blueprint $table) {
+            Schema::create('default_companies', function (Blueprint $table) {
                 $table->id();
-                $table->string('vname')->unique();
-                $table->tinyInteger('active_id')->nullable();
-                $table->timestamps();
+                $table->foreignId('company_id')->nullable();
+                $table->unsignedBigInteger('tenant_id')->nullable();
+                $table->longText('acyear');
             });
         }
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('tenants');
+        Schema::dropIfExists('default_companies');
     }
 };

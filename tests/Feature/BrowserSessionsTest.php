@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\User;
+use Aaran\Core\Models\User;
 use Laravel\Jetstream\Http\Livewire\LogoutOtherBrowserSessionsForm;
 use Livewire\Livewire;
 

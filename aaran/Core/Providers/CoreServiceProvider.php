@@ -2,6 +2,8 @@
 
 namespace Aaran\Core\Providers;
 
+use Aaran\Core\Listeners\SetTenantIdInSession;
+use Illuminate\Auth\Events\Login;
 use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
 use Aaran\Core\Livewire\Tenant;
@@ -10,6 +12,12 @@ class CoreServiceProvider extends ServiceProvider
 {
     protected string $moduleName = 'Core';
     protected string $moduleNameLower = 'core';
+
+
+    protected $listen = [Login::class=>[
+        SetTenantIdInSession::class,
+    ]];
+
 
     public function register(): void
     {

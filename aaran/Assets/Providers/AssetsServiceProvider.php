@@ -68,17 +68,16 @@ class AssetsServiceProvider extends ServiceProvider
         Blade::component('components.menu.app.sub.common', 'common-header');
         Blade::component('components.menu.app.base.route-menuitem', 'common-header');
 
-
-
-//        Blade::component('components.form.input', 'form-input');
-//        Blade::component('layout.app', 'app-layout'); // Example with a different alias
-//        Blade::component('layout.guest', 'guest-layout'); // Example with a different alias
     }
 
     public function getConfig(): void
     {
-        $this->mergeConfigFrom(__DIR__ . '/../config.php', 'aaran-core');
+        $this->mergeConfigFrom(__DIR__ . '/../config.php', 'aaran-app');
         $this->mergeConfigFrom(__DIR__ . '/../software.php', 'software');
         $this->mergeConfigFrom(__DIR__ . '/../clients.php', 'clients');
+
+        $this->mergeConfigFrom(__DIR__ . '/../Settings/developer.php', 'developer');
+        $this->mergeConfigFrom(__DIR__ . '/../Settings/garment.php', 'garment');
+        $this->mergeConfigFrom(__DIR__ . '/../Settings/offset.php', 'offset');
     }
 }
