@@ -26,7 +26,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
 //    Route::get('/ledgers', App\Livewire\Common\LedgerList::class)->name('ledgers');
 //    Route::get('/dispatches', App\Livewire\Common\DespatchList::class)->name('dispatches');
-    Route::get('Factory', App\Livewire\Demo\Data\Factory\Index::class)->name('Factory');
+//    Route::get('Factory', App\Livewire\Demo\Data\Factory\Index::class)->name('Factory');
 
 
 
