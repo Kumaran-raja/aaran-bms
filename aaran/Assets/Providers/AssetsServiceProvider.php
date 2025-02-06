@@ -59,6 +59,10 @@ class AssetsServiceProvider extends ServiceProvider
         Blade::component('components.input.floating', 'input.floating');
         Blade::component('components.input.error-text', 'input.error-text');
 
+        Blade::component('components.menu.app.side-menu', 'app.side-menu');
+        Blade::component('components.menu.app.top-menu', 'app.top-menu');
+        Blade::component('components.menu.app.sub.logout', 'menu-logout');
+
 
 
 //        Blade::component('components.form.input', 'form-input');
