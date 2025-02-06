@@ -1,19 +1,19 @@
 <?php
 
-namespace Aaran\Docs\Providers;
+namespace Aaran\Web\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
 use Aaran\Web\Livewire\Dashboard;
 
-class DocsServiceProvider extends ServiceProvider
+class WebServiceProvider extends ServiceProvider
 {
-    protected string $moduleName = 'Docs';
-    protected string $moduleNameLower = 'docs';
+    protected string $moduleName = 'web';
+    protected string $moduleNameLower = 'web';
 
     public function register(): void
     {
-        $this->app->register(DocsRouteServiceProvider::class);
+        $this->app->register(WebRouteServiceProvider::class);
         $this->loadConfigs();
         $this->loadViews();
     }
@@ -22,7 +22,7 @@ class DocsServiceProvider extends ServiceProvider
     {
         $this->loadMigrations();
 
-        Livewire::component('docs::index', Dashboard\Index::class);
+        Livewire::component('web::index', Dashboard\Index::class);
     }
 
     protected function loadConfigs(): void
