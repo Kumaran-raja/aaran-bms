@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration {
     public function up(): void
     {
-        if (\Aaran\Assets\Features\Customise::hasCommon()) {
+//        if (\Aaran\Assets\Features\Customise::hasCommon()) {
 
             Schema::create('gst_percents', function (Blueprint $table) {
                 $table->id();
@@ -15,7 +15,7 @@ return new class extends Migration {
                 $table->string('desc')->nullable();
                 $table->tinyInteger('active_id')->nullable();
             });
-        }
+//        }
     }
 
     public function down(): void
