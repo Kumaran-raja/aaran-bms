@@ -5,9 +5,10 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration {
+
     public function up(): void
     {
-//        if (\Aaran\Assets\Features\Customise::hasCommon()) {
+        if (Aaran\Assets\Features\Customise::hasCommon()) {
 
             Schema::create('transports', function (Blueprint $table) {
                 $table->id();
@@ -15,7 +16,7 @@ return new class extends Migration {
                 $table->string('vehicle_no')->nullable();
                 $table->tinyInteger('active_id')->nullable();
             });
-//        }
+        }
     }
 
     public function down(): void
