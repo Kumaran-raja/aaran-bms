@@ -6,7 +6,7 @@ use Aaran\Core\Listeners\SetTenantIdInSession;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
-use Aaran\Core\Livewire\Tenant;
+use Aaran\Core\Livewire\Role;
 
 class CoreServiceProvider extends ServiceProvider
 {
@@ -30,7 +30,7 @@ class CoreServiceProvider extends ServiceProvider
     {
         $this->loadMigrations();
 
-        Livewire::component('tenant::index', Tenant\Index::class);
+        Livewire::component('tenant::index', Role\Index::class);
     }
 
     protected function loadConfigs(): void

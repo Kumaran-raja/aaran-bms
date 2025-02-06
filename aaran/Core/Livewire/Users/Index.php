@@ -1,6 +1,6 @@
 <?php
 
-namespace Aaran\Core\Livewire\Tenant;
+namespace Aaran\Core\Livewire\Users;
 
 use Illuminate\Support\Str;
 use Livewire\Attributes\Layout;

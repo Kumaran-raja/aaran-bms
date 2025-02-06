@@ -1,6 +1,6 @@
 <?php
 
-namespace Aaran\Core\Livewire\DefaultCompany;
+namespace Aaran\Core\Livewire\Versions;
 
 use Illuminate\Support\Str;
 use Livewire\Component;

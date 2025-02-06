@@ -1,9 +1,8 @@
 <?php
 
-namespace Aaran\Core\Livewire\Tenant;
+namespace Aaran\Core\Livewire\Role;
 
 use Illuminate\Support\Str;
-use Livewire\Attributes\Layout;
 use Livewire\Component;
 
 

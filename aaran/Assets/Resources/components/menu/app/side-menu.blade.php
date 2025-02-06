@@ -41,9 +41,13 @@
             {{--                <x-menu.sub.master/>--}}
             {{--            @endif--}}
 
-{{--                        @if(\Aaran\Assets\Features\Customise::hasCommon())--}}
-                            <x-aaran-ui::menu.app.sub.common/>
-{{--                        @endif--}}
+            @if(\Aaran\Assets\Features\Customise::hasCommon())
+                <x-aaran-ui::menu.app.sub.common/>
+            @endif
+
+            @if(\Aaran\Assets\Features\Customise::hasCore())
+                <x-aaran-ui::menu.app.sub.core/>
+            @endif
 
             {{--            @if(Aaran\Aadmin\Src\Customise::hasReport())--}}
             {{--                <x-menu.sub.reports/>--}}

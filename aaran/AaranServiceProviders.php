@@ -17,8 +17,8 @@ class AaranServiceProviders extends ServiceProvider
 //        $this->app->register(WebServiceProvider::class);
 
         $this->app->register(CoreServiceProvider::class);
+        $this->app->register(CommonServiceProvider::class);
 
 //        $this->app->register(DocsServiceProvider::class);
-//        $this->app->register(CommonServiceProvider::class);
     }
 }
