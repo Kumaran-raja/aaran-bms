@@ -10,7 +10,7 @@ class Customise
 
             config('software.DEVELOPER') => in_array($feature, config('developer.customise', [])),
             config('software.OFFSET') => in_array($feature, config('offset.customise', [])),
-
+            default => false, // Handle NULL and unexpected cases
         };
     }
 
