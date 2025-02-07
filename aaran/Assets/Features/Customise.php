@@ -178,15 +178,15 @@ class Customise
     }
     #endregion
 
-    #region[AccountMaster]
-    public static function hasAccountMaster(): bool
+    #region[Books]
+    public static function hasBooks(): bool
     {
-        return static::enabled(static::accountMaster());
+        return static::enabled(static::books());
     }
 
-    public static function accountMaster(): string
+    public static function books(): string
     {
-        return 'accountMaster';
+        return 'books';
     }
     #endregion
 

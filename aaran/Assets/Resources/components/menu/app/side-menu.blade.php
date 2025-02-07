@@ -65,9 +65,9 @@
             {{--                <x-menu.sub.logbook/>--}}
             {{--            @endif--}}
 
-            {{--                @if(Aaran\Aadmin\Src\Customise::hasAccounts())--}}
-            {{--                    <x-menu.sub.accounts/>--}}
-            {{--                @endif--}}
+            @if(\Aaran\Assets\Features\Customise::hasBooks())
+                <x-aaran-ui::menu.app.sub.books/>
+            @endif
 
             <x-aaran-ui::menu.app.sub.logout/>
 
