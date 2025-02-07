@@ -3,6 +3,8 @@
 namespace Aaran;
 
 use Aaran\Assets\Providers\AssetsServiceProvider;
+use Aaran\Blog\Providers\BlogServiceProvider;
+use Aaran\Books\Providers\BooksServiceProvider;
 use Aaran\Common\Providers\CommonServiceProvider;
 use Aaran\Core\Providers\CoreServiceProvider;
 use Aaran\Docs\Providers\DocsServiceProvider;
@@ -14,11 +16,14 @@ class AaranServiceProviders extends ServiceProvider
     public function register(): void
     {
         $this->app->register(AssetsServiceProvider::class);
-//        $this->app->register(WebServiceProvider::class);
+        $this->app->register(WebServiceProvider::class);
 
         $this->app->register(CoreServiceProvider::class);
         $this->app->register(CommonServiceProvider::class);
+        $this->app->register(BooksServiceProvider::class);
 
-//        $this->app->register(DocsServiceProvider::class);
+        $this->app->register(BlogServiceProvider::class);
+
+        $this->app->register(DocsServiceProvider::class);
     }
 }

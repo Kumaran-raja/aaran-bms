@@ -2,8 +2,8 @@
 
 namespace Aaran\Assets\Trait;
 
-use App\Livewire\Forms\CommonForm;
-use App\Livewire\Forms\GetListForm;
+use Aaran\Assets\LivewireForms\CommonForm;
+use Aaran\Assets\LivewireForms\GetListForm;
 use Livewire\WithPagination;
 
 trait CommonTraitNew
