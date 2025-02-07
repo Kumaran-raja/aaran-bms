@@ -15,8 +15,8 @@ return new class extends Migration {
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('profile_photo_path', 2048)->nullable();
-            $table->unsignedBigInteger('tenant_id')->nullable();
-            $table->unsignedBigInteger('role_id')->nullable();
+            $table->foreignId('tenant_id')->nullable();
+            $table->foreignId('role_id')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

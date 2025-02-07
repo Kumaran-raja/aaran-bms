@@ -8,7 +8,7 @@ return new class extends Migration {
 
     public function up(): void
     {
-        if (Aaran\Assets\Features\Customise::hasCore()) {
+//        if (Aaran\Assets\Features\Customise::hasCore()) {
 
             Schema::create('tenants', function (Blueprint $table) {
                 $table->id();
@@ -16,7 +16,7 @@ return new class extends Migration {
                 $table->tinyInteger('active_id')->nullable();
                 $table->timestamps();
             });
-        }
+//        }
     }
 
     public function down(): void

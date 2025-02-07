@@ -23,6 +23,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'profile_photo_path',
+        'tenant_id',
+        'role_id'
     ];
 
     protected $hidden = [
@@ -72,5 +75,11 @@ class User extends Authenticatable
     protected static function booted(): void
     {
         static::addGlobalScope(new TenantScope);
+    }
+
+    public static function search(string $searches)
+    {
+        return empty($searches) ? static::query()
+            : static::where('vname', 'like', '%' . $searches . '%');
     }
 }
