@@ -21,7 +21,7 @@ class Index extends Component
     public function render()
     {
         return view('core::Tenant.index')->with([
-            'policy' => $this->getDocs()
+//            'policy' => $this->getDocs()
         ]);
     }
     #endregion

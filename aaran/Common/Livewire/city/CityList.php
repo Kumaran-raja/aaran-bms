@@ -111,8 +111,6 @@ class CityList extends Component
     }
     #endregion
 
-
-
     #region[render]
     public function render()
     {

@@ -1,6 +1,7 @@
 <div>
     <x-slot name="header">City</x-slot>
     <x-aaran-ui::forms.m-panel>
+        <x-aaran-ui::alerts.notification />
 
         <!-- Top Controls --------------------------------------------------------------------------------------------->
         <x-aaran-ui::forms.top-controls :show-filters="$showFilters"/>
@@ -45,7 +46,6 @@
             <x-aaran-ui::input.floating wire:model="vname" label="City Name" />
             <x-aaran-ui::input.error-text wire:model="vname"/>
         </x-aaran-ui::forms.create>
-
 
     </x-aaran-ui::forms.m-panel>
 </div>

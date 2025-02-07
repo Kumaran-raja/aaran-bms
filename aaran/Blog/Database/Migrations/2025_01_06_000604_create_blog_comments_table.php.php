@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration {
     public function up(): void
     {
-        if (Aaran\Assets\Features\Customise::hasBlog()) {
+//        if (Aaran\Assets\Features\Customise::hasBlog()) {
 
             Schema::create('blog_comments', function (Blueprint $table) {
                 $table->id();
@@ -16,7 +16,7 @@ return new class extends Migration {
                 $table->text('body');
                 $table->timestamps();
             });
-        }
+//        }
     }
 
     public function down(): void

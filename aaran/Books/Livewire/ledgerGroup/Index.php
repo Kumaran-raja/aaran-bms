@@ -149,6 +149,20 @@ class Index extends Component
     }
     #endregion
 
+    #region[delete]
+    public function deleteFunction($id): void
+    {
+        if ($id) {
+            $obj = LedgerGroup::find($id);
+            if ($obj) {
+                $obj->delete();
+                $message = "Deleted Successfully";
+                $this->dispatch('notify', ...['type' => 'success', 'content' => $message]);
+            }
+        }
+    }
+    #endregion
+
     #region[Clear Fields]
     public function render()
     {
