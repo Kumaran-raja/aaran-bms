@@ -49,6 +49,16 @@
                 <x-aaran-ui::menu.app.sub.core/>
             @endif
 
+            @if(\Aaran\Assets\Features\Customise::hasBooks())
+                <x-aaran-ui::menu.app.sub.books/>
+            @endif
+
+            @if(\Aaran\Assets\Features\Customise::hasBlog())
+                <x-aaran-ui::menu.app.sub.blog/>
+            @endif
+
+
+
             {{--            @if(Aaran\Aadmin\Src\Customise::hasReport())--}}
             {{--                <x-menu.sub.reports/>--}}
             {{--            @endif--}}
@@ -65,9 +75,7 @@
             {{--                <x-menu.sub.logbook/>--}}
             {{--            @endif--}}
 
-            @if(\Aaran\Assets\Features\Customise::hasBooks())
-                <x-aaran-ui::menu.app.sub.books/>
-            @endif
+
 
             <x-aaran-ui::menu.app.sub.logout/>
 

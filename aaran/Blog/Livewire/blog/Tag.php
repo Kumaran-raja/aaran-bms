@@ -90,7 +90,7 @@ class Tag extends Component
     public function blogcategorySave($name)
     {
         $obj = Common::create([
-            'label_id' => 18,
+//            'label_id' => 18,
             'vname' => $name,
             'active_id' => '1'
         ]);
@@ -135,7 +135,7 @@ class Tag extends Component
     {
         $this->getBlogcategoryList();
 
-        return view('livewire.blog.blog-tag.index')->with([
+        return view('blog::blog.tag')->with([
             'list' => $this->getListForm->getList(BlogTag::class, function ($query) {
                 return $query->where('id', '>', '');
             })

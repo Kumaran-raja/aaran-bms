@@ -1,6 +1,8 @@
 <div>
     <x-slot name="header">Department</x-slot>
     <x-aaran-ui::forms.m-panel>
+        <x-aaran-ui::alerts.notification />
+
 
         <!-- Top Controls --------------------------------------------------------------------------------------------->
         <x-aaran-ui::forms.top-controls :show-filters="$showFilters"/>

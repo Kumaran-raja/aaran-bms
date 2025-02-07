@@ -4,6 +4,8 @@
     <!-- Top Controls ------------------------------------------------------------------------------------------------->
 
     <x-aaran-ui::forms.m-panel>
+        <x-aaran-ui::alerts.notification />
+
 
         <x-aaran-ui::forms.top-controls :show-filters="$showFilters"/>
 
