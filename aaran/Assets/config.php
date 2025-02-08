@@ -6,4 +6,6 @@ return [
 
     'app_type' => env('APP_TYPE', '100'),
 
+    'brand' => env('BRAND', 'Codexsun')
+
 ];

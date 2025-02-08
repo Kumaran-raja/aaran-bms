@@ -3,13 +3,12 @@
      px-6 py-4 dark:border-neutral-700 text-white"
      aria-label="penguin ui menu">
     <!-- Brand Logo -->
-    <a href="#" class="text-2xl font-bold gap-4 inline-flex items-center">
-        <span>
-
-  <x-aaran-ui::logo.cxlogo icon="darkWithText" class="w-auto h-10 block"/>
-
+    <a href="#" class="text-3xl gap-4 inline-flex items-center">
+        <span> <x-aaran-ui::logo.cxlogo icon="dark" class="w-auto h-10 block"/></span>
+        <span
+            class="hover:scale-110 hover:tracking-wide hover:font-bold hover:text-black hover:underline duration-300 transition-all ease-out">
+                {{ config('aaran-app.brand') }}
         </span>
-        <span class="hover:scale-110 duration-300 transition-all ease-out">{{ config('aaran-core.brand')}}</span>
     </a>
     <!-- Desktop Menu -->
     <ul class="hidden items-center gap-16 md:flex">
