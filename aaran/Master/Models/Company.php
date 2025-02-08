@@ -52,14 +52,6 @@ class Company extends Model
         ]);
     }
 
-    public function commons(): HasOne
-    {
-        return $this->hasOne(City::class, 'id', 'city_id')
-            ->orWhere('id', 'state_id')
-            ->orWhere('id', 'pincode_id');
-    }
-
-
     protected static function newFactory(): CompanyFactory
     {
         return new CompanyFactory();
