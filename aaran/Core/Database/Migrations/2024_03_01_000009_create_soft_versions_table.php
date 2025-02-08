@@ -16,6 +16,7 @@ return new class extends Migration {
                 $table->string('db_version');
                 $table->string('title')->nullable();
                 $table->longText('body')->nullable();
+                $table->tinyInteger('active_id')->nullable();
                 $table->timestamps();
             });
         }

@@ -13,8 +13,8 @@ return new class extends Migration {
             Schema::create('default_companies', function (Blueprint $table) {
                 $table->id();
                 $table->foreignId('company_id')->nullable();
-                $table->unsignedBigInteger('tenant_id')->nullable();
-                $table->longText('acyear');
+                $table->string('acyear')->nullable();
+                $table->tinyInteger('active_id')->nullable();
             });
         }
     }

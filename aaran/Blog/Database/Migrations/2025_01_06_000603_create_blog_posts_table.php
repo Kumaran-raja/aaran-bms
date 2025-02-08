@@ -18,7 +18,7 @@ return new class extends Migration {
                 $table->foreignId('blog_tag_id')->references('id')->on('blog_tags');
                 $table->foreignId('user_id')->references('id')->on('users');
                 $table->boolean('visibility')->nullable();
-                $table->decimal('active_id')->nullable();
+                $table->tinyInteger('active_id')->nullable();
                 $table->timestamps();
             });
 
