@@ -19,11 +19,10 @@
                 <x-aaran-ui::table.header-text  wire:click.prevent="sortBy('id')"  sortIcon="{{$sortAsc}}">
                     User Name
                 </x-aaran-ui::table.header-text>
-                <x-aaran-ui::table.header-text > Email </x-aaran-ui::table.header-text>
-                <x-aaran-ui::table.header-text > Password</x-aaran-ui::table.header-text>
-                <x-aaran-ui::table.header-text > Profile Photo </x-aaran-ui::table.header-text>
-                <x-aaran-ui::table.header-text > Tenant ID</x-aaran-ui::table.header-text>
-                <x-aaran-ui::table.header-text > Role ID</x-aaran-ui::table.header-text>
+                <x-aaran-ui::table.header-text sortIcon="none">Email</x-aaran-ui::table.header-text>
+                <x-aaran-ui::table.header-text sortIcon="none">Profile Photo</x-aaran-ui::table.header-text>
+                <x-aaran-ui::table.header-text sortIcon="none">Tenant ID</x-aaran-ui::table.header-text>
+                <x-aaran-ui::table.header-text sortIcon="none">Role ID</x-aaran-ui::table.header-text>
                 <x-aaran-ui::table.header-serial/>
             </x-slot:table_header>
 
@@ -33,10 +32,9 @@
                         <x-aaran-ui::table.cell-text>{{$index+1}}</x-aaran-ui::table.cell-text>
                         <x-aaran-ui::table.cell-text >{{$row->name}}</x-aaran-ui::table.cell-text>
                         <x-aaran-ui::table.cell-text >{{$row->email}}</x-aaran-ui::table.cell-text>
-                        <x-aaran-ui::table.cell-text >{{$row->password}}</x-aaran-ui::table.cell-text>
                         <x-aaran-ui::table.cell-text >{{$row->profile_photo_path}}</x-aaran-ui::table.cell-text>
-                        <x-aaran-ui::table.cell-text >{{$row->tenant_id}}</x-aaran-ui::table.cell-text>
-                        <x-aaran-ui::table.cell-text >{{$row->role_id}}</x-aaran-ui::table.cell-text>
+                        <x-aaran-ui::table.cell-text >{{ $row->tenant->t_name ?? 'N/A' }}</x-aaran-ui::table.cell-text>
+                        <x-aaran-ui::table.cell-text >{{ $row->role?->vname ?? 'N/A' }}</x-aaran-ui::table.cell-text>
                         <x-aaran-ui::table.cell-action id="{{$row->id}}"/>
                     </x-aaran-ui::table.row>
                 @endforeach

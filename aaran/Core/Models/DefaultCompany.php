@@ -27,4 +27,10 @@ class DefaultCompany extends Model
 //        return $this->belongsTo(Company::class); TODO: after company
     }
 
+    public static function search(string $searches)
+    {
+        return empty($searches) ? static::query()
+            : static::where('vname', 'like', '%' . $searches . '%');
+    }
+
 }

@@ -82,4 +82,15 @@ class User extends Authenticatable
         return empty($searches) ? static::query()
             : static::where('vname', 'like', '%' . $searches . '%');
     }
+
+    public function tenant()
+    {
+        return $this->belongsTo(Tenant::class);
+    }
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
+
 }
