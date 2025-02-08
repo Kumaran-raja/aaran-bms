@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Helper;
+namespace Aaran\Assets\Helper;
 
 class Months
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Helper;
+namespace Aaran\Assets\Helper;
 
 use chillerlan\QRCode\{QRCode, QROptions};
 use chillerlan\QRCode\Data\QRMatrix;

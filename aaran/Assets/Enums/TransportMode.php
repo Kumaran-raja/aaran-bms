@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Enums;
+namespace Aaran\Assets\Enums;
 
 enum TransportMode: int
 {
