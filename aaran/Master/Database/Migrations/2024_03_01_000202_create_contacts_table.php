@@ -18,13 +18,13 @@ return new class extends Migration {
                 $table->string('contact_person')->nullable();
                 $table->foreignId('contact_type_id')->references('id')->on('contact_types');
                 $table->string('msme_no')->nullable();
-                $table->foreignId('msme_type_id')->references('id')->on('commons');
+                $table->foreignId('msme_type_id')->nullable();
                 $table->decimal('opening_balance')->nullable();
                 $table->decimal('outstanding',12,2)->nullable();
                 $table->string('effective_from')->nullable();
                 $table->string('gstin')->nullable();
                 $table->string('email')->nullable();
-                $table->string('active_id', 3)->nullable();
+                $table->tinyInteger('active_id')->nullable();
                 $table->foreignId('user_id')->references('id')->on('users');
                 $table->foreignId('company_id')->references('id')->on('companies');
                 $table->unique(['vname', 'gstin']);

@@ -9,7 +9,7 @@ return new class extends Migration {
     {
         if (\Aaran\Assets\Features\Customise::hasMaster()) {
 
-            Schema::create('companies', function (Blueprint $table) {
+            Schema::create('docs', function (Blueprint $table) {
                 $table->id();
                 $table->string('vname')->unique();
                 $table->string('display_name')->nullable();
@@ -43,6 +43,6 @@ return new class extends Migration {
 
     public function down(): void
     {
-        Schema::dropIfExists('companies');
+        Schema::dropIfExists('docs');
     }
 };

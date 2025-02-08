@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Aaran\Common\Database\Seeders\S000_CommonSeeder;
 use Aaran\Core\Database\Seeders\S00_CoreSeeder;
-use Aaran\Master\Database\Seeders\S000_MasterSeeder;
+use Aaran\Master\Database\Seeders\S199_MasterSeeder;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,6 +13,6 @@ class DatabaseSeeder extends Seeder
     {
         S00_CoreSeeder::run();
         S000_CommonSeeder::run();
-//        S000_MasterSeeder::run();
+//        S199_MasterSeeder::run();
     }
 }

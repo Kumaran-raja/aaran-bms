@@ -2,7 +2,10 @@
 
 namespace Aaran\Master\Database\Factories;
 
-use Aaran\Common\Models\Common;
+use Aaran\Common\Models\City;
+use Aaran\Common\Models\Country;
+use Aaran\Common\Models\Pincode;
+use Aaran\Common\Models\State;
 use Aaran\Master\Models\Contact;
 use Aaran\Master\Models\ContactDetail;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -15,10 +18,10 @@ class ContactDetailFactory extends Factory
     public function definition(): array
     {
         $contacts = Contact::pluck('id')->random();
-        $cities = Common::where('label_id','=','2')->pluck('id')->random();
-        $states = Common::where('label_id','=','3')->pluck('id')->random();
-        $pincodes = Common::where('label_id','=','4')->pluck('id')->random();
-        $countries = Common::where('label_id','=','5')->pluck('id')->random();
+        $cities = City::pluck('id')->random();
+        $states = State::pluck('id')->random();
+        $pincodes = Pincode::pluck('id')->random();
+        $countries = Country::pluck('id')->random();
         return [
             'contact_id' =>Contact::factory(),
             'address_type' => 'Primary',

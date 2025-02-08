@@ -2,7 +2,10 @@
 
 namespace Aaran\Master\Database\Factories;
 
-use Aaran\Common\Models\Common;
+use Aaran\Common\Models\Bank;
+use Aaran\Common\Models\City;
+use Aaran\Common\Models\Pincode;
+use Aaran\Common\Models\State;
 use Aaran\Master\Models\Company;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -13,10 +16,10 @@ class CompanyFactory extends Factory
     public function definition(): array
     {
         $users = User::pluck('id')->random();
-        $cities = Common::where('label_id','=','2')->pluck('id')->random();
-        $states = Common::where('label_id','=','3')->pluck('id')->random();
-        $pincodes = Common::where('label_id','=','4')->pluck('id')->random();
-        $banks = Common::where('label_id','=','9')->pluck('id')->random();
+        $cities = City::pluck('id')->random();
+        $states = State::pluck('id')->random();
+        $pincodes = Pincode::pluck('id')->random();
+        $banks = Bank::pluck('id')->random();
 
         return [
             'vname' => $this->faker->company,

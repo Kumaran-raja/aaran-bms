@@ -2,6 +2,10 @@
 
 namespace Aaran\Master\Models;
 
+use Aaran\Common\Models\City;
+use Aaran\Common\Models\Country;
+use Aaran\Common\Models\Pincode;
+use Aaran\Common\Models\State;
 use Aaran\Master\Database\Factories\CompanyFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -29,10 +33,10 @@ class Company extends Model
             'company_name' => $obj->display_name,
             'address_1' => $obj->address_1,
             'address_2' => $obj->address_2,
-            'city' => Common::find($obj->city_id)->vname . ' - ' .  Common::find($obj->pincode_id)->vname,
-            'city_name' => Common::find($obj->city_id)->vname ,
-            'state' =>  Common::find($obj->state_id)->vname . ' - ' .  Common::find($obj->state_id)->desc,
-            'country' =>  Common::find($obj->country_id)->vname,
+            'city' => City::find($obj->id)->vname . ' - ' .  Pincode::find($obj->id)->vname,
+            'city_name' => City::find($obj->id)->vname ,
+            'state' =>  State::find($obj->id)->vname . ' - ' .  State::find($obj->id)->desc,
+            'country' =>  Country::find($obj->id)->vname,
             'contact' => ' Contact : ' . $obj->mobile,
             'email' => 'Email : ' . $obj->email,
             'gstin' => 'GST : ' . $obj->gstin,
@@ -50,15 +54,11 @@ class Company extends Model
 
     public function commons(): HasOne
     {
-        return $this->hasOne(Common::class, 'id', 'city_id')
+        return $this->hasOne(City::class, 'id', 'city_id')
             ->orWhere('id', 'state_id')
             ->orWhere('id', 'pincode_id');
     }
 
-    public static function common($id)
-    {
-        return Common::find($id)->vname;
-    }
 
     protected static function newFactory(): CompanyFactory
     {
