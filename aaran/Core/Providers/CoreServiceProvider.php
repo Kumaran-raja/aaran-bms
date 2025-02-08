@@ -8,6 +8,11 @@ use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
 use Aaran\Core\Livewire\Role;
 
+use Aaran\Core\Livewire\Tenant;
+use Aaran\Core\Livewire\Users;
+use Aaran\Core\Livewire\Versions;
+
+
 class CoreServiceProvider extends ServiceProvider
 {
     protected string $moduleName = 'Core';
@@ -30,7 +35,14 @@ class CoreServiceProvider extends ServiceProvider
     {
         $this->loadMigrations();
 
-        Livewire::component('tenant::index', Role\Index::class);
+        Livewire::component('role::index', Role\Index::class);
+        // Register
+        Livewire::component('tenant::index', Tenant\Index::class);
+        Livewire::component('users::index', Users\Index::class);
+        Livewire::component('versions::index', Versions\Index::class);
+
+
+
     }
 
     protected function loadConfigs(): void

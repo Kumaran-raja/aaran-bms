@@ -9,6 +9,8 @@ class Tenant extends Model
 {
     use HasFactory;
 
+    protected $table = 'tenants';
+
     protected $guarded = [];
 
     public static function search(string $searches)
