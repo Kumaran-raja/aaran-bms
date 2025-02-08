@@ -51,13 +51,29 @@
         <!-- Create/ Edit Popup --------------------------------------------------------------------------------------->
 
         <x-aaran-ui::forms.create :id="$vid">
-            <x-aaran-ui::input.floating wire:model="name" label="User Name" />
-            <x-aaran-ui::input.floating wire:model="email" label="Email" />
-            <x-aaran-ui::input.floating wire:model="password" label="Password" />
-            <x-aaran-ui::input.floating wire:model="profile_photo_path" label="Profile Photo" />
-            <x-aaran-ui::input.floating wire:model="tenant_id" label="Tenant ID" />
-            <x-aaran-ui::input.floating wire:model="role_id" label="Role ID" />
+            <div class="mb-4">
+                <x-aaran-ui::input.floating wire:model="name" label="User Name" />
+            </div>
 
+            <div class="mb-4">
+                <x-aaran-ui::input.floating wire:model="email" label="Email" />
+            </div>
+
+            <div class="mb-4">
+                <x-aaran-ui::input.floating wire:model="password" label="Password" />
+            </div>
+
+            <div class="mb-4">
+                <x-aaran-ui::input.floating wire:model="profile_photo_path" label="Profile Photo" />
+            </div>
+
+            <div class="mb-4">
+                <x-aaran-ui::input.floating wire:model="tenant_id" label="Tenant ID" />
+            </div>
+
+            <div class="mb-4">
+                <x-aaran-ui::input.floating wire:model="role_id" label="Role ID" />
+            </div>
 
             <x-aaran-ui::input.error-text wire:model="name"/>
         </x-aaran-ui::forms.create>
