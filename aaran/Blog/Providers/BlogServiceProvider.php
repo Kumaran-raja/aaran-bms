@@ -23,8 +23,6 @@ class BlogServiceProvider extends ServiceProvider
 
         // Register Livewire components
         Livewire::component('blog::blog-tag', blog\blogTag::class);
-        Livewire::component('blog::index', exportSales\PackingList::class);
-        Livewire::component('blog::show', exportSales\Upsert::class);
 
     }
 

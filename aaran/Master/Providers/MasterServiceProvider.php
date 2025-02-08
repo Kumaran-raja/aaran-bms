@@ -5,6 +5,8 @@ namespace Aaran\Master\Providers;
 use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
 
+use Aaran\Master\Livewire\Contact;
+
 class MasterServiceProvider extends ServiceProvider
 {
     protected string $moduleName = 'Master';
@@ -21,7 +23,7 @@ class MasterServiceProvider extends ServiceProvider
     {
         $this->loadMigrations();
 
-        Livewire::component('temp::index', Temp\Index::class);
+        Livewire::component('master::index', Contact\Index::class);
     }
 
     protected function loadConfigs(): void
