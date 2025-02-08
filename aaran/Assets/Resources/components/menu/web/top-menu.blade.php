@@ -1,5 +1,5 @@
 <nav x-data="{ mobileMenuIsOpen: false }" @click.away="mobileMenuIsOpen = false" id="navBar"
-     class="bg-green-500 sm:fixed sm:z-40 sm:w-full flex items-center justify-between border-b border-neutral-300 sm:px-32 tracking-wider
+     class="sm:fixed sm:z-40 sm:w-full flex items-center justify-between border-b border-neutral-300 sm:px-32 tracking-wider
      px-6 py-4 dark:border-neutral-700 text-white"
      aria-label="penguin ui menu">
     <!-- Brand Logo -->
@@ -18,22 +18,22 @@
                class=" underline-offset-2  focus:outline-none focus:underline dark:text-white dark:hover:text-white "
                aria-current="page" wire:navigate>Home</a></li>
         <li class="hover:tracking-wide hover:font-bold hover:text-black hover:underline duration-300 transition-all ease-out">
-            <a href="{{route('about')}}"
+            <a href="{{route('abouts')}}"
                class="  underline-offset-2 focus:outline-none focus:underline dark:text-neutral-300 dark:hover:text-white"
                wire:navigate>About</a>
         </li>
         <li class="hover:tracking-wider hover:font-bold hover:text-black hover:underline duration-300 transition-all ease-out">
-            <a href="{{route('blog')}}"
+            <a href="{{route('blogs')}}"
                class=" underline-offset-2  focus:outline-none focus:underline dark:text-neutral-300 dark:hover:text-white"
                wire:navigate>Blog</a>
         </li>
         <li class="hover:tracking-wider hover:font-bold hover:text-black hover:underline duration-300 transition-all ease-out">
-            <a href="{{route('service')}}"
+            <a href="{{route('services')}}"
                class=" underline-offset-2  focus:outline-none focus:underline dark:text-neutral-300 dark:hover:text-white"
                wire:navigate>Services</a>
         </li>
         <li class="hover:tracking-wider hover:font-bold hover:text-black hover:underline duration-300 transition-all ease-out">
-            <a href="{{route('contact')}}"
+            <a href="{{route('contacts')}}"
                class=" underline-offset-2  focus:outline-none focus:underline dark:text-neutral-300 dark:hover:text-white"
                wire:navigate>Contact</a>
         </li>
@@ -91,19 +91,19 @@
                             class="w-full text-sm font-bold text-neutral-600 focus:underline dark:text-neutral-300 "
                             wire:navigate
             >Home</a></li>
-        <li class="py-2"><a href="{{route('about')}}"
+        <li class="py-2"><a href="{{route('abouts')}}"
                             class="w-full text-sm font-medium text-neutral-600 focus:underline dark:text-neutral-300"
                             wire:navigate>About</a>
         </li>
-        <li class="py-2"><a href="{{route('blog')}}"
+        <li class="py-2"><a href="{{route('blogs')}}"
                             class="w-full text-sm font-medium text-neutral-600 focus:underline dark:text-neutral-300"
                             wire:navigate>Blog</a>
         </li>
-        <li class="py-2"><a href="{{route('service')}}"
+        <li class="py-2"><a href="{{route('services')}}"
                             class="w-full text-sm font-medium text-neutral-600 focus:underline dark:text-neutral-300"
                             wire:navigate>Services</a>
         </li>
-        <li class="py-2"><a href="{{route('contact')}}"
+        <li class="py-2"><a href="{{route('contacts')}}"
                             class="w-full text-sm font-medium text-neutral-600 focus:underline dark:text-neutral-300"
                             wire:navigate>Contact</a>
         </li>

@@ -16,6 +16,8 @@
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 
+        @stack('custom-style')
+
         <!-- Styles -->
         @livewireStyles
     </head>
@@ -39,5 +41,7 @@
         @stack('modals')
 
         @livewireScripts
+
+        @stack('custom-script')
     </body>
 </html>

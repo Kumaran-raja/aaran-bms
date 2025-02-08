@@ -13,9 +13,9 @@
     <button
         class="absolute bottom-1 left-8 bg-[#F31A49] text-white inline-flex items-center max-w-max px-5 py-4
                     invisible group-hover:visible group-hover:-translate-y-6 font-semibold tracking-wider group-hover:opacity-90 ease-linear transition-all duration-200">
-        <span><a href="{{route('service')}}">Read Details</a></span>
+        <span><a href="{{route('services')}}">Read Details</a></span>
         <span>
-                        <a href="{{route('service')}}">
+                        <a href="{{route('services')}}">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                              stroke="currentColor" class="size-4">
                           <path stroke-linecap="round" stroke-linejoin="round"

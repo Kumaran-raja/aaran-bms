@@ -10,7 +10,7 @@
 {{--                <span class="sm:h-2 sm:px-4 sm:bg-gradient-to-r from-[#070609] to-white ">&nbsp;</span>--}}
 {{--            </div>--}}
 
-            <x-web.home-new.items.heading label="Run your business from anywhere." />
+            <x-aaran-ui::web.home-new.items.heading label="Run your business from anywhere." />
             <div class="sm:text-5xl text-md font-bold pb-6 border-b border-black animate__animated wow animate__bounceInDown"
                  data-wow-duration="3s">
                 More than 500+ Business Owner Trust our GST Software.
@@ -25,15 +25,15 @@
             </div>
 
             <div class="animate__animated wow bounceInUp" data-wow-duration="3s">
-                <x-rating.star class="sm:w-16 w-3 h-auto "/>
+                <x-aaran-ui::rating.star class="sm:w-16 w-3 h-auto "/>
             </div>
 
-            <x-button.animate1>Get it now</x-button.animate1>
+            <x-aaran-ui::button.animate1>Get it now</x-aaran-ui::button.animate1>
 
         </div>
 
         <div class="md:block hidden">
-            <img src="../../../../images/laptop.png" alt=""
+            <img src="../../../../images/home/laptop.png" alt=""
                  class="z-20 absolute right-16 -top-12  w-[50rem] h-auto animate__animated wow animate__backInLeft transform "
                  data-wow-duration="2s">
             <div
@@ -44,7 +44,7 @@
     <div class="sm:hidden  w-full h-52 bg-white flex justify-center items-center">
         <div
             class="z-10 absolute w-[240px] h-[160px] fancy-border bg-[#7084f5] animate-pulse duration-1000 transition-all ease-linear"></div>
-        <img src="../../../../images/laptop.png" alt="" class="z-20 w-[220px] h-auto] animate__animated wow animate__backInLeft transform "
+        <img src="../../../../images/home/laptop.png" alt="" class="z-20 w-[220px] h-auto] animate__animated wow animate__backInLeft transform "
              data-wow-duration="2s">
     </div>
 </div>

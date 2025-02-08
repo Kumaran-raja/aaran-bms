@@ -6,7 +6,7 @@
              data-wow-duration="3s">A Software packed with great features
         </div>
 
-        <div style="background-image: url('/../../../images/dashboard.jpg')"
+        <div style="background-image: url('/../../../images/home/dashboard.jpg')"
              class="relative sm:mt-4 mt-0 sm:my-0 my-4 w-full mx-auto bg-no-repeat bg-cover sm:h-[30rem] h-36 sm:rounded-xl rounded
               shadow-lg shadow-gray-300 animate__animated wow bounceInDown"
              data-wow-duration="3s">

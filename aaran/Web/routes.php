@@ -5,10 +5,10 @@ use Illuminate\Support\Facades\Route;
 //web
 
 Route::get('/', Aaran\Web\Livewire\Home\Index::class)->name('home');
-Route::get('/about', Aaran\Web\Livewire\Home\Index::class)->name('about');
-Route::get('/blog', Aaran\Web\Livewire\Home\Index::class)->name('blog');
-Route::get('/service', Aaran\Web\Livewire\Home\Index::class)->name('service');
-Route::get('/contact', Aaran\Web\Livewire\Home\Index::class)->name('contact');
+Route::get('/abouts', Aaran\Web\Livewire\About\Index::class)->name('abouts');
+Route::get('/blogs', Aaran\Web\Livewire\Blog\Index::class)->name('blogs');
+Route::get('/services', Aaran\Web\Livewire\Service\Index::class)->name('services');
+Route::get('/contacts', Aaran\Web\Livewire\Contact\Index::class)->name('contacts');
 
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {

@@ -1,7 +1,7 @@
 <div class="mt-12">
     <div class="relative">
 
-        <div style="background-image: url('/../../../images/wp1.webp')"
+        <div style="background-image: url('/../../../images/home/wp1.webp')"
              class="lg:h-screen h-[35rem] bg-no-repeat bg-cover bg-center bg-fixed opacity-95 brightness-50 bg-black">
         </div>
         <div class="w-full absolute lg:top-48 top-2 lg:py-6 py-2.5 ">

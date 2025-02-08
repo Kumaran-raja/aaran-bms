@@ -22,57 +22,57 @@
 
         <!-- link -->
         <div class="my-3 flex flex-col shrink-0">
-            <x-web.home-new.items.link-top label="Aaran"/>
-            <x-web.home-new.items.link href="{{ route('about') }}" label="About"/>
-            <x-web.home-new.items.link href="{{ route('contact') }}" label="Contact Us"/>
-            <x-web.home-new.items.link href="{{ route('about') }}" label="We
+            <x-aaran-ui::web.home-new.items.link-top label="Aaran"/>
+            <x-aaran-ui::web.home-new.items.link href="{{ route('abouts') }}" label="About"/>
+            <x-aaran-ui::web.home-new.items.link href="{{ route('contacts') }}" label="Contact Us"/>
+            <x-aaran-ui::web.home-new.items.link href="{{ route('abouts') }}" label="We
                 are Hiring"/>
-            <x-web.home-new.items.link href="{{ route('blog') }}" label="Blog"/>
-            <x-web.home-new.items.link href="{{ route('about') }}" label="Careers"/>
-            <x-web.home-new.items.link href="{{ route('contact') }}" label="Finance"/>
+            <x-aaran-ui::web.home-new.items.link href="{{ route('blogs') }}" label="Blog"/>
+            <x-aaran-ui::web.home-new.items.link href="{{ route('abouts') }}" label="Careers"/>
+            <x-aaran-ui::web.home-new.items.link href="{{ route('contacts') }}" label="Finance"/>
         </div>
 
         <div class="lg:my-3 flex flex-col shrink-0">
-            <x-web.home-new.items.link-top label="Links"/>
-            <x-web.home-new.items.link href="{{ route('service') }}" label="FAQ"/>
-            <x-web.home-new.items.link href="{{ route('service') }}" label="Pricing"/>
-            <x-web.home-new.items.link href="{{ route('contact') }}" label="Feedback"/>
-            <x-web.home-new.items.link href="{{ route('service') }}" label="Terms
+            <x-aaran-ui::web.home-new.items.link-top label="Links"/>
+            <x-aaran-ui::web.home-new.items.link href="{{ route('services') }}" label="FAQ"/>
+            <x-aaran-ui::web.home-new.items.link href="{{ route('services') }}" label="Pricing"/>
+            <x-aaran-ui::web.home-new.items.link href="{{ route('contacts') }}" label="Feedback"/>
+            <x-aaran-ui::web.home-new.items.link href="{{ route('services') }}" label="Terms
                 of Service"/>
-            <x-web.home-new.items.link href="{{ route('service') }}" label="Privacy
+            <x-aaran-ui::web.home-new.items.link href="{{ route('services') }}" label="Privacy
                 and Policy"/>
-            <x-web.home-new.items.link href="{{ route('contact') }}" label="Help
+            <x-aaran-ui::web.home-new.items.link href="{{ route('contacts') }}" label="Help
                 and Support"/>
         </div>
 
         <div class="lg:my-3 flex flex-col shrink-0 ">
-            <x-web.home-new.items.link-top label="Products"/>
-            <x-web.home-new.items.link href="{{ route('dashboard') }}" label="GST
+            <x-aaran-ui::web.home-new.items.link-top label="Products"/>
+            <x-aaran-ui::web.home-new.items.link href="{{ route('dashboard') }}" label="GST
                 Billing Software"/>
-            <x-web.home-new.items.link href="{{ route('dashboard') }}" label="ERP
+            <x-aaran-ui::web.home-new.items.link href="{{ route('dashboard') }}" label="ERP
                 Software"/>
-            <x-web.home-new.items.link href="{{ route('dashboard') }}" label="Marketing
+            <x-aaran-ui::web.home-new.items.link href="{{ route('dashboard') }}" label="Marketing
                 software"/>
-            <x-web.home-new.items.link href="{{ route('dashboard') }}" label="Task
+            <x-aaran-ui::web.home-new.items.link href="{{ route('dashboard') }}" label="Task
                 Management Software"/>
-            <x-web.home-new.items.link href="{{ route('dashboard') }}" label="Auditor
+            <x-aaran-ui::web.home-new.items.link href="{{ route('dashboard') }}" label="Auditor
                 Software"/>
         </div>
 
         <div class="lg:my-3 flex flex-col shrink-0">
-            <x-web.home-new.items.link-top label="Templates"/>
-            <x-web.home-new.items.link href="{{ route('dashboard') }}" label="Invoice
+            <x-aaran-ui::web.home-new.items.link-top label="Templates"/>
+            <x-aaran-ui::web.home-new.items.link href="{{ route('dashboard') }}" label="Invoice
             Templates"/>
-            <x-web.home-new.items.link href="{{ route('dashboard') }}" label="GST Invoice
+            <x-aaran-ui::web.home-new.items.link href="{{ route('dashboard') }}" label="GST Invoice
             Format"/>
-            <x-web.home-new.items.link href="{{ route('dashboard') }}" label="Quotation
+            <x-aaran-ui::web.home-new.items.link href="{{ route('dashboard') }}" label="Quotation
             Templates"/>
-            <x-web.home-new.items.link href="{{ route('dashboard') }}" label="Word and Excel
+            <x-aaran-ui::web.home-new.items.link href="{{ route('dashboard') }}" label="Word and Excel
             Invoice Templates"/>
-            <x-web.home-new.items.link href="{{ route('dashboard') }}" label="Consulting
+            <x-aaran-ui::web.home-new.items.link href="{{ route('dashboard') }}" label="Consulting
             Invoice"/>
-            <x-web.home-new.items.link href="{{ route('dashboard') }}" label="Tax Invoice"/>
-            <x-web.home-new.items.link href="{{ route('dashboard') }}" label="Estimate
+            <x-aaran-ui::web.home-new.items.link href="{{ route('dashboard') }}" label="Tax Invoice"/>
+            <x-aaran-ui::web.home-new.items.link href="{{ route('dashboard') }}" label="Estimate
             Template"/>
         </div>
     </div>
