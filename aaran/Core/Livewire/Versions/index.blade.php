@@ -34,7 +34,9 @@
                         <x-aaran-ui::table.cell-text >{{$row->soft_version}}</x-aaran-ui::table.cell-text>
                         <x-aaran-ui::table.cell-text >{{$row->db_version}}</x-aaran-ui::table.cell-text>
                         <x-aaran-ui::table.cell-text >{{$row->title}}</x-aaran-ui::table.cell-text>
-                        <x-aaran-ui::table.cell-text class="line-clamp-1" >{{$row->body}}</x-aaran-ui::table.cell-text>
+                        <x-aaran-ui::table.cell-text>
+                                {!!  \Illuminate\Support\Str::words($row->body,14) !!}
+                            </x-aaran-ui::table.cell-text>
                         <x-aaran-ui::table.cell-action id="{{$row->id}}"/>
                     </x-aaran-ui::table.row>
 
@@ -50,11 +52,25 @@
         <!-- Create/ Edit Popup --------------------------------------------------------------------------------------->
         <x-aaran-ui::forms.create :id="$vid">
 
-            <x-aaran-ui::input.floating wire:model="soft_version" label="Software Version" />
-            <x-aaran-ui::input.floating wire:model="db_version" label="Database Version" />
-            <x-aaran-ui::input.floating wire:model="title" label="Title" />
-            <x-aaran-ui::input.floating wire:model="body" label="Description" />
-            <x-aaran-ui::input.error-text wire:model="soft_version"/>
+            <div class="mb-4">
+                <x-aaran-ui::input.floating wire:model="soft_version" label="Software Version" />
+            </div>
+
+            <div class="mb-4">
+                <x-aaran-ui::input.floating wire:model="db_version" label="Database Version" />
+            </div>
+
+            <div class="mb-4">
+                <x-aaran-ui::input.floating wire:model="title" label="Title" />
+            </div>
+
+            <div class="mb-4">
+                <x-aaran-ui::input.rich-text wire:model="body" label="Description" />
+            </div>
+
+            <div class="mb-4">
+                <x-aaran-ui::input.error-text wire:model="soft_version"/>
+            </div>
 
         </x-aaran-ui::forms.create>
 
