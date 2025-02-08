@@ -2,7 +2,7 @@
 
 namespace Aaran\Temp\Database\Factories;
 
-use Aaran\Temp\Models\Temp;
+use Aaran\Master\Models\Temp;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class TempFactory extends Factory

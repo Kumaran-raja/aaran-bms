@@ -23,5 +23,6 @@ class S000_CommonSeeder extends Seeder
        S113_ReceipttypeSeeder::run();
        S114_DespatcheSeeder::run();
        S115_GstPercentSeeder::run();
+       S116_ContactTypeSeeder::run();
     }
 }

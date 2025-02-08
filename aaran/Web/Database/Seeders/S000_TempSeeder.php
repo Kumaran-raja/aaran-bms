@@ -2,7 +2,7 @@
 
 namespace Aaran\Temp\Database\Seeders;
 
-use Aaran\Temp\Models\Temp;
+use Aaran\Master\Models\Temp;
 use Illuminate\Database\Seeder;
 
 class S000_TempSeeder extends Seeder
