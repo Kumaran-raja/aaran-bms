@@ -35,5 +35,6 @@
             @include('aaran-ui::components.menu.app.items.common-menu')
             <li class="bg-gray-900 mt-0.5"></li>
         </ul>
+
     </div>
 </li>

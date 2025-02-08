@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Livewire\Master\Contact;
+namespace Aaran\Master\Livewire\Contact;
 
 
-use Aaran\Logbook\Models\Logbook;
+use Aaran\Assets\Trait\CommonTraitNew;
 use Aaran\Master\Models\Contact;
-use App\Livewire\Trait\CommonTraitNew;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
@@ -45,8 +44,8 @@ class Index extends Component
             'contact_type.vname as contact_type',
             'msme_type.vname as msme_type',
         )
-            ->join('commons as contact_type', 'contact_type.id', '=', 'contacts.contact_type_id')
-            ->join('commons as msme_type', 'msme_type.id', '=', 'contacts.msme_type_id')
+//            ->join('commons as contact_type', 'contact_type.id', '=', 'contacts.contact_type_id')
+//            ->join('commons as msme_type', 'msme_type.id', '=', 'contacts.msme_type_id')
 
             ->orWhere('contacts.contact_type_id','=','123')
             ->orWhere('contacts.contact_type_id','=','124')
@@ -60,7 +59,7 @@ class Index extends Component
     public function render()
     {
 
-        return view('livewire.master.contact.index')->with([
+        return view('master::Contact.index')->with([
             'list' => $this->getList(),
         ]);
     }

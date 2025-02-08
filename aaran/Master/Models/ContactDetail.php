@@ -2,12 +2,15 @@
 
 namespace Aaran\Master\Models;
 
-use Aaran\Common\Models\Common;
+
+use Aaran\Common\Models\City;
+use Aaran\Common\Models\Country;
+use Aaran\Common\Models\Pincode;
+use Aaran\Common\Models\State;
 use Aaran\Master\Database\Factories\ContactDetailFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Collection;
 
 class ContactDetail extends Model
@@ -35,8 +38,8 @@ class ContactDetail extends Model
         return collect([
             'address_1' => $obj->address_1,
             'address_2' => $obj->address_2,
-            'address_3' => Common::find($obj->city_id)->vname . ' - ' . Common::find($obj->pincode_id)->vname . '.  ' . Common::find($obj->state_id)->state_code,
-            'country' => Common::find($obj->country_id)->vname,
+            'address_3' => City::find($obj->id)->vname . ' - ' . Pincode::find($obj->id)->vname . '.  ' . State::find($obj->id)->state_code,
+            'country' => Country::find($obj->id)->vname,
             'gstcell' => 'GSTin : ' . $obj->gstin,
             'gstContact' => $obj->gstin,
             'email' => $obj->email,
@@ -53,8 +56,4 @@ class ContactDetail extends Model
         return $this->belongsTo(Contact::class);
     }
 
-    public function common(): BelongsTo
-    {
-        return $this->belongsTo(Common::class);
-    }
 }

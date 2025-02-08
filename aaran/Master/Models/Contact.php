@@ -2,7 +2,8 @@
 
 namespace Aaran\Master\Models;
 
-use Aaran\Common\Models\Common;
+
+use Aaran\Common\Models\ContactType;
 use Aaran\Master\Database\Factories\ContactFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -27,7 +28,7 @@ class Contact extends Model
 
     public function contact_type(): BelongsTo
     {
-        return $this->belongsTo(Common::class);
+        return $this->belongsTo(ContactType::class);
     }
 
 }

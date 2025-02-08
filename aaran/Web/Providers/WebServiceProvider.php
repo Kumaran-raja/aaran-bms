@@ -4,7 +4,10 @@ namespace Aaran\Web\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
+
 use Aaran\Web\Livewire\Dashboard;
+use Aaran\Web\Livewire\Contact;
+
 
 class WebServiceProvider extends ServiceProvider
 {
@@ -23,6 +26,7 @@ class WebServiceProvider extends ServiceProvider
         $this->loadMigrations();
 
         Livewire::component('web::index', Dashboard\Index::class);
+        Livewire::component('web::index', Contact\Index::class);
     }
 
     protected function loadConfigs(): void

@@ -2,10 +2,14 @@
 
 namespace Aaran\Master\Database\Factories;
 
-use Aaran\Common\Models\Common;
+use Aaran\Assets\Enums\ProductType;
+use Aaran\Common\Models\GstPercent;
+use Aaran\Common\Models\Hsncode;
+use Aaran\Common\Models\Unit;
 use Aaran\Master\Models\Product;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Arr;
 
 class ProductFactory extends Factory
 {
@@ -19,10 +23,10 @@ class ProductFactory extends Factory
             '100% Cotton Knitted Hosiery Dyed Fab (180 Gsm)'
         ];
         $users = User::pluck('id');
-        $product_type = Common::where('label_id', '=', '15')->pluck('id')->random();
-        $hsncodes = Common::where('label_id', '=', '6')->pluck('id')->random();
-        $units = Common::where('label_id', '=', '16')->pluck('id')->random();
-        $gstpercents = Common::where('label_id', '=', '17')->pluck('id')->random();
+        $product_type = Arr::random(ProductType::cases());
+        $hsncodes = Hsncode::pluck('id')->random();
+        $units = Unit::pluck('id')->random();
+        $gstpercents = GstPercent::pluck('id')->random();
 
         return [
             'vname' => $product_name[array_rand($product_name)],

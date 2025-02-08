@@ -8,14 +8,14 @@ return new class extends Migration {
 
     public function up(): void
     {
-        if (Aaran\Aadmin\Src\Customise::hasMaster()) {
+        if (Aaran\Assets\Features\Customise::hasMaster()) {
 
             Schema::create('orders', function (Blueprint $table) {
                 $table->id();
                 $table->string('vname')->unique();
                 $table->string('order_name')->unique();
                 $table->foreignId('company_id')->references('id')->on('companies');
-                $table->smallInteger('active_id')->nullable();
+                $table->tinyInteger('active_id')->nullable();
             });
         }
     }
