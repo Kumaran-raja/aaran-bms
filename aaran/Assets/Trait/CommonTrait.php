@@ -8,6 +8,8 @@ trait CommonTrait
 {
     use WithPagination;
 
+    protected $queryString = ['page'];
+
     public bool $showEditModal = false;
     public bool $showFilters = false;
     public bool $showDeleteModal = false;
