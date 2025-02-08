@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Master\Product;
 
+use Aaran\Assets\Enums\ProductType;
 use Aaran\Common\Models\Common;
 use Aaran\Logbook\Models\Logbook;
 use Aaran\Master\Models\Product;
@@ -61,7 +62,7 @@ class Index extends Component
                 $this->common->vname = preg_replace('/[^A-Za-z0-9\-]/', '', $this->common->vname);
                 $Product = new Product();
                 $extraFields = [
-                    'producttype_id' => $this->producttype_id ?: '92',
+                    'producttype_id' => $this->producttype_id ?: ProductType::GOODS,
                     'hsncode_id' => $this->hsncode_id ?: '62',
                     'unit_id' => $this->unit_id ?: '97',
                     'gstpercent_id' => $this->gstpercent_id ?: '99',

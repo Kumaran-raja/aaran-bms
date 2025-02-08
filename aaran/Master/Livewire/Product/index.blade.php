@@ -83,11 +83,11 @@
 
                         <x-dropdown.select>
                             @if($producttypeCollection)
-                                @forelse ($producttypeCollection as $i => $producttype)
+                                @forelse (\Aaran\Assets\Enums\ProductType::cases() as $i => $producttype)
 
                                     <x-dropdown.option highlight="{{$highlightProductType === $i  }}"
                                                        wire:click.prevent="setProductType('{{$producttype->vname}}','{{$producttype->id}}')">
-                                        {{ $producttype->vname }}
+                                        {{ $producttype->value }}
                                     </x-dropdown.option>
 
                                 @empty

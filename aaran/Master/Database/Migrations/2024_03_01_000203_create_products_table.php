@@ -12,7 +12,7 @@ return new class extends Migration {
             Schema::create('products', function (Blueprint $table) {
                 $table->id();
                 $table->string('vname')->unique();
-                $table->foreignId('producttype_id')->references('id')->on('commons');
+                $table->foreignId('producttype_id')->nullable();
                 $table->foreignId('hsncode_id')->references('id')->on('commons');
                 $table->foreignId('unit_id')->references('id')->on('commons');
                 $table->foreignId('gstpercent_id')->references('id')->on('commons');
