@@ -11,6 +11,8 @@ use Aaran\Core\Livewire\Role;
 use Aaran\Core\Livewire\Tenant;
 use Aaran\Core\Livewire\Users;
 use Aaran\Core\Livewire\Versions;
+use Aaran\Core\Livewire\DefaultCompany;
+
 
 
 class CoreServiceProvider extends ServiceProvider
@@ -40,7 +42,7 @@ class CoreServiceProvider extends ServiceProvider
         Livewire::component('tenant::index', Tenant\Index::class);
         Livewire::component('users::index', Users\Index::class);
         Livewire::component('versions::index', Versions\Index::class);
-
+        Livewire::component('DefaultCompany::Index', DefaultCompany\Index::class);
 
 
     }

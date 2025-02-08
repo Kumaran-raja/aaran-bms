@@ -20,9 +20,8 @@
                     Software Version
                 </x-aaran-ui::table.header-text>
                 <x-aaran-ui::table.header-text > Database Version</x-aaran-ui::table.header-text>
-                <x-aaran-ui::table.header-text > Title</x-aaran-ui::table.header-text>
-                <x-aaran-ui::table.header-text > Body</x-aaran-ui::table.header-text>
-
+                <x-aaran-ui::table.header-text sortIcon="none">Title</x-aaran-ui::table.header-text>
+                <x-aaran-ui::table.header-text sortIcon="none">Body</x-aaran-ui::table.header-text>
                 <x-aaran-ui::table.header-serial/>
             </x-slot:table_header>
 
