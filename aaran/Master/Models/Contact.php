@@ -31,4 +31,10 @@ class Contact extends Model
         return $this->belongsTo(ContactType::class);
     }
 
+    public function company(): BelongsTo
+    {
+        return $this->belongsTo(Company::class);
+    }
+
+
 }

@@ -24,6 +24,8 @@ class MasterServiceProvider extends ServiceProvider
         $this->loadMigrations();
 
         Livewire::component('master::index', Contact\Index::class);
+        Livewire::component('master::upsert', Contact\Upsert::class);
+
     }
 
     protected function loadConfigs(): void

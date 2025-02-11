@@ -1,18 +1,22 @@
 <?php
 
-namespace App\Livewire\Master\Contact;
+namespace Aaran\Master\Livewire\Contact;
 
-use Aaran\Common\Models\Common;
-use Aaran\Logbook\Models\Logbook;
+use Aaran\Assets\Enums\MsmeType;
+use Aaran\Assets\Trait\CommonTraitNew;
+use Aaran\Common\Models\City;
+use Aaran\Common\Models\ContactType;
+use Aaran\Common\Models\Country;
+use Aaran\Common\Models\Pincode;
+use Aaran\Common\Models\State;
+use Aaran\Master\Models\Company;
 use Aaran\Master\Models\Contact;
 use Aaran\Master\Models\ContactDetail;
-use App\Livewire\Trait\CommonTraitNew;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Validate;
@@ -180,11 +184,11 @@ class Upsert extends Component
         $this->highlightCity++;
     }
 
-    public function setCity($name, $id, $index=null): void
+    public function setCity($vname, $id, $index=null): void
     {
-        $this->city_name = $name;
+        $this->city_name = $vname;
         $this->city_id = $id;
-        Arr::set($this->itemList[$index], 'city_name', $name);
+        Arr::set($this->itemList[$index], 'city_name', $vname);
         Arr::set($this->itemList[$index], 'city_id', $id);
 
         $this->getCityList();
@@ -209,31 +213,34 @@ class Upsert extends Component
     public function refreshCity($v, $index): void
     {
         $this->city_id = $v['id'];
-        $this->city_name = $v['name'];
-        Arr::set($this->itemList[$index], 'city_name', $v['name']);
+        $this->city_name = $v['vname'];
+
+        Arr::set($this->itemList[$index], 'city_name', $v['vname']);
         Arr::set($this->itemList[$index], 'city_id', $v['id']);
 
         $this->cityTyped = false;
-
     }
 
-    public function citySave($name, $index)
+
+    public function citySave($vname, $index)
     {
-        $obj = Common::create([
-            'label_id' => 2,
-            'vname' => $name,
+        $obj = City::create([
+            'vname' => $vname,
             'active_id' => '1'
         ]);
-        $v = ['name' => $name, 'id' => $obj->id];
+        $v = ['vname' => $vname, 'id' => $obj->id];
         $this->refreshCity($v, $index);
     }
 
     public function getCityList(): void
     {
-        $this->cityCollection = $this->itemList[$this->openTab]['city_name']
-            ? Common::search(trim($this->itemList[$this->openTab]['city_name']))->where('label_id', '=', '2')->get()
-            : Common::where('label_id', '=', '2')->Orwhere('label_id', '=', '1')->get();
+        $searchTerm = trim($this->itemList[$this->openTab]['city_name'] ?? '');
+
+        $this->cityCollection = $searchTerm
+            ? City::where('vname', 'like', "%{$searchTerm}%")->get()
+            : City::all();
     }
+
     #endregion
 
     #region[State]
@@ -262,13 +269,19 @@ class Upsert extends Component
         $this->highlightState++;
     }
 
-    public function setState($name, $id, $index): void
+    public function setState($stateId, $index): void
     {
-        $this->state_name = $name;
-        $this->state_id = $id;
-        Arr::set($this->itemList[$index], 'state_name', $name);
-        Arr::set($this->itemList[$index], 'state_id', $id);
-        $this->getStateList();
+        $state = State::find($stateId);
+
+        if ($state) {
+            $this->state_name = $state->vname;
+            $this->state_id = $state->id;
+
+            Arr::set($this->itemList[$index], 'state_name', $state->vname);
+            Arr::set($this->itemList[$index], 'state_id', $state->id);
+
+            $this->getStateList();
+        }
     }
 
     public function enterState($index): void
@@ -289,30 +302,41 @@ class Upsert extends Component
     public function refreshState($v): void
     {
         $this->state_id = $v['id'];
-        $this->state_name = $v['name'];
-        Arr::set($this->itemList[$v['index']], 'state_name', $v['name']);
+        $this->state_name = $v['vname'];
+
+        Arr::set($this->itemList[$v['index']], 'state_name', $v['vname']);
         Arr::set($this->itemList[$v['index']], 'state_id', $v['id']);
+
         $this->stateTyped = false;
     }
 
-    public function stateSave($name, $index): void
+
+    public function stateSave($vname, $index): void
     {
-        $obj = Common::create([
-            'label_id' => 3,
-            'vname' => $name,
-            'active_id' => '1'
+        $state = State::create([
+            'vname' => $vname,
+            'active_id' => 1,
         ]);
-        $v = ['name' => $name, 'id' => $obj->id, 'index' => $index];
-        $this->refreshState($v);
+
+        $data = [
+            'vname' => $state->vname,
+            'id' => $state->id,
+            'index' => $index
+        ];
+
+        $this->refreshState($data);
     }
+
 
     public function getStateList(): void
     {
-        $this->stateCollection = $this->itemList[$this->openTab]['state_name']
-            ? Common::search(trim($this->itemList[$this->openTab]['state_name']))->where('label_id', '=', '3')
-                ->get() : Common::where('label_id', '=', '3')->Orwhere('id', '=', '1')->get();
+        $searchTerm = trim($this->itemList[$this->openTab]['state_name'] ?? '');
+
+        $this->stateCollection = $searchTerm
+            ? State::where('vname', 'like', "%{$searchTerm}%")->get()
+            : State::all();
     }
-    #endregion
+
 
     #region[Pincode]
     #[validate]
@@ -354,11 +378,11 @@ class Upsert extends Component
         Arr::set($this->itemList[$index], 'pincode_id', $obj['id']);
     }
 
-    public function setPincode($name, $id, $index): void
+    public function setPincode($vname, $id, $index): void
     {
-        $this->pincode_name = $name;
+        $this->pincode_name = $vname;
         $this->pincode_id = $id;
-        Arr::set($this->itemList[$index], 'pincode_name', $name);
+        Arr::set($this->itemList[$index], 'pincode_name', $vname);
         Arr::set($this->itemList[$index], 'pincode_id', $id);
         $this->getPincodeList();
     }
@@ -367,29 +391,31 @@ class Upsert extends Component
     public function refreshPincode($v): void
     {
         $this->pincode_id = $v['id'];
-        $this->pincode_name = $v['name'];
-        Arr::set($this->itemList[$v['index']], 'pincode_name', $v['name']);
+        $this->pincode_name = $v['vname'];
+        Arr::set($this->itemList[$v['index']], 'pincode_name', $v['vname']);
         Arr::set($this->itemList[$v['index']], 'pincode_id', $v['id']);
         $this->pincodeTyped = false;
     }
 
-    public function pincodeSave($name, $index)
+    public function pincodeSave($vname, $index)
     {
-        $obj = Common::create([
-            'label_id' => 4,
-            'vname' => $name,
-            'active_id' => '1'
+        $obj = Pincode::create([
+            'vname' => $vname,
+            'active_id' => 1
         ]);
-        $v = ['name' => $name, 'id' => $obj->id,'index' => $index];
+        $v = ['vname' => $vname, 'id' => $obj->id,'index' => $index];
         $this->refreshPincode($v);
     }
 
     public function getPincodeList(): void
     {
-        $this->pincodeCollection = $this->itemList[$this->openTab]['pincode_name']
-            ? Common::search(trim($this->itemList[$this->openTab]['pincode_name']))->where('label_id', '=', '4')
-                ->get() : Common::where('label_id', '=', '4')->Orwhere('id', '=', '1')->get();
+        $searchTerm = trim($this->itemList[$this->openTab]['pincode_name'] ?? '');
+
+        $this->pincodeCollection = $searchTerm
+            ? Pincode::where('vname', 'like', "%{$searchTerm}%")->get()
+            : Pincode::all();
     }
+
 
     #endregion
 
@@ -433,11 +459,11 @@ class Upsert extends Component
         Arr::set($this->itemList[$index], 'country_id', $obj['id']);
     }
 
-    public function setCountry($name, $id, $index): void
+    public function setCountry($vname, $id, $index): void
     {
-        $this->country_name = $name;
+        $this->country_name = $vname;
         $this->country_id = $id;
-        Arr::set($this->itemList[$index], 'country_name', $name);
+        Arr::set($this->itemList[$index], 'country_name', $vname);
         Arr::set($this->itemList[$index], 'country_id', $id);
         $this->getcountryList();
     }
@@ -446,28 +472,31 @@ class Upsert extends Component
     public function refreshCountry($v, $index): void
     {
         $this->country_id = $v['id'];
-        $this->country_name = $v['name'];
-        Arr::set($this->itemList[$index], 'country_name', $v['name']);
+        $this->country_name = $v['vname'];
+        Arr::set($this->itemList[$index], 'country_name', $v['vname']);
         Arr::set($this->itemList[$index], 'country_id', $v['id']);
         $this->countryTyped = false;
     }
 
-    public function countrySave($name, $index)
+    public function countrySave($name, $index): void
     {
-        $obj = Common::create([
-            'label_id' => 5,
-            'vname' => $name,
-            'active_id' => '1'
+        $obj = Country::create([
+            'vname' => $name, // Ensure 'vname' is used consistently
+            'active_id' => 1,
         ]);
-        $v = ['name' => $name, 'id' => $obj->id];
-        $this->refreshCountry($v, $index);
+
+        $v = ['vname' => $obj->vname, 'id' => $obj->id, 'index' => $index]; // Use 'vname' here
+        $this->refreshCountry($v);
     }
+
 
     public function getCountryList(): void
     {
-        $this->countryCollection = $this->itemList[$this->openTab]['country_name']
-            ? Common::search(trim($this->itemList[$this->openTab]['country_name']))->where('label_id', '=', '5')
-                ->get() : Common::where('label_id', '=', '5')->Orwhere('id', '=', '1')->get();
+        $searchTerm = trim($this->itemList[$this->openTab]['country_name'] ?? '');
+
+        $this->countryCollection = $searchTerm
+            ? Country::where('vname', 'like', "%{$searchTerm}%")->get()
+            : Country::all();
     }
 
     #endregion
@@ -497,9 +526,9 @@ class Upsert extends Component
         $this->highlightContactType++;
     }
 
-    public function setContactType($name, $id): void
+    public function setContactType($vname, $id): void
     {
-        $this->contact_type_name = $name;
+        $this->contact_type_name = $vname;
         $this->contact_type_id = $id;
         $this->getContactTypeList();
     }
@@ -520,34 +549,34 @@ class Upsert extends Component
     public function refreshContactType($v): void
     {
         $this->contact_type_id = $v['id'];
-        $this->contact_type_name = $v['name'];
+        $this->contact_type_name = $v['vname'];
         $this->contactTypeTyped = false;
     }
 
-    public function contactTypeSave($name)
+    public function contactTypeSave($vname)
     {
-        $obj = Common::create([
-            'label_id' => 22,
-            'vname' => $name,
+        $obj = ContactType::create([
+            'vname' => $vname,
             'active_id' => '1'
         ]);
 
-        $v = ['name' => $name, 'id' => $obj->id];
+        $v = ['vname' => $vname, 'id' => $obj->id];
         $this->refreshContactType($v);
     }
 
     public function getContactTypeList(): void
     {
-        $this->contactTypeCollection = !empty($this->contact_type_name) ?
-            Common::search(trim($this->contact_type_name))->where('label_id', '=', '22')->get() :
-            Common::where('label_id', '=', '22')->orWhere('label_id', '=', '1')->get();
+        $this->contactTypeCollection = !empty($this->contact_type_name)
+            ? ContactType::search(trim($this->contact_type_name))->get()
+            : ContactType::all();
     }
+
 #endregion
 
     #region[MSME Type]
     public $msme_type_id = '';
     public $msme_type_name = '';
-    public Collection $msmeTypeCollection;
+    public array $msmeTypeCollection = []; // ✅ Changed to array
     public $highlightMsmeType = 0;
     public $msmeTypeTyped = false;
 
@@ -569,116 +598,83 @@ class Upsert extends Component
         $this->highlightMsmeType++;
     }
 
-    public function setMsmeType($name, $id): void
+    public function setMsmeType($id): void
     {
-        $this->msme_type_name = $name;
-        $this->msme_type_id = $id;
-        $this->getMsmeTypeList();
+        $id = (int) $id; // Convert to integer before passing it
+        $msmeType = MsmeType::tryFrom((int) $id);
+
+        if ($msmeType) {
+            $this->msme_type_id = $msmeType->value;
+            $this->msme_type_name = $msmeType->getName();
+        }
     }
+
 
     public function enterMsmeType(): void
     {
         $obj = $this->msmeTypeCollection[$this->highlightMsmeType] ?? null;
-
-        $this->msme_type_name = '';
-        $this->msmeTypeCollection = Collection::empty();
+        $this->msmeTypeCollection = [];
         $this->highlightMsmeType = 0;
 
-        $this->msme_type_name = $obj['vname'] ?? '';
-        $this->msme_type_id = $obj['id'] ?? '';
+        if ($obj) {
+            $this->setMsmeType($obj['id']);
+        }
     }
 
     #[On('refresh-msme-type')]
     public function refreshMsmeType($v): void
     {
-        $this->msme_type_id = $v['id'];
-        $this->msme_type_name = $v['name'];
+        $this->setMsmeType($v['id']);
         $this->msmeTypeTyped = false;
-    }
-
-    public function msmeTypeSave($name)
-    {
-        $obj = Common::create([
-            'label_id' => 23,
-            'vname' => $name,
-            'active_id' => '1'
-        ]);
-
-        $v = ['name' => $name, 'id' => $obj->id];
-        $this->refreshMsmeType($v);
     }
 
     public function getMsmeTypeList(): void
     {
-        $this->msmeTypeCollection = !empty($this->msme_type_name) ?
-            Common::search(trim($this->msme_type_name))->where('label_id', '=', '23')->get() :
-            Common::where('label_id', '=', '23')->orWhere('label_id', '=', '1')->get();
+        $this->msmeTypeCollection = collect(MsmeType::cases())->map(fn ($type) => [
+            'id' => $type->value,
+            'vname' => $type->getName(),
+        ])->toArray(); //
     }
+
 #endregion
 
-    #region[Save]
-    public function save(): void
-    {
-        if ($this->vname != '') {
-            if ($this->vid == "") {
-                $this->validate($this->rules());
-                $obj = Contact::create([
-                    'vname' => Str::upper($this->vname),
-                    'mobile' => $this->mobile,
-                    'whatsapp' => $this->whatsapp,
-                    'contact_person' => $this->contact_person,
-                    'contact_type_id' => $this->contact_type_id ?: '124',
-                    'msme_no' => $this->msme_no ?: '-',
-                    'msme_type_id' => $this->msme_type_id ?: '125',
-                    'opening_balance' => $this->opening_balance ?: 0,
-                    'outstanding' => $this->outstanding ?: 0,
-                    'effective_from' => $this->effective_from,
-                    'active_id' => $this->active_id,
-                    'gstin' => Str::upper($this->gstin),
-                    'email' => $this->email,
-                    'user_id' => Auth::id(),
-                    'company_id' => session()->get('company_id'),
-                ]);
-                $this->saveItem($obj->id);
-                $this->common->logEntry('Contact name: '.$this->common->vname,$this->gstin,'create',$this->vname.'has been created');
-                $message = "Saved";
-                $this->getRoute();
-            } else {
-                $obj = Contact::find($this->vid);
-                $obj->vname = Str::upper($this->vname);
-                $obj->mobile = $this->mobile;
-                $obj->whatsapp = $this->whatsapp;
-                $obj->contact_person = $this->contact_person;
-                $obj->contact_type_id = $this->contact_type_id;
-                $obj->msme_no = $this->msme_no;
-                $obj->msme_type_id = $this->msme_type_id;
-                $obj->opening_balance = $this->opening_balance ?: 0;
-                $obj->outstanding = $this->outstanding ?: 0;
-                $obj->effective_from = $this->effective_from;
-                $obj->gstin = $this->gstin;
-                $obj->email = $this->email;
-                $obj->active_id = $this->active_id;
-                $obj->user_id = Auth::id();
-                $obj->company_id = session()->get('company_id');
-                $obj->save();
 
-                $this->saveItem($obj->id);
-                $this->common->logEntry('Contact name: '.$this->common->vname,'Contact','update',$this->vname.' has been updated');
-                $message = "Updated";
-                $this->getRoute();
+    public function save()
+    {
+        $company_id = Company::value('id');
+
+        if (!empty($this->vname)) {
+            if (empty($this->vid)) {
+                $this->validate($this->rules());
+
+                $contactType = ContactType::first();
+                if (!$contactType) {
+                    throw new \Exception("No valid contact type found. Please create one first.");
+                }
+
+                $msmeTypeId = !empty($this->msme_type_id) ? $this->msme_type_id : null;
+
+                Contact::create([
+                    'vname' => Str::upper($this->vname),
+                    'mobile' => $this->mobile ?? null,
+                    'whatsapp' => $this->whatsapp ?? null,
+                    'contact_person' => $this->contact_person ?? null,
+                    'contact_type_id' => $contactType->id,
+                    'msme_no' => $this->msme_no ?? null,
+                    'msme_type_id' => $msmeTypeId,
+                    'opening_balance' => $this->opening_balance ?? 0,
+                    'outstanding' => $this->outstanding ?? 0,
+                    'effective_from' => $this->effective_from ?? null,
+                    'gstin' => $this->gstin ?? null,
+                    'email' => $this->email ?? null,
+                    'active_id' => $this->active_id ?? 1,
+                    'user_id' => auth()->id(),
+                    'company_id' => $company_id,
+                ]);
+
+                session()->flash('message', 'Contact saved successfully.');
+                return redirect()->route('contact');
             }
-            $this->vname = '';
-            $this->mobile = '';
-            $this->whatsapp = '';
-            $this->contact_person = '';
-            $this->contact_type_id = '';
-            $this->msme_no = '';
-            $this->msme_type_id = '';
-            $this->opening_balance = '';
-            $this->effective_from = '';
-            $this->gstin = '';
-            $this->email = '';
-            $this->dispatch('notify', ...['type' => 'success', 'content' => $message . ' Successfully']);
         }
     }
     #endregion
@@ -730,18 +726,24 @@ class Upsert extends Component
     public function mount($id): void
     {
         $this->route = url()->previous();
+
         if ($id != 0) {
             $obj = Contact::find($id);
+
+            if (!$obj) {
+                abort(404, 'Contact not found.');
+            }
+
             $this->vid = $obj->id;
             $this->vname = $obj->vname;
             $this->mobile = $obj->mobile;
             $this->whatsapp = $obj->whatsapp;
             $this->contact_person = $obj->contact_person;
             $this->contact_type_id = $obj->contact_type_id;
-            $this->contact_type_name = Common::find($obj->contact_type_id)->vname;
+            $this->contact_type_name = optional(ContactType::find($obj->contact_type_id))->vname ?? '-';
             $this->msme_no = $obj->msme_no;
             $this->msme_type_id = $obj->msme_type_id;
-            $this->msme_type_name = Common::find($obj->msme_type_id)->vname;
+            $this->msme_type_name = optional(ContactType::find($obj->msme_type_id))->vname ?? '-';
             $this->opening_balance = $obj->opening_balance;
             $this->outstanding = $obj->outstanding;
             $this->effective_from = $obj->effective_from;
@@ -749,46 +751,46 @@ class Upsert extends Component
             $this->email = $obj->email;
             $this->active_id = $obj->active_id;
 
+            // Fetching contact details with correct table joins
             $data = DB::table('contact_details')
                 ->select(
                     'contact_details.*',
-                    'city.vname as city_name',
-                    'state.vname as state_name',
-                    'country.vname as country_name',
-                    'pincode.vname as pincode_name'
+                    'cities.vname as city_name',
+                    'states.vname as state_name',
+                    'countries.vname as country_name',
+                    'pincodes.vname as pincode_name'
                 )
-                ->join('commons as city', 'city.id', '=', 'contact_details.city_id')
-                ->join('commons as state', 'state.id', '=', 'contact_details.state_id')
-                ->join('commons as country', 'country.id', '=', 'contact_details.country_id')
-                ->join('commons as pincode', 'pincode.id', '=', 'contact_details.pincode_id')
+                ->leftJoin('cities', 'cities.id', '=', 'contact_details.city_id')
+                ->leftJoin('states', 'states.id', '=', 'contact_details.state_id')
+                ->leftJoin('countries', 'countries.id', '=', 'contact_details.country_id')
+                ->leftJoin('pincodes', 'pincodes.id', '=', 'contact_details.pincode_id')
                 ->where('contact_id', '=', $id)
                 ->get()
-                ->transform(function ($data) {
+                ->map(function ($data) {
                     return [
                         'contact_detail_id' => $data->id,
-                        'address_type' => $data->address_type,
-                        'city_name' => $data->city_name,
-                        'city_id' => $data->city_id,
-                        'state_name' => $data->state_name,
-                        'state_id' => $data->state_id,
-                        'pincode_name' => $data->pincode_name,
-                        'pincode_id' => $data->pincode_id,
-                        'country_name' => $data->country_name,
-                        'country_id' => $data->country_id,
-                        'address_1' => $data->address_1,
-                        'address_2' => $data->address_2,
+                        'address_type' => $data->address_type ?? 'Primary',
+                        'city_name' => $data->city_name ?? '-',
+                        'city_id' => $data->city_id ?? '1',
+                        'state_name' => $data->state_name ?? '-',
+                        'state_id' => $data->state_id ?? '1',
+                        'pincode_name' => $data->pincode_name ?? '-',
+                        'pincode_id' => $data->pincode_id ?? '1',
+                        'country_name' => $data->country_name ?? '-',
+                        'country_id' => $data->country_id ?? '1',
+                        'address_1' => $data->address_1 ?? '-',
+                        'address_2' => $data->address_2 ?? '-',
                     ];
                 });
+
             $this->itemList = $data->toArray();
-            for ($j = 0; $j < $data->skip(1)->count(); $j++) {
-                $this->secondaryAddress[] = $j + 1;
-            }
+            $this->secondaryAddress = range(1, max(0, count($data) - 1));
         } else {
             $this->effective_from = Carbon::now()->format('Y-m-d');
             $this->active_id = true;
-            $this->itemList[0] = [
+            $this->itemList = [[
                 "contact_detail_id" => 0,
-                'address_type' => $this->address_type ?: "Primary",
+                'address_type' => "Primary",
                 "state_name" => "-",
                 "state_id" => "1",
                 "city_id" => "1",
@@ -799,7 +801,7 @@ class Upsert extends Component
                 "pincode_name" => "-",
                 "address_1" => "-",
                 "address_2" => "-",
-            ];
+            ]];
             $this->address_type = "Primary";
         }
     }
@@ -825,14 +827,14 @@ class Upsert extends Component
 
     public function render()
     {
-        $this->log = Logbook::where('model_name',$this->gstin)->get();
+//        $this->log = Logbook::where('model_name',$this->gstin)->get();
         $this->getCityList();
         $this->getStateList();
         $this->getPincodeList();
         $this->getCountryList();
         $this->getMsmeTypeList();
         $this->getContactTypeList();
-        return view('livewire.master.contact.upsert');
+        return view('master::Contact.upsert');
     }
     #endregion
 }
