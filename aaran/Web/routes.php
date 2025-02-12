@@ -11,8 +11,10 @@ Route::get('/services', Aaran\Web\Livewire\Service\Index::class)->name('services
 Route::get('/contacts', Aaran\Web\Livewire\Contact\Index::class)->name('contacts');
 
 
-Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+Route::middleware(['auth:sanctum',
+    config('jetstream.auth_session'), 'verified'])->group(function () {
 
     Route::get('/dashboard', Aaran\Web\Livewire\Dashboard\Index::class)->name('dashboard');
 
 });
+

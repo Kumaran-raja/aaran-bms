@@ -7,7 +7,10 @@
         <div class="flex flex-row justify-between items-center pt-5 px-5">
             <div class="space-y-2">
                 <div class="text-md font-semibold">Purchase</div>
-                <div class="sm:text-2xl text-md text-[#845ADF] font-semibold">{{$transactions['total_purchase']}}</div>
+                <div class="sm:text-2xl text-md text-[#845ADF] font-semibold">
+{{--                    {{$transactions['total_purchase']}}--}}
+                    234
+                </div>
             </div>
             <div class="w-16 h-16">
                 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 505 505" xml:space="preserve" class="">
@@ -30,7 +33,10 @@
         <div class="flex flex-row justify-between items-center pb-5 px-5">
             <div class="text-md font-semibold">
                 <div class="text-gray-500">this month</div>
-                <div class="text-[#845ADF]">{{$transactions['month_purchase']}}</div>
+                <div class="text-[#845ADF]">
+{{--                    {{$transactions['month_purchase']}}--}}
+                    1212
+                </div>
 
             </div>
             <div>
@@ -54,7 +60,10 @@
         <div class="flex flex-row justify-between items-center pt-5 px-5">
             <div class="space-y-2">
                 <div class="text-md font-semibold">Receivables</div>
-                <div class="sm:text-2xl text-md text-[#F5B849] font-semibold">{{$transactions['total_receivable']}}</div>
+                <div class="sm:text-2xl text-md text-[#F5B849] font-semibold">
+{{--                    {{$transactions['total_receivable']}}--}}
+                    234
+                </div>
             </div>
             <div class="w-20 h-20">
                 <svg width="" heigh="" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -72,7 +81,10 @@
         <div class="flex flex-row justify-between items-center pb-5 px-5">
             <div class="text-md font-semibold">
                 <div class="text-gray-500">this month</div>
-                <div class="text-[#F5B849]">{{$transactions['month_receivable']}}</div>
+                <div class="text-[#F5B849]">
+{{--                    {{$transactions['month_receivable']}}--}}
+                    234
+                </div>
             </div>
             <div>
                 <a
@@ -96,7 +108,10 @@
         <div class="flex flex-row justify-between items-center pt-5 px-5">
             <div class="space-y-2">
                 <div class="text-md font-semibold">Payables</div>
-                <div class="sm:text-2xl text-md text-[#E6533C] font-semibold">{{$transactions['total_payable']}}</div>
+                <div class="sm:text-2xl text-md text-[#E6533C] font-semibold">
+{{--                    {{$transactions['total_payable']}}--}}
+                    2433
+                </div>
             </div>
             <div class="w-16 h-16">
                 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 451.296 451.296" xml:space="preserve">
@@ -139,7 +154,10 @@
         <div class="flex flex-row justify-between items-center pb-5 px-5">
             <div class="text-md font-semibold">
                 <div class="text-gray-500">this month</div>
-                <div class="text-[#E6533C]">{{$transactions['month_payable']}}</div>
+                <div class="text-[#E6533C]">
+{{--                    {{$transactions['month_payable']}}--}}
+                    678
+                </div>
             </div>
             <div>
                 <a
@@ -164,7 +182,10 @@
         <div class="flex flex-row justify-between items-center pt-5 px-5">
             <div class="space-y-2">
                 <div class="text-md font-semibold">Net Profit</div>
-                <div class="sm:text-2xl text-md text-[#26BF94] font-semibold">{{$transactions['net_profit']}}</div>
+                <div class="sm:text-2xl text-md text-[#26BF94] font-semibold">
+{{--                    {{$transactions['net_profit']}}--}}
+                    234
+                </div>
             </div>
             <div class="w-16 h-16">
                 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 508 508" xml:space="preserve">
@@ -187,7 +208,10 @@
         <div class="flex flex-row justify-between items-center pb-5 px-5">
             <div class="text-md font-semibold">
                 <div class="text-gray-500">this month</div>
-                <div class="text-[#26BF94]">{{$transactions['month_profit']}}</div>
+                <div class="text-[#26BF94]">
+{{--                    {{$transactions['month_profit']}}--}}
+                    356
+                </div>
             </div>
             <div>
                 <a href="{{route('dashboard')}}" class="text-[#26BF94] text-sm hover:bg-[#eafbf6] px-3 py-1 rounded-md font-semibold inline-flex items-center gap-x-2">

@@ -8,6 +8,7 @@ use Aaran\Books\Providers\BooksServiceProvider;
 use Aaran\Common\Providers\CommonServiceProvider;
 use Aaran\Core\Providers\CoreServiceProvider;
 use Aaran\Docs\Providers\DocsServiceProvider;
+use Aaran\Entries\Providers\EntriesServiceProvider;
 use Aaran\Master\Providers\MasterServiceProvider;
 use Aaran\Web\Providers\WebServiceProvider;
 use Illuminate\Support\ServiceProvider;
@@ -27,6 +28,8 @@ class AaranServiceProviders extends ServiceProvider
 
         $this->app->register(DocsServiceProvider::class);
         $this->app->register(MasterServiceProvider::class);
+
+        $this->app->register(EntriesServiceProvider::class);
 
     }
 }

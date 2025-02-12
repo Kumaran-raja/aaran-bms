@@ -6,8 +6,14 @@
         <div  class="text-center font-semibold {{$color}} text-xs" {{$attributes}}>{{ $entry }}</div>
     </div>
     <div class="w-3/12 text-center">
-        <span class="text-xs font-semibold ">{{ $invoice }}</span>
-        <div class="text-xs text-gray-600">{{ $date }}</div>
+        <span class="text-xs font-semibold ">
+{{--            {{ $invoice }}--}}
+        </span>
+        <div class="text-xs text-gray-600">
+{{--            {{ $date }}--}}
+        </div>
     </div>
-    <span class="w-3/12 text-sm font-semibold text-green-600 text-center">{{ $amount }}</span>
+    <span class="w-3/12 text-sm font-semibold text-green-600 text-center">
+{{--        {{ $amount }}--}}
+    </span>
 </div>
