@@ -2,7 +2,13 @@
 
 namespace Aaran\Master\Livewire\Company;
 
+use Aaran\Assets\Enums\MsmeType;
 use Aaran\Assets\Trait\CommonTraitNew;
+use Aaran\Common\Models\City;
+use Aaran\Common\Models\Country;
+use Aaran\Common\Models\Pincode;
+use Aaran\Common\Models\State;
+use Aaran\Core\Models\Tenant;
 use Aaran\Master\Models\Company;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
@@ -27,8 +33,8 @@ class Index extends Component
     public string $display_name = '';
     public string $landline = '';
     public string $website = '';
-    public string $inv_pfx='';
-    public string $iec_no='';
+    public string $inv_pfx = '';
+    public string $iec_no = '';
     public $logo = '';
     public $old_logo = '';
     public string $pan = '';
@@ -145,8 +151,7 @@ class Index extends Component
 
     public function citySave($name)
     {
-        $obj = Common::create([
-            'label_id' => 2,
+        $obj = City::create([
             'vname' => $name,
             'active_id' => '1'
         ]);
@@ -157,8 +162,8 @@ class Index extends Component
     public function getCityList(): void
     {
         $this->cityCollection = $this->city_name ?
-            Common::search(trim($this->city_name))->where('label_id', '=', '2')->get() :
-            Common::where('label_id', '=', '2')->Orwhere('label_id', '=', '1')->get();
+            City::search(trim($this->city_name))->get() :
+            City::all();
     }
     #endregion
 
@@ -217,9 +222,9 @@ class Index extends Component
 
     public function stateSave($name): void
     {
-        $obj = Common::create([
-            'label_id' => 3,
+        $obj = State::create([
             'vname' => $name,
+            'state_code' => '1',
             'active_id' => '1'
         ]);
         $v = ['name' => $name, 'id' => $obj->id];
@@ -228,8 +233,9 @@ class Index extends Component
 
     public function getStateList(): void
     {
-        $this->stateCollection = $this->state_name ? Common::search(trim($this->state_name))->where('label_id', '=', 3)
-            ->get() : Common::where('label_id', '=', 3)->Orwhere('label_id', '=', '1')->get();
+        $this->stateCollection = $this->state_name ?
+            State::seach(trim($this->state_name))->get() :
+            State::all();
     }
     #endregion
 
@@ -287,8 +293,7 @@ class Index extends Component
 
     public function pincodeSave($name)
     {
-        $obj = Common::create([
-            'label_id' => 4,
+        $obj = Pincode::create([
             'vname' => $name,
             'active_id' => '1'
         ]);
@@ -298,9 +303,9 @@ class Index extends Component
 
     public function getPincodeList(): void
     {
-        $this->pincodeCollection = $this->pincode_name ? Common::search(trim($this->pincode_name))
-            ->where('label_id', '=', '4')
-            ->get() : Common::where('label_id', '=', '4')->Orwhere('label_id', '=', '1')->get();
+        $this->pincodeCollection = $this->pincode_name ?
+            Pincode::search(trim($this->pincode_name))->get() :
+            Pincode::all();
     }
     #endregion
 
@@ -358,8 +363,7 @@ class Index extends Component
 
     public function countrySave($name)
     {
-        $obj = Common::create([
-            'label_id' => 5,
+        $obj = Country::create([
             'vname' => $name,
             'active_id' => '1'
         ]);
@@ -370,12 +374,13 @@ class Index extends Component
     public function getCountryList(): void
     {
         $this->countryCollection = $this->country_name ?
-            Common::search(trim($this->country_name))->where('label_id', '=', '5')->get() :
-            Common::where('label_id', '=', '5')->Orwhere('label_id', '=', '1')->get();
+            Country::search(trim($this->country_name))->get() :
+            Country::all();
     }
-#endregion
+    #endregion
 
     #region[MSME Type]
+
     public $msme_type_id = '';
     public $msme_type_name = '';
     public Collection $msmeTypeCollection;
@@ -441,20 +446,19 @@ class Index extends Component
 
     public function getMsmeTypeList(): void
     {
-        $this->msmeTypeCollection = !empty($this->msme_type_name) ?
-            Common::search(trim($this->msme_type_name))->where('label_id', '=', '23')->get() :
-            Common::where('label_id', '=', '23')->orWhere('label_id', '=', '1')->get();
+        $this->msmeTypeCollection =  MsmeType::cases()->get();
+
     }
-#endregion
+    #endregion
 
     #region[save]
     public function getSave(): void
     {
-        if ($this->common->vname!=''){
-            if ($this->common->vid==''){
+        if ($this->common->vname != '') {
+            if ($this->common->vid == '') {
                 $this->validate($this->rules());
-                $company=new Company();
-                $extraFields=[
+                $company = new Company();
+                $extraFields = [
                     'display_name' => $this->display_name,
                     'address_1' => $this->address_1,
                     'address_2' => $this->address_2,
@@ -474,8 +478,8 @@ class Index extends Component
                     'acc_no' => $this->acc_no,
                     'ifsc_code' => $this->ifsc_code,
                     'branch' => $this->branch,
-                    'inv_pfx' => $this->inv_pfx?:'-',
-                    'iec_no' => $this->iec_no?:'-',
+                    'inv_pfx' => $this->inv_pfx ?: '-',
+                    'iec_no' => $this->iec_no ?: '-',
                     'user_id' => Auth::id(),
                     'tenant_id' => $this->tenant_id ?: '1',
                     'logo' => $this->save_logo(),
@@ -504,8 +508,8 @@ class Index extends Component
                     'acc_no' => $this->acc_no,
                     'ifsc_code' => $this->ifsc_code,
                     'branch' => $this->branch,
-                    'inv_pfx' => $this->inv_pfx?:'-',
-                    'iec_no' => $this->iec_no?:'-',
+                    'inv_pfx' => $this->inv_pfx ?: '-',
+                    'iec_no' => $this->iec_no ?: '-',
                     'user_id' => Auth::id(),
                     'tenant_id' => $this->tenant_id ?: '1',
                     'logo' => $this->save_logo(),
@@ -542,10 +546,10 @@ class Index extends Component
         $this->state_name = '';
         $this->pincode_id = '';
         $this->pincode_name = '';
-        $this->country_id='';
-        $this->country_name='';
-        $this->iec_no='';
-        $this->inv_pfx='';
+        $this->country_id = '';
+        $this->country_name = '';
+        $this->iec_no = '';
+        $this->inv_pfx = '';
         $this->bank = '';
         $this->acc_no = '';
         $this->ifsc_code = '';
@@ -606,14 +610,14 @@ class Index extends Component
             $this->state_name = $obj->state_id ? Common::find($obj->state_id)->vname : '';
             $this->pincode_id = $obj->pincode_id;
             $this->pincode_name = $obj->pincode_id ? Common::find($obj->pincode_id)->vname : '';
-            $this->country_id=$obj->country_id;
+            $this->country_id = $obj->country_id;
             $this->country_name = $obj->country_id ? Common::find($obj->country_id)->vname : '';
             $this->bank = $obj->bank;
             $this->acc_no = $obj->acc_no;
             $this->ifsc_code = $obj->ifsc_code;
             $this->branch = $obj->branch;
-            $this->inv_pfx=$obj->inv_pfx;
-            $this->iec_no=$obj->iec_no;
+            $this->inv_pfx = $obj->inv_pfx;
+            $this->iec_no = $obj->iec_no;
             $this->common->active_id = $obj->active_id;
             $this->old_logo = $obj->logo;
             return $obj;
@@ -646,10 +650,10 @@ class Index extends Component
         $this->getTenants();
         $this->getMsmeTypeList();
         $this->getCountryList();
-        $this->log = Logbook::where('vname','Company')->take(5)->get();
+        $this->log = Logbook::where('vname', 'Company')->take(5)->get();
         return view('livewire.master.company.index')->with([
-            'list' => $this->getListForm->getList(Company::class,function ($query){
-                return $query->where('tenant_id',session()->get('tenant_id'));
+            'list' => $this->getListForm->getList(Company::class, function ($query) {
+                return $query->where('tenant_id', session()->get('tenant_id'));
             }),
         ]);
     }
