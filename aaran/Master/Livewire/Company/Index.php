@@ -1,12 +1,9 @@
 <?php
 
-namespace App\Livewire\Master\Company;
+namespace Aaran\Master\Livewire\Company;
 
-use Aaran\Common\Models\Common;
-use Aaran\Logbook\Models\Logbook;
+use Aaran\Assets\Trait\CommonTraitNew;
 use Aaran\Master\Models\Company;
-use App\Livewire\Trait\CommonTraitNew;
-use App\Models\Tenant;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
