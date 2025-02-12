@@ -4,6 +4,7 @@
     <!-- Top Controls --------------------------------------------------------------------------------------------->
 
     <x-aaran-ui::forms.m-panel>
+        <x-aaran-ui::alerts.notification />
 
         <x-aaran-ui::forms.top-controls :show-filters="$showFilters"/>
 
@@ -42,35 +43,51 @@
 
                 @foreach($list as $index=>$row)
                     <x-aaran-ui::table.row>
-                        <x-aaran-ui::table.cell-text><a href="{{route('invReport',[$row->id])}}"> {{$index+1}}</a>
-                        </x-aaran-ui::table.cell-text>
+{{--                        <x-aaran-ui::table.cell-text><a href="{{route('invReport',[$row->id])}}"> {{$index+1}}</a>--}}
+{{--                        </x-aaran-ui::table.cell-text>--}}
 
-                        <x-aaran-ui::table.cell-text left><a href="{{route('contactReport',[$row->id])}}"> {{$row->vname}}</a>
-                        </x-aaran-ui::table.cell-text>
+{{--                        <x-aaran-ui::table.cell-text left><a href="{{route('contactReport',[$row->id])}}"> {{$row->vname}}</a>--}}
+{{--                        </x-aaran-ui::table.cell-text>--}}
 
-                        <x-aaran-ui::table.cell-text><a href="{{route('contactReport',[$row->id])}}"> {{$row->mobile}}</a>
-                        </x-aaran-ui::table.cell-text>
+{{--                        <x-aaran-ui::table.cell-text><a href="{{route('contactReport',[$row->id])}}"> {{$row->mobile}}</a>--}}
+{{--                        </x-aaran-ui::table.cell-text>--}}
+
+{{--                        <x-aaran-ui::table.cell-text>--}}
+{{--                            <a href="{{route('contactReport',[$row->id])}}" class="{{$row->contact_type == 'Debtor'?:'text-orange-400'}}">--}}
+{{--                                {{$row->contact_type}}--}}
+{{--                            </a>--}}
+{{--                        </x-aaran-ui::table.cell-text>--}}
+
+{{--                        <x-aaran-ui::table.cell-text><a--}}
+{{--                                href="{{route('contactReport',[$row->id])}}"> {{$row->contact_person}}</a>--}}
+{{--                        </x-aaran-ui::table.cell-text>--}}
+
+{{--                        <x-aaran-ui::table.cell-text><a--}}
+{{--                                href="{{route('contactReport',[$row->id])}}"> {{$row->gstin}}</a>--}}
+{{--                        </x-aaran-ui::table.cell-text>--}}
+
+{{--                        <x-aaran-ui::table.cell-text>--}}
+{{--                            <a--}}
+{{--                                href="{{route('contactReport',[$row->id])}}"> {{$row->opening_balance+$row->outstanding}}</a>--}}
+{{--                        </x-aaran-ui::table.cell-text>--}}
 
 
+                        <!--We should change this after creating all the routes juz like upper code-->
 
-                        <x-aaran-ui::table.cell-text>
-                            <a href="{{route('contactReport',[$row->id])}}" class="{{$row->contact_type == 'Debtor'?:'text-orange-400'}}">
-                                {{$row->contact_type}}
-                            </a>
-                        </x-aaran-ui::table.cell-text>
+                        <x-aaran-ui::table.cell-text> {{$index+1}}</x-aaran-ui::table.cell-text>
 
-                        <x-aaran-ui::table.cell-text><a
-                                href="{{route('contactReport',[$row->id])}}"> {{$row->contact_person}}</a>
-                        </x-aaran-ui::table.cell-text>
+                        <x-aaran-ui::table.cell-text left> {{$row->vname}}</x-aaran-ui::table.cell-text>
 
-                        <x-aaran-ui::table.cell-text><a
-                                href="{{route('contactReport',[$row->id])}}"> {{$row->gstin}}</a>
-                        </x-aaran-ui::table.cell-text>
+                        <x-aaran-ui::table.cell-text> {{$row->mobile}}</x-aaran-ui::table.cell-text>
 
-                        <x-aaran-ui::table.cell-text>
-                            <a
-                                href="{{route('contactReport',[$row->id])}}"> {{$row->opening_balance+$row->outstanding}}</a>
-                        </x-aaran-ui::table.cell-text>
+                        <x-aaran-ui::table.cell-text> {{$row->contact_type->vname}} </x-aaran-ui::table.cell-text>
+
+                        <x-aaran-ui::table.cell-text>{{$row->contact_person}}</x-aaran-ui::table.cell-text>
+
+                        <x-aaran-ui::table.cell-text>{{$row->gstin}}</x-aaran-ui::table.cell-text>
+
+                        <x-aaran-ui::table.cell-text>{{$row->opening_balance+$row->outstanding}}</x-aaran-ui::table.cell-text>
+
 
                         <td class="max-w-max print:hidden">
                             <div class="flex justify-center items-center sm:gap-4 gap-2 px-1 self-center">
@@ -91,7 +108,7 @@
 
         <!-- Actions ------------------------------------------------------------------------------------------->
 
-<div>{{$list->links()}}</div>
+{{--<div>{{$list->links()}}</div>--}}
 
 
     </x-aaran-ui::forms.m-panel>

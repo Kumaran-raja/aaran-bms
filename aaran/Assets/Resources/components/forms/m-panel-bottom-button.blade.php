@@ -10,12 +10,12 @@
     <div class="flex flex-row justify-between py-4 gap-3" >
         <div class="flex flex-wrap  gap-3">
             @if($active)
-                <x-button.active/>
+                <x-aaran-ui::button.active/>
             @endif
             <div>
                 @if($print)
 {{--                    <x-button.print/>--}}
-                    <x-button.print-x href="{{$routes}}"  />
+                    <x-aaran-ui::button.print-x href="{{$routes}}"  />
                 @endif
             </div>
         </div>
@@ -24,12 +24,12 @@
             @if($save)
 
 {{--                <x-button.save/>--}}
-                <x-button.save-x wire:click.prevent="save" />
+                <x-aaran-ui::button.save-x wire:click.prevent="save" />
             @endif
             @if($back)
 
 {{--                <x-button.back/>--}}
-                <x-button.back-x wire:click="getRoute" />
+                <x-aaran-ui::button.back-x wire:click="getRoute" />
             @endif
             <div>
                 {{$slot}}

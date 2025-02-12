@@ -9,7 +9,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 //
     Route::get('/contact', Aaran\Master\Livewire\Contact\Index::class)->name('contact');
 
-//    Route::get('/contacts/{id}/upsert', App\Livewire\Master\Contact\Upsert::class)->name('contacts.upsert');
+    Route::get('/contacts/{id}/upsert', Aaran\Master\Livewire\Contact\Upsert::class)->name('contacts.upsert');
 //
 //    Route::get('/products', App\Livewire\Master\Product\Index::class)->name('products');
 //

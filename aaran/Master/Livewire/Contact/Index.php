@@ -35,25 +35,28 @@ class Index extends Component
         DB::table('contact_details')->where('contact_id', '=', $this->common->vid)->delete();
         $obj->delete();
         $this->showDeleteModal = false;
+        $message = "Deleted Successfully";
+        $this->dispatch('notify', ...['type' => 'success', 'content' => $message]);
     }
 
     public function getList()
     {
-        return Contact::select(
-            'contacts.*',
-            'contact_type.vname as contact_type',
-            'msme_type.vname as msme_type',
-        )
-//            ->join('commons as contact_type', 'contact_type.id', '=', 'contacts.contact_type_id')
-//            ->join('commons as msme_type', 'msme_type.id', '=', 'contacts.msme_type_id')
-
-            ->orWhere('contacts.contact_type_id','=','123')
-            ->orWhere('contacts.contact_type_id','=','124')
-            ->where('contacts.company_id',session()->get('company_id'))
-            ->where('contacts.active_id',$this->getListForm->activeRecord)
-
-            ->orderBy('contacts.id',$this->getListForm->sortAsc ? 'asc' : 'desc')
-            ->paginate($this->getListForm->perPage);
+        return Contact::all();
+//        select(
+//            'contacts.*',
+//            'contact_type.vname as contact_type',
+//            'msme_type.vname as msme_type',
+//        )
+////            ->join('commons as contact_type', 'contact_type.id', '=', 'contacts.contact_type_id')
+////            ->join('commons as msme_type', 'msme_type.id', '=', 'contacts.msme_type_id')
+//
+//            ->orWhere('contacts.contact_type_id','=','123')
+//            ->orWhere('contacts.contact_type_id','=','124')
+//            ->where('contacts.company_id',session()->get('company_id'))
+//            ->where('contacts.active_id',$this->getListForm->activeRecord)
+//
+//            ->orderBy('contacts.id',$this->getListForm->sortAsc ? 'asc' : 'desc')
+//            ->paginate($this->getListForm->perPage);
     }
 
     public function render()
