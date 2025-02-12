@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Livewire\Attributes\On;
+use Livewire\Attributes\Session;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 
@@ -576,7 +577,7 @@ class Upsert extends Component
     #region[MSME Type]
     public $msme_type_id = '';
     public $msme_type_name = '';
-    public array $msmeTypeCollection = []; // ✅ Changed to array
+    public array $msmeTypeCollection = [];
     public $highlightMsmeType = 0;
     public $msmeTypeTyped = false;
 
@@ -633,94 +634,146 @@ class Upsert extends Component
         $this->msmeTypeCollection = collect(MsmeType::cases())->map(fn ($type) => [
             'id' => $type->value,
             'vname' => $type->getName(),
-        ])->toArray(); //
+        ])->toArray();
     }
 
 #endregion
 
-
-    public function save()
+    #region[Save]
+    public function save(): void
     {
         $company_id = Company::value('id');
 
         if (!empty($this->vname)) {
             if (empty($this->vid)) {
+                // Validation
                 $this->validate($this->rules());
 
-                $contactType = ContactType::first();
-                if (!$contactType) {
-                    throw new \Exception("No valid contact type found. Please create one first.");
-                }
+                $contactTypeId = !empty($this->contact_type_id) ? $this->contact_type_id : ContactType::value('id') ?? 124;
 
-                $msmeTypeId = !empty($this->msme_type_id) ? $this->msme_type_id : null;
-
-                Contact::create([
+                // Creating new contact
+                $obj = Contact::create([
                     'vname' => Str::upper($this->vname),
                     'mobile' => $this->mobile ?? null,
                     'whatsapp' => $this->whatsapp ?? null,
                     'contact_person' => $this->contact_person ?? null,
-                    'contact_type_id' => $contactType->id,
-                    'msme_no' => $this->msme_no ?? null,
-                    'msme_type_id' => $msmeTypeId,
+                    'contact_type_id' => $contactTypeId,
+                    'msme_no' => $this->msme_no ?: '-',
+                    'msme_type_id' => $this->msme_type_id ?: '1',
                     'opening_balance' => $this->opening_balance ?? 0,
                     'outstanding' => $this->outstanding ?? 0,
                     'effective_from' => $this->effective_from ?? null,
-                    'gstin' => $this->gstin ?? null,
+                    'gstin' => Str::upper($this->gstin),
                     'email' => $this->email ?? null,
                     'active_id' => $this->active_id ?? 1,
                     'user_id' => auth()->id(),
                     'company_id' => $company_id,
                 ]);
+                $this->saveItem($obj->id);
+//                $this->common->logEntry('Contact name: '.$this->common->vname,$this->gstin,'create',$this->vname.'has been created');
+                $message = "Saved";
+                $this->getRoute();
 
-                session()->flash('message', 'Contact saved successfully.');
-                return redirect()->route('contact');
+            } else {
+                // Updating existing contact
+                $obj = Contact::findOrFail($this->vid);
+                $obj->update([
+                    'vname' => Str::upper($this->vname),
+                    'mobile' => $this->mobile,
+                    'whatsapp' => $this->whatsapp,
+                    'contact_person' => $this->contact_person,
+                    'contact_type_id' => $this->contact_type_id ?: 124,
+                    'msme_no' => $this->msme_no,
+                    'msme_type_id' => $this->msme_type_id ?: 1,
+                    'opening_balance' => $this->opening_balance ?: 0,
+                    'outstanding' => $this->outstanding ?: 0,
+                    'effective_from' => $this->effective_from,
+                    'gstin' => $this->gstin,
+                    'email' => $this->email,
+                    'active_id' => $this->active_id,
+                    'user_id' => auth()->id(),
+                    'company_id' => $company_id,
+                ]);
+                $this->saveItem($obj->id);
+//                $this->common->logEntry('Contact name: '.$this->common->vname,'Contact','update',$this->vname.' has been updated');
+                $message = "Updated";
+                $this->getRoute();
+
             }
+
+            $this->vname = '';
+            $this->mobile = '';
+            $this->whatsapp = '';
+            $this->contact_person = '';
+            $this->contact_type_id = '';
+            $this->msme_no = '';
+            $this->msme_type_id = '';
+            $this->opening_balance = '';
+            $this->effective_from = '';
+            $this->gstin = '';
+            $this->email = '';
+
+            $this->dispatch('notify', ...['type' => 'success', 'content' => $message . ' Successfully']);
+
         }
     }
     #endregion
 
-    #region[Save Item]
+    #region[SaveItem]
     public function saveItem($id): void
     {
         if ($this->itemList != null) {
             foreach ($this->itemList as $sub) {
-                if ($sub['contact_detail_id'] === 0 && $sub['address_1'] != "") {
+                if (!isset($sub['address_1']) || trim($sub['address_1']) === "") {
+                    continue; // Skip empty addresses
+                }
+
+                if (!isset($sub['contact_detail_id']) || $sub['contact_detail_id'] === 0) {
+                    // Create a new ContactDetail entry
                     ContactDetail::create([
                         'contact_id' => $id,
-                        'address_type' => $sub['address_type'],
-                        'address_1' => $sub['address_1'],
-                        'address_2' => $sub['address_2'],
-                        'city_id' => $sub['city_id'] ?: 1,
-                        'state_id' => $sub['state_id'] ?: 1,
-                        'pincode_id' => $sub['pincode_id'] ?: 1,
-                        'country_id' => $sub['country_id'] ?: 1,
+                        'address_type' => $sub['address_type'] ?? 'Primary',
+                        'address_1' => $sub['address_1'] ?? '-',
+                        'address_2' => $sub['address_2'] ?? '-',
+                        'city_id' => $sub['city_id'] ?? 1,
+                        'state_id' => $sub['state_id'] ?? 1,
+                        'pincode_id' => $sub['pincode_id'] ?? 1,
+                        'country_id' => $sub['country_id'] ?? 1,
                     ]);
-                } elseif ($sub['contact_detail_id'] != 0 && $sub['address_1'] != "") {
+
+                } else {
+                    // Update an existing ContactDetail entry
                     $detail = ContactDetail::find($sub['contact_detail_id']);
-                    $detail->address_type = $sub['address_type'];
-                    $detail->address_1 = $sub['address_1'];
-                    $detail->address_2 = $sub['address_2'];
-                    $detail->city_id = $sub['city_id'];
-                    $detail->state_id = $sub['state_id'];
-                    $detail->pincode_id = $sub['pincode_id'];
-                    $detail->country_id = $sub['country_id'];
-                    $detail->save();
+
+                    if ($detail) {
+                        $detail->address_type = $sub['address_type'] ?? $detail->address_type;
+                        $detail->address_1    = $sub['address_1'] ?? $detail->address_1;
+                        $detail->address_2    = $sub['address_2'] ?? $detail->address_2;
+                        $detail->city_id      = City::where('id', $sub['city_id'] ?? 0)->exists() ? $sub['city_id'] : $detail->city_id;
+                        $detail->state_id     = State::where('id', $sub['state_id'] ?? 0)->exists() ? $sub['state_id'] : $detail->state_id;
+                        $detail->pincode_id   = Pincode::where('id', $sub['pincode_id'] ?? 0)->exists() ? $sub['pincode_id'] : $detail->pincode_id;
+                        $detail->country_id   = Country::where('id', $sub['country_id'] ?? 0)->exists() ? $sub['country_id'] : $detail->country_id;
+
+                        $detail->save();
+                    }
                 }
             }
         } else {
+            // Create a default entry if no itemList is provided
             ContactDetail::create([
-                'contact_id' => $id,
+                'contact_id'   => $id,
                 'address_type' => 'Primary',
-                'address_1' => '-',
-                'address_2' => '-',
-                'city_id' => 1,
-                'state_id' => 1,
-                'pincode_id' => 1,
-                'country_id' => 1,
+                'address_1'    => '-',
+                'address_2'    => '-',
+                'city_id'      => 1,
+                'state_id'     => 1,
+                'pincode_id'   => 1,
+                'country_id'   => 1,
             ]);
         }
     }
     #endregion
+
 
     #region[Mount]
     public function mount($id): void
@@ -807,17 +860,30 @@ class Upsert extends Component
     }
     #endregion
 
+
     #region[removeItems]
     public function removeItems($index): void
     {
-        $items = $this->itemList[$index];
-        unset($this->itemList[$index]);
-        if ($items['contact_detail_id'] != 0) {
-            $obj = ContactDetail::find($items['contact_detail_id']);
-            $obj->delete();
+        // Check if the index exists before accessing
+        if (!isset($this->itemList[$index])) {
+            return;
         }
+
+        $items = $this->itemList[$index];
+
+        unset($this->itemList[$index]);
+
+        if (!empty($items['contact_detail_id']) && $items['contact_detail_id'] != 0) {
+            $obj = ContactDetail::find($items['contact_detail_id']);
+            if ($obj) {
+                $obj->delete();
+            }
+        }
+
+        $this->itemList = array_values($this->itemList);
     }
     #endregion
+
 
     #region[Route]
     public function getRoute(): void

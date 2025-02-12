@@ -5,6 +5,9 @@
 
     <x-aaran-ui::forms.m-panel-auto>
 
+        <x-aaran-ui::alerts.notification />
+
+
         <x-aaran-ui::tabs.tab-panel>
 
             <x-slot name="tabs">
@@ -79,6 +82,7 @@
                                         </button>
                                     </li>
                                 </ul>
+
                                 <div class="w-full">
                                     <div x-show="openTab === 0" class="py-2">
                                         <div class="flex flex-col gap-3">
@@ -122,6 +126,8 @@
                                             <span class="text-red-400"> {{$message}}</span>
                                             @enderror
 
+                                            <!-- State ------------------------------------------------------------------>
+
                                             <x-aaran-ui::dropdown.wrapper label="State" type="stateTyped">
                                                 <div class="relative ">
                                                     <x-aaran-ui::dropdown.input label="State" id="state_name"
@@ -149,6 +155,7 @@
                                             @error('itemList.0.state_name')
                                             <span class="text-red-400"> {{$message}}</span>
                                             @enderror
+
 
                                             <x-aaran-ui::dropdown.wrapper label="Pincode" type="pincodeTyped">
                                                 <div class="relative ">
@@ -178,6 +185,7 @@
                                             <span class="text-red-400"> {{$message}}</span>
                                             @enderror
 
+                                            <!-- Country -------------------------------------------------------------------------->
                                             <x-aaran-ui::dropdown.wrapper label="Country" type="countryTyped">
                                                 <div class="relative ">
                                                     <x-aaran-ui::dropdown.input label="Country" id="country_name"
@@ -209,134 +217,134 @@
 
                                     </div>
 
-                                    @foreach( $secondaryAddress as $index => $row )
-                                        <div x-show="openTab === {{$row}}" class="p-2">
+{{--                                    @foreach( $secondaryAddress as $index => $row )--}}
+{{--                                        <div x-show="openTab === {{$row}}" class="p-2">--}}
 
-                                            <div class="flex flex-col gap-3">
+{{--                                            <div class="flex flex-col gap-3">--}}
 
-                                                <x-aaran-ui::input.floating wire:model.live="itemList.{{$row}}.address_1"
-                                                                  label="Address"/>
-                                                <x-aaran-ui::input.floating wire:model.live="itemList.{{$row}}.address_2"
-                                                                  label="Area-Road"/>
+{{--                                                <x-aaran-ui::input.floating wire:model.live="itemList.{{$row}}.address_1"--}}
+{{--                                                                  label="Address"/>--}}
+{{--                                                <x-aaran-ui::input.floating wire:model.live="itemList.{{$row}}.address_2"--}}
+{{--                                                                  label="Area-Road"/>--}}
 
-                                                <x-aaran-ui::dropdown.wrapper label="City" type="cityTyped">
-                                                    <div class="relative ">
-                                                        <x-aaran-ui::dropdown.input label="City" id="city_name"
-                                                                          wire:model.live="itemList.{{$row}}.city_name"
-                                                                          wire:keydown.arrow-up="decrementCity"
-                                                                          wire:keydown.arrow-down="incrementCity"
-                                                                          wire:keydown.enter="enterCity('{{$row}}')"/>
-                                                        <x-aaran-ui::dropdown.select>
-                                                            @if($cityCollection)
-                                                                @forelse ($cityCollection as $i => $city)
-                                                                    <x-aaran-ui::dropdown.option
-                                                                        highlight="{{$highlightCity === $i  }}"
-                                                                        wire:click.prevent="setCity('{{$city->vname}}','{{$city->id}}','{{$row}}')">
-                                                                        {{ $city->vname }}
-                                                                    </x-aaran-ui::dropdown.option>
-                                                                @empty
-                                                                    <button
-                                                                        wire:click.prevent="citySave('{{$itemList[$row]['city_name']}}','{{$row}}')"
-                                                                        class="text-white bg-green-500 text-center w-full">
-                                                                        create
-                                                                    </button>
-                                                                @endforelse
-                                                            @endif
-                                                        </x-aaran-ui::dropdown.select>
-                                                    </div>
-                                                </x-aaran-ui::dropdown.wrapper>
+{{--                                                <x-aaran-ui::dropdown.wrapper label="City" type="cityTyped">--}}
+{{--                                                    <div class="relative ">--}}
+{{--                                                        <x-aaran-ui::dropdown.input label="City" id="city_name"--}}
+{{--                                                                          wire:model.live="itemList.{{$row}}.city_name"--}}
+{{--                                                                          wire:keydown.arrow-up="decrementCity"--}}
+{{--                                                                          wire:keydown.arrow-down="incrementCity"--}}
+{{--                                                                          wire:keydown.enter="enterCity('{{$row}}')"/>--}}
+{{--                                                        <x-aaran-ui::dropdown.select>--}}
+{{--                                                            @if($cityCollection)--}}
+{{--                                                                @forelse ($cityCollection as $i => $city)--}}
+{{--                                                                    <x-aaran-ui::dropdown.option--}}
+{{--                                                                        highlight="{{$highlightCity === $i  }}"--}}
+{{--                                                                        wire:click.prevent="setCity('{{$city->vname}}','{{$city->id}}','{{$row}}')">--}}
+{{--                                                                        {{ $city->vname }}--}}
+{{--                                                                    </x-aaran-ui::dropdown.option>--}}
+{{--                                                                @empty--}}
+{{--                                                                    <button--}}
+{{--                                                                        wire:click.prevent="citySave('{{$itemList[$row]['city_name']}}','{{$row}}')"--}}
+{{--                                                                        class="text-white bg-green-500 text-center w-full">--}}
+{{--                                                                        create--}}
+{{--                                                                    </button>--}}
+{{--                                                                @endforelse--}}
+{{--                                                            @endif--}}
+{{--                                                        </x-aaran-ui::dropdown.select>--}}
+{{--                                                    </div>--}}
+{{--                                                </x-aaran-ui::dropdown.wrapper>--}}
 
-                                                <x-aaran-ui::dropdown.wrapper label="State" type="stateTyped">
-                                                    <div class="relative ">
-                                                        <x-aaran-ui::dropdown.input label="State" id="state_name"
-                                                                          wire:model.live="itemList.{{$row}}.state_name"
-                                                                          wire:keydown.arrow-up="decrementState"
-                                                                          wire:keydown.arrow-down="incrementState"
-                                                                          wire:keydown.enter="enterState('{{$row}}')"/>
-                                                        <x-aaran-ui::dropdown.select>
-                                                            @if($stateCollection)
-                                                                @forelse ($stateCollection as $i => $states)
-                                                                    <x-aaran-ui::dropdown.option
-                                                                        highlight="{{$highlightState === $i  }}"
-                                                                        wire:click.prevent="setState('{{$states->vname}}','{{$states->id}}','{{$row}}')">
-                                                                        {{ $states->vname }}
-                                                                    </x-aaran-ui::dropdown.option>
-                                                                @empty
-                                                                    <button
-                                                                        wire:click.prevent="stateSave('{{$itemList[$row]['state_name']}}','{{$row}}')"
-                                                                        class="text-white bg-green-500 text-center w-full">
-                                                                        create
-                                                                    </button>
-                                                                @endforelse
-                                                            @endif
-                                                        </x-aaran-ui::dropdown.select>
-                                                    </div>
-                                                </x-aaran-ui::dropdown.wrapper>
+{{--                                                <x-aaran-ui::dropdown.wrapper label="State" type="stateTyped">--}}
+{{--                                                    <div class="relative ">--}}
+{{--                                                        <x-aaran-ui::dropdown.input label="State" id="state_name"--}}
+{{--                                                                          wire:model.live="itemList.{{$row}}.state_name"--}}
+{{--                                                                          wire:keydown.arrow-up="decrementState"--}}
+{{--                                                                          wire:keydown.arrow-down="incrementState"--}}
+{{--                                                                          wire:keydown.enter="enterState('{{$row}}')"/>--}}
+{{--                                                        <x-aaran-ui::dropdown.select>--}}
+{{--                                                            @if($stateCollection)--}}
+{{--                                                                @forelse ($stateCollection as $i => $states)--}}
+{{--                                                                    <x-aaran-ui::dropdown.option--}}
+{{--                                                                        highlight="{{$highlightState === $i  }}"--}}
+{{--                                                                        wire:click.prevent="setState('{{$states->vname}}','{{$states->id}}','{{$row}}')">--}}
+{{--                                                                        {{ $states->vname }}--}}
+{{--                                                                    </x-aaran-ui::dropdown.option>--}}
+{{--                                                                @empty--}}
+{{--                                                                    <button--}}
+{{--                                                                        wire:click.prevent="stateSave('{{$itemList[$row]['state_name']}}','{{$row}}')"--}}
+{{--                                                                        class="text-white bg-green-500 text-center w-full">--}}
+{{--                                                                        create--}}
+{{--                                                                    </button>--}}
+{{--                                                                @endforelse--}}
+{{--                                                            @endif--}}
+{{--                                                        </x-aaran-ui::dropdown.select>--}}
+{{--                                                    </div>--}}
+{{--                                                </x-aaran-ui::dropdown.wrapper>--}}
 
-                                                <x-aaran-ui::dropdown.wrapper label="Pincode" type="pincodeTyped">
-                                                    <div class="relative ">
-                                                        <x-aaran-ui::dropdown.input label="Pincode" id="pincode_name"
-                                                                          wire:model.live="itemList.{{$row}}.pincode_name"
-                                                                          wire:keydown.arrow-up="decrementPincode"
-                                                                          wire:keydown.arrow-down="incrementPincode"
-                                                                          wire:keydown.enter="enterPincode('{{$row}}')"/>
-                                                        <x-aaran-ui::dropdown.select>
-                                                            @if($pincodeCollection)
-                                                                @forelse ($pincodeCollection as $i => $pincode)
-                                                                    <x-aaran-ui::dropdown.option
-                                                                        highlight="{{$highlightPincode === $i  }}"
-                                                                        wire:click.prevent="setPincode('{{$pincode->vname}}','{{$pincode->id}}','{{$row}}')">
-                                                                        {{ $pincode->vname }}
-                                                                    </x-aaran-ui::dropdown.option>
-                                                                @empty
-                                                                    <button
-                                                                        wire:click.prevent="pincodeSave('{{$itemList[$row]['pincode_name']}}','{{$row}}')"
-                                                                        class="text-white bg-green-500 text-center w-full">
-                                                                        create
-                                                                    </button>
-                                                                @endforelse
-                                                            @endif
-                                                        </x-aaran-ui::dropdown.select>
-                                                    </div>
-                                                </x-aaran-ui::dropdown.wrapper>
+{{--                                                <x-aaran-ui::dropdown.wrapper label="Pincode" type="pincodeTyped">--}}
+{{--                                                    <div class="relative ">--}}
+{{--                                                        <x-aaran-ui::dropdown.input label="Pincode" id="pincode_name"--}}
+{{--                                                                          wire:model.live="itemList.{{$row}}.pincode_name"--}}
+{{--                                                                          wire:keydown.arrow-up="decrementPincode"--}}
+{{--                                                                          wire:keydown.arrow-down="incrementPincode"--}}
+{{--                                                                          wire:keydown.enter="enterPincode('{{$row}}')"/>--}}
+{{--                                                        <x-aaran-ui::dropdown.select>--}}
+{{--                                                            @if($pincodeCollection)--}}
+{{--                                                                @forelse ($pincodeCollection as $i => $pincode)--}}
+{{--                                                                    <x-aaran-ui::dropdown.option--}}
+{{--                                                                        highlight="{{$highlightPincode === $i  }}"--}}
+{{--                                                                        wire:click.prevent="setPincode('{{$pincode->vname}}','{{$pincode->id}}','{{$row}}')">--}}
+{{--                                                                        {{ $pincode->vname }}--}}
+{{--                                                                    </x-aaran-ui::dropdown.option>--}}
+{{--                                                                @empty--}}
+{{--                                                                    <button--}}
+{{--                                                                        wire:click.prevent="pincodeSave('{{$itemList[$row]['pincode_name']}}','{{$row}}')"--}}
+{{--                                                                        class="text-white bg-green-500 text-center w-full">--}}
+{{--                                                                        create--}}
+{{--                                                                    </button>--}}
+{{--                                                                @endforelse--}}
+{{--                                                            @endif--}}
+{{--                                                        </x-aaran-ui::dropdown.select>--}}
+{{--                                                    </div>--}}
+{{--                                                </x-aaran-ui::dropdown.wrapper>--}}
 
-                                                <x-aaran-ui::dropdown.wrapper label="Country" type="countryTyped">
-                                                    <div class="relative ">
+{{--                                                <x-aaran-ui::dropdown.wrapper label="Country" type="countryTyped">--}}
+{{--                                                    <div class="relative ">--}}
 
-                                                        <x-aaran-ui::dropdown.input label="Country" id="country_name"
-                                                                          wire:model.live="itemList.{{$row}}.country_name"
-                                                                          wire:keydown.arrow-up="decrementCountry"
-                                                                          wire:keydown.arrow-down="incrementCountry"
-                                                                          wire:keydown.enter="enterCountry('{{$row}}')"/>
+{{--                                                        <x-aaran-ui::dropdown.input label="Country" id="country_name"--}}
+{{--                                                                          wire:model.live="itemList.{{$row}}.country_name"--}}
+{{--                                                                          wire:keydown.arrow-up="decrementCountry"--}}
+{{--                                                                          wire:keydown.arrow-down="incrementCountry"--}}
+{{--                                                                          wire:keydown.enter="enterCountry('{{$row}}')"/>--}}
 
-                                                        <x-aaran-ui::dropdown.select>
-                                                            @if($countryCollection)
+{{--                                                        <x-aaran-ui::dropdown.select>--}}
+{{--                                                            @if($countryCollection)--}}
 
-                                                                @forelse ($countryCollection as $i => $country)
-                                                                    <x-aaran-ui::dropdown.option
-                                                                        highlight="{{$highlightCountry === $i  }}"
-                                                                        wire:click.prevent="setCountry('{{$country->vname}}','{{$country->id}}','{{$row}}')">
-                                                                        {{ $country->vname }}
-                                                                    </x-aaran-ui::dropdown.option>
+{{--                                                                @forelse ($countryCollection as $i => $country)--}}
+{{--                                                                    <x-aaran-ui::dropdown.option--}}
+{{--                                                                        highlight="{{$highlightCountry === $i  }}"--}}
+{{--                                                                        wire:click.prevent="setCountry('{{$country->vname}}','{{$country->id}}','{{$row}}')">--}}
+{{--                                                                        {{ $country->vname }}--}}
+{{--                                                                    </x-aaran-ui::dropdown.option>--}}
 
-                                                                @empty
+{{--                                                                @empty--}}
 
-                                                                    <button
-                                                                        wire:click.prevent="countrySave('{{$itemList[$row]['country_name']}}','{{$row}}')"
-                                                                        class="text-white bg-green-500 text-center w-full">
-                                                                        create
-                                                                    </button>
-                                                                @endforelse
-                                                            @endif
+{{--                                                                    <button--}}
+{{--                                                                        wire:click.prevent="countrySave('{{$itemList[$row]['country_name']}}','{{$row}}')"--}}
+{{--                                                                        class="text-white bg-green-500 text-center w-full">--}}
+{{--                                                                        create--}}
+{{--                                                                    </button>--}}
+{{--                                                                @endforelse--}}
+{{--                                                            @endif--}}
 
-                                                        </x-aaran-ui::dropdown.select>
-                                                    </div>
-                                                </x-aaran-ui::dropdown.wrapper>
+{{--                                                        </x-aaran-ui::dropdown.select>--}}
+{{--                                                    </div>--}}
+{{--                                                </x-aaran-ui::dropdown.wrapper>--}}
 
-                                            </div>
+{{--                                            </div>--}}
 
-                                        </div>
-                                    @endforeach
+{{--                                        </div>--}}
+{{--                                    @endforeach--}}
                                 </div>
                             </div>
                         </div>
