@@ -8,7 +8,7 @@ Route::get('/', Aaran\Web\Livewire\Home\Index::class)->name('home');
 Route::get('/abouts', Aaran\Web\Livewire\About\Index::class)->name('abouts');
 Route::get('/blogs', Aaran\Web\Livewire\Blog\Index::class)->name('blogs');
 Route::get('/services', Aaran\Web\Livewire\Service\Index::class)->name('services');
-Route::get('/contacts', Aaran\Web\Livewire\Contact\Index::class)->name('contacts');
+Route::get('/contact', Aaran\Web\Livewire\Contact\Index::class)->name('contact');
 
 
 Route::middleware(['auth:sanctum',

@@ -2,7 +2,6 @@
 
 namespace Aaran\Master\Models;
 
-
 use Aaran\Common\Models\ContactType;
 use Aaran\Master\Database\Factories\ContactFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -35,6 +34,5 @@ class Contact extends Model
     {
         return $this->belongsTo(Company::class);
     }
-
 
 }
