@@ -7,7 +7,7 @@ use Livewire\Livewire;
 
 use Aaran\Master\Livewire\Contact;
 use Aaran\Master\Livewire\Product;
-
+use Aaran\Master\Livewire\Orders;
 
 class MasterServiceProvider extends ServiceProvider
 {
@@ -28,6 +28,7 @@ class MasterServiceProvider extends ServiceProvider
         Livewire::component('master::index', Contact\Index::class);
         Livewire::component('master::upsert', Contact\Upsert::class);
         Livewire::component('master::index', Product\Index::class);
+        Livewire::component('master::index', Orders\Index::class);
 
     }
 

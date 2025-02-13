@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Livewire\Master\Orders;
+namespace Aaran\Master\Livewire\Orders;
 
-use Aaran\Logbook\Models\Logbook;
+use Aaran\Assets\Trait\CommonTraitNew;
 use Aaran\Master\Models\Order;
-use App\Livewire\Trait\CommonTraitNew;
 use Livewire\Component;
 
 class Index extends Component
@@ -29,15 +28,15 @@ class Index extends Component
                 $order = new Order();
                 $extraFields = [
                     'order_name' => $this->order_name,
-                    'company_id' => session()->get('company_id'),
+                    'company_id' => session()->get('company_id', 1),
                 ];
                 $this->common->save($order, $extraFields);
-                $this->common->logEntry(
-                    'Order_name',
-                    'Order',
-                    'create',
-                    $this->common->vname . ' has been created'
-                );
+//                $this->common->logEntry(
+//                    'Order_name',
+//                    'Order',
+//                    'create',
+//                    $this->common->vname . ' has been created'
+//                );
                 $message = "Saved";
             } else {
                 $order = Order::find($this->common->vid);
@@ -45,7 +44,7 @@ class Index extends Component
 
                 $extraFields = [
                     'order_name' => $this->order_name,
-                    'company_id' => session()->get('company_id'),
+                    'company_id' => session()->get('company_id', 1),
                 ];
                 $this->common->edit($order, $extraFields);
 
@@ -62,9 +61,9 @@ class Index extends Component
                 if (!empty($changedData)) {
                     $description = implode(', ', $changedData); // Concatenate the change descriptions into a string
                 }
-                $this->common->logEntry(
-                    'Order', 'Order', $action, $description
-                );
+//                $this->common->logEntry(
+//                    'Order', 'Order', $action, $description
+//                );
                 $message = "Updated";
             }
 
@@ -107,10 +106,10 @@ class Index extends Component
     #region[render]
     public function render()
     {
-        $this->log = Logbook::where('model_name', 'Order')->take(5)->get();
+//        $this->log = Order::where('model_name', 'Order')->take(5)->get();
         $this->getListForm->searchField = 'order_name';
 
-        return view('livewire.master.orders.index')->with([
+        return view('master::Orders.index')->with([
             'list' => $this->getListForm->getList(Order::class, function ($query) {
                 return $query->where('company_id', session()->get('company_id'));
             }),
