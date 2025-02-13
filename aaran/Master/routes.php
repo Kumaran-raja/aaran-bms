@@ -11,7 +11,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     Route::get('/contacts/{id}/upsert', Aaran\Master\Livewire\Contact\Upsert::class)->name('contacts.upsert');
 //
-//    Route::get('/products', App\Livewire\Master\Product\Index::class)->name('products');
+    Route::get('/products', Aaran\Master\Livewire\Product\Index::class)->name('products');
 //
 //    Route::get('/orders', App\Livewire\Master\Orders\Index::class)->name('orders');
 //

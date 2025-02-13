@@ -22,5 +22,12 @@ enum ProductType : int
             self::SERVICE => 'text-white bg-gray-600',
         };
     }
+    public static function getList(): array
+    {
+        return array_map(fn($type) => [
+            'id' => $type->value,
+            'name' => $type->getName()
+        ], self::cases());
+    }
 
 }

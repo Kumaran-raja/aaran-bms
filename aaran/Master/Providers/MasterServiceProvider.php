@@ -6,6 +6,8 @@ use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
 
 use Aaran\Master\Livewire\Contact;
+use Aaran\Master\Livewire\Product;
+
 
 class MasterServiceProvider extends ServiceProvider
 {
@@ -25,6 +27,7 @@ class MasterServiceProvider extends ServiceProvider
 
         Livewire::component('master::index', Contact\Index::class);
         Livewire::component('master::upsert', Contact\Upsert::class);
+        Livewire::component('master::index', Product\Index::class);
 
     }
 
