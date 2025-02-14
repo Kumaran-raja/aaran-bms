@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Livewire\Master\Style;
+namespace Aaran\Master\Livewire\Style;
 
-use Aaran\Logbook\Models\Logbook;
+use Aaran\Assets\Trait\CommonTraitNew;
 use Aaran\Master\Models\Style;
-use App\Livewire\Trait\CommonTraitNew;
+
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -29,21 +29,21 @@ class Index extends Component
                 $style = new Style();
                 $extraFields = [
                     'desc' => $this->desc,
-                    'company_id' => session()->get('company_id'),
+                    'company_id' => session()->get('company_id', 1),
                     'image' => $this->save_image(),
                 ];
                 $this->common->save($style, $extraFields);
-                $this->common->logEntry('Style','Style','create',$this->common->vname.' has been created');
+//                $this->common->logEntry('Style','Style','create',$this->common->vname.' has been created');
                 $message = "Saved";
             } else {
                 $style = Style::find($this->common->vid);
                 $extraFields = [
                     'desc' => $this->desc,
-                    'company_id' => session()->get('company_id'),
+                    'company_id' => session()->get('company_id', 1),
                     'image' => $this->save_image(),
                 ];
                 $this->common->edit($style, $extraFields);
-                $this->common->logEntry('Style','Style','update',$this->common->vname.' has been updated');
+//                $this->common->logEntry('Style','Style','update',$this->common->vname.' has been updated');
                 $message = "Updated";
             }
             $this->dispatch('notify', ...['type' => 'success', 'content' => $message.' Successfully']);
@@ -112,14 +112,28 @@ class Index extends Component
     }
     #endregion
 
+    #region[Delete]
+    public function deleteFunction($id): void
+    {
+        if ($id) {
+            $obj = Style::find($id);
+            if ($obj) {
+                $obj->delete();
+                $message = "Deleted Successfully";
+                $this->dispatch('notify', ...['type' => 'success', 'content' => $message]);
+            }
+        }
+    }
+    #endregion
+
     #region[render]
     public function render()
     {
-        $this->log = Logbook::where('model_name','Style')->take(5)->get();
-        return view('livewire.master.style.index')->with([
-            'list' => $this->getListForm->getList(Style::class,function ($query){
-                return $query->where('company_id',session()->get('company_id'));
-            }),
+//        $this->log = Logbook::where('model_name','Style')->take(5)->get();
+        $list = Style::all();
+
+        return view('master::Style.index')->with([
+            'list' => $list
         ]);
     }
     #endregion

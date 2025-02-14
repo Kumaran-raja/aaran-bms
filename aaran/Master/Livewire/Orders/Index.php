@@ -15,6 +15,7 @@ class Index extends Component
     public $log;
     #endregion
 
+    #region[getSave]
     public function getSave(): void
     {
         $customLabels = [
@@ -70,6 +71,7 @@ class Index extends Component
             $this->dispatch('notify', ...['type' => 'success', 'content' => $message . ' Successfully']);
         }
     }
+    #endregion
 
     #region[getObj]
     public function getObj($id)
@@ -103,17 +105,33 @@ class Index extends Component
     }
     #endregion
 
+    #region[Delete]
+    public function deleteFunction($id): void
+    {
+        if ($id) {
+            $obj = Order::find($id);
+            if ($obj) {
+                $obj->delete();
+                $message = "Deleted Successfully";
+                $this->dispatch('notify', ...['type' => 'success', 'content' => $message]);
+            }
+        }
+    }
+    #endregion
+
+
     #region[render]
     public function render()
     {
 //        $this->log = Order::where('model_name', 'Order')->take(5)->get();
-        $this->getListForm->searchField = 'order_name';
+//        $this->getListForm->searchField = 'order_name';
+
+        $list = Order::all();
 
         return view('master::Orders.index')->with([
-            'list' => $this->getListForm->getList(Order::class, function ($query) {
-                return $query->where('company_id', session()->get('company_id'));
-            }),
+            'list' => $list
         ]);
     }
     #endregion
+
 }

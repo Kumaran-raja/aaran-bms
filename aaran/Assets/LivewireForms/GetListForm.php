@@ -36,7 +36,7 @@ class GetListForm extends Form
         $query = $modelClass::query();
 
         if ($queryCallback) {
-            $queryCallback($query);
+            $query = $queryCallback($query);
         }
 
         $query = $query->when($this->searches, function ($query, $search) {

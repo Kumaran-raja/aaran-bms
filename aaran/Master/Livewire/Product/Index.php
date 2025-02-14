@@ -437,6 +437,8 @@ class Index extends Component
             ->orderBy('products.id', 'desc')
             ->paginate($this->getListForm->perPage);
     }
+
+    #region[Delete]
     public function deleteFunction($id): void
     {
         if ($id) {
@@ -449,6 +451,7 @@ class Index extends Component
         }
     }
     #endregion
+
     public function render()
     {
         $list = $this->getList();

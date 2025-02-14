@@ -4,6 +4,8 @@
     <!-- Top Controls ------------------------------------------------------------------------------------------------->
 
     <x-aaran-ui::forms.m-panel>
+        <x-aaran-ui::alerts.notification />
+
 
         <x-aaran-ui::forms.top-controls :show-filters="$showFilters"/>
 
@@ -62,7 +64,7 @@
 
         <!-- Actions ------------------------------------------------------------------------------------------->
 
-        <div class="pt-5 w-10/12 mx-auto">{{ $list->links() }}</div>
+{{--        <div class="pt-5 w-10/12 mx-auto">{{ $list->links() }}</div>--}}
 
     </x-aaran-ui::forms.m-panel>
     <div class="px-10 py-16 space-y-4">
