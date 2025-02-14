@@ -32,7 +32,7 @@
                wire:navigate>Services</a>
         </li>
         <li class="hover:tracking-wider hover:font-bold hover:text-black hover:underline duration-300 transition-all ease-out">
-            <a href="{{route('contacts')}}"
+            <a href="{{route('contact')}}"
                class=" underline-offset-2  focus:outline-none focus:underline dark:text-neutral-300 dark:hover:text-white"
                wire:navigate>Contact</a>
         </li>

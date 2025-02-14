@@ -234,7 +234,7 @@ class Index extends Component
     public function getStateList(): void
     {
         $this->stateCollection = $this->state_name ?
-            State::seach(trim($this->state_name))->get() :
+            State::search(trim($this->state_name))->get() :
             State::all();
     }
     #endregion
@@ -434,7 +434,7 @@ class Index extends Component
 
     public function msmeTypeSave($name)
     {
-        $obj = Common::create([
+        $obj = MsmeType::create([
             'label_id' => 23,
             'vname' => $name,
             'active_id' => '1'
@@ -446,7 +446,7 @@ class Index extends Component
 
     public function getMsmeTypeList(): void
     {
-        $this->msmeTypeCollection =  MsmeType::cases()->get();
+//        $this->msmeTypeCollection =  MsmeType::cases()->get();
 
     }
     #endregion
@@ -600,18 +600,18 @@ class Index extends Component
             $this->gstin = $obj->gstin;
             $this->msme_no = $obj->msme_no;
             $this->msme_type_id = $obj->msme_type_id;
-            $this->msme_type_name = Common::find($obj->msme_type_id)->vname;
+//            $this->msme_type_name = MsmeType::find($obj->msme_type_id)->vname;
             $this->pan = $obj->pan;
             $this->email = $obj->email;
             $this->website = $obj->website;
             $this->city_id = $obj->city_id;
-            $this->city_name = $obj->city_id ? Common::find($obj->city_id)->vname : '';
+            $this->city_name = $obj->city_id ? City::find($obj->city_id)->vname : '';
             $this->state_id = $obj->state_id;
-            $this->state_name = $obj->state_id ? Common::find($obj->state_id)->vname : '';
+            $this->state_name = $obj->state_id ? State::find($obj->state_id)->vname : '';
             $this->pincode_id = $obj->pincode_id;
-            $this->pincode_name = $obj->pincode_id ? Common::find($obj->pincode_id)->vname : '';
+            $this->pincode_name = $obj->pincode_id ? Pincode::find($obj->pincode_id)->vname : '';
             $this->country_id = $obj->country_id;
-            $this->country_name = $obj->country_id ? Common::find($obj->country_id)->vname : '';
+            $this->country_name = $obj->country_id ? Country::find($obj->country_id)->vname : '';
             $this->bank = $obj->bank;
             $this->acc_no = $obj->acc_no;
             $this->ifsc_code = $obj->ifsc_code;
@@ -650,8 +650,8 @@ class Index extends Component
         $this->getTenants();
         $this->getMsmeTypeList();
         $this->getCountryList();
-        $this->log = Logbook::where('vname', 'Company')->take(5)->get();
-        return view('livewire.master.company.index')->with([
+//        $this->log = Logbook::where('vname', 'Company')->take(5)->get();
+        return view('master::Company.index')->with([
             'list' => $this->getListForm->getList(Company::class, function ($query) {
                 return $query->where('tenant_id', session()->get('tenant_id'));
             }),

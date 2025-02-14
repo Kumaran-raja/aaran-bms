@@ -5,6 +5,7 @@ namespace Aaran\Master\Providers;
 use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
 
+use Aaran\Master\Livewire\Company;
 use Aaran\Master\Livewire\Contact;
 use Aaran\Master\Livewire\Product;
 use Aaran\Master\Livewire\Orders;
@@ -27,11 +28,15 @@ class MasterServiceProvider extends ServiceProvider
     {
         $this->loadMigrations();
 
-        Livewire::component('master::index', Contact\Index::class);
-        Livewire::component('master::upsert', Contact\Upsert::class);
-        Livewire::component('master::index', Product\Index::class);
-        Livewire::component('master::index', Orders\Index::class);
-        Livewire::component('master::index', Style\Index::class);
+        Livewire::component('company.index', Company\Index::class);
+        Livewire::component('company.upsert', Company\Upsert::class);
+
+        Livewire::component('contact.index', Contact\Index::class);
+        Livewire::component('contact.upsert', Contact\Upsert::class);
+
+        Livewire::component('product.index', Product\Index::class);
+        Livewire::component('orders.index', Orders\Index::class);
+        Livewire::component('style.index', Style\Index::class);
 
 
     }
