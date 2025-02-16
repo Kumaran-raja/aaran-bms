@@ -28,6 +28,7 @@ class Upsert extends Component
     #region[Contact properties]
     #[Validate]
     public $vname;
+
     public $active_id;
     public $vid;
     public string $mobile = '';

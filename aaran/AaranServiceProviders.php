@@ -7,6 +7,7 @@ use Aaran\Blog\Providers\BlogServiceProvider;
 use Aaran\Books\Providers\BooksServiceProvider;
 use Aaran\Common\Providers\CommonServiceProvider;
 use Aaran\Core\Providers\CoreServiceProvider;
+use Aaran\Core\Providers\EventServiceProvider;
 use Aaran\Docs\Providers\DocsServiceProvider;
 use Aaran\Entries\Providers\EntriesServiceProvider;
 use Aaran\Master\Providers\MasterServiceProvider;
@@ -17,7 +18,12 @@ class AaranServiceProviders extends ServiceProvider
 {
     public function register(): void
     {
+
+        $this->app->register(EventServiceProvider::class);
+
         $this->app->register(AssetsServiceProvider::class);
+
+
         $this->app->register(WebServiceProvider::class);
 
         $this->app->register(CoreServiceProvider::class);

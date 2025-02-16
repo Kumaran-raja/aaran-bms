@@ -20,12 +20,6 @@ class CoreServiceProvider extends ServiceProvider
     protected string $moduleName = 'Core';
     protected string $moduleNameLower = 'core';
 
-
-    protected $listen = [Login::class=>[
-        SetTenantIdInSession::class,
-    ]];
-
-
     public function register(): void
     {
         $this->app->register(CoreRouteServiceProvider::class);
