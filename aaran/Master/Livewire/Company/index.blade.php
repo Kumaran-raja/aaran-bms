@@ -1,37 +1,37 @@
 <div>
     <x-slot name="header">Company</x-slot>
 
-    <x-forms.m-panel>
+    <x-aaran-ui::forms.m-panel>
 
         <!-- Top Controls --------------------------------------------------------------------------------------------->
 
-        <x-forms.top-controls :show-filters="$showFilters"/>
+        <x-aaran-ui::forms.top-controls :show-filters="$showFilters"/>
 
         <!-- Top Controls --------------------------------------------------------------------------------------------->
 
-        <x-table.caption :caption="'Company'">
+        <x-aaran-ui::table.caption :caption="'Company'">
             {{$list->count()}}
-        </x-table.caption>
+        </x-aaran-ui::table.caption>
 
         <!-- Table Header --------------------------------------------------------------------------------------------->
 
-        <x-table.form>
+        <x-aaran-ui::table.form>
             <x-slot:table_header name="table_header" class="bg-green-600">
 
-                <x-table.header-serial width="20%"/>
+                <x-aaran-ui::table.header-serial width="20%"/>
 
-                <x-table.header-text wire:click.prevent="sortBy('vname')" sortIcon="{{$getListForm->sortAsc}}">
+                <x-aaran-ui::table.header-text wire:click.prevent="sortBy('vname')" sortIcon="{{$getListForm->sortAsc}}">
                     Company&nbsp;Name
-                </x-table.header-text>
+                </x-aaran-ui::table.header-text>
 
-                <x-table.header-text sortIcon="none">GST</x-table.header-text>
+                <x-aaran-ui::table.header-text sortIcon="none">GST</x-aaran-ui::table.header-text>
 
-                <x-table.header-text sortIcon="none">Mobile</x-table.header-text>
+                <x-aaran-ui::table.header-text sortIcon="none">Mobile</x-aaran-ui::table.header-text>
 
-                <x-table.header-text sortIcon="none">Address</x-table.header-text>
+                <x-aaran-ui::table.header-text sortIcon="none">Address</x-aaran-ui::table.header-text>
 
 
-                <x-table.header-action/>
+                <x-aaran-ui::table.header-action/>
             </x-slot:table_header>
 
             <!-- Table Body ------------------------------------------------------------------------------------------->
@@ -39,188 +39,188 @@
             <x-slot:table_body name="table_body">
 
                 @foreach($list as $index=>$row)
-                    <x-table.row>
-                        <x-table.cell-text>{{$index+1}}</x-table.cell-text>
-                        <x-table.cell-text left>{{$row->vname}}</x-table.cell-text>
-                        <x-table.cell-text>{{$row->gstin}}</x-table.cell-text>
-                        <x-table.cell-text>{{$row->mobile}}</x-table.cell-text>
-                        <x-table.cell-text left>{{$row->address_1}}</x-table.cell-text>
-                        <x-table.cell-action id="{{$row->id}}"/>
-                    </x-table.row>
+                    <x-aaran-ui::table.row>
+                        <x-aaran-ui::table.cell-text>{{$index+1}}</x-aaran-ui::table.cell-text>
+                        <x-aaran-ui::table.cell-text left>{{$row->vname}}</x-aaran-ui::table.cell-text>
+                        <x-aaran-ui::table.cell-text>{{$row->gstin}}</x-aaran-ui::table.cell-text>
+                        <x-aaran-ui::table.cell-text>{{$row->mobile}}</x-aaran-ui::table.cell-text>
+                        <x-aaran-ui::table.cell-text left>{{$row->address_1}}</x-aaran-ui::table.cell-text>
+                        <x-aaran-ui::table.cell-action id="{{$row->id}}"/>
+                    </x-aaran-ui::table.row>
                 @endforeach
 
             </x-slot:table_body>
 
-        </x-table.form>
+        </x-aaran-ui::table.form>
 
-        <x-modal.delete/>
+        <x-aaran-ui::modal.delete/>
         <div class="">{{ $list->links() }}</div>
 
 
 
         <!-- Create --------------------------------------------------------------------------------------------------->
 
-        <x-forms.create :id="$common->vid" :max-width="'6xl'">
+        <x-aaran-ui::forms.create :id="$common->vid" :max-width="'6xl'">
             <div class="h-[38rem]">
                 <!-- Tab Header --------------------------------------------------------------------------------------->
-                <x-tabs.tab-panel>
+                <x-aaran-ui::tabs.tab-panel>
 
                     <x-slot name="tabs">
-                        <x-tabs.tab>Mandatory</x-tabs.tab>
-                        <x-tabs.tab>Address</x-tabs.tab>
-                        <x-tabs.tab>Logo</x-tabs.tab>
-                        <x-tabs.tab>Bank</x-tabs.tab>
-                        <x-tabs.tab>Detailing</x-tabs.tab>
+                        <x-aaran-ui::tabs.tab>Mandatory</x-aaran-ui::tabs.tab>
+                        <x-aaran-ui::tabs.tab>Address</x-aaran-ui::tabs.tab>
+                        <x-aaran-ui::tabs.tab>Logo</x-aaran-ui::tabs.tab>
+                        <x-aaran-ui::tabs.tab>Bank</x-aaran-ui::tabs.tab>
+                        <x-aaran-ui::tabs.tab>Detailing</x-aaran-ui::tabs.tab>
                     </x-slot>
 
                     <x-slot name="content">
 
                         <!-- Tab 1 ------------------------------------------------------------------------------------>
 
-                        <x-tabs.content>
+                        <x-aaran-ui::tabs.content>
                             <div class="flex flex-col gap-3" >
-                                <x-input.floating wire:model.live="common.vname" label="Name"/>
+                                <x-aaran-ui::input.floating wire:model.live="common.vname" label="Name"/>
                                 @error('common.vname')
                                 <span class="text-red-400">{{$message}}</span>
                                 @enderror
-                                <x-input.floating wire:model="display_name" label="Display-name"/>
-                                <x-input.floating wire:model="mobile" label="Mobile"/>
-                                <x-input.floating wire:model="landline" label="Landline"/>
-                                <x-input.floating wire:model.live="gstin" label="GSTin"/>
+                                <x-aaran-ui::input.floating wire:model="display_name" label="Display-name"/>
+                                <x-aaran-ui::input.floating wire:model="mobile" label="Mobile"/>
+                                <x-aaran-ui::input.floating wire:model="landline" label="Landline"/>
+                                <x-aaran-ui::input.floating wire:model.live="gstin" label="GSTin"/>
                                 @error('gstin')
                                 <span class="text-red-400">{{$message}}</span>
                                 @enderror
-                                <x-input.floating wire:model="pan" label="Pan"/>
-                                <x-input.floating wire:model="email" label="Email"/>
-                                <x-input.floating wire:model="website" label="Website"/>
+                                <x-aaran-ui::input.floating wire:model="pan" label="Pan"/>
+                                <x-aaran-ui::input.floating wire:model="email" label="Email"/>
+                                <x-aaran-ui::input.floating wire:model="website" label="Website"/>
                             </div>
-                        </x-tabs.content>
+                        </x-aaran-ui::tabs.content>
 
                         <!-- Tab 2 ------------------------------------------------------------------------------------>
 
-                        <x-tabs.content>
+                        <x-aaran-ui::tabs.content>
                             <div class="flex flex-col gap-3">
-                                <x-input.floating wire:model.live="address_1" label="Address" />
+                                <x-aaran-ui::input.floating wire:model.live="address_1" label="Address" />
                                 @error('address_1')
                                 <span class="text-red-400">{{$message}}</span>
                                 @enderror
-                                <x-input.floating wire:model.live="address_2" label="Area-Road" />
+                                <x-aaran-ui::input.floating wire:model.live="address_2" label="Area-Road" />
                                 @error('address_2')
                                 <span class="text-red-400">{{$message}}</span>
                                 @enderror
 
                                 <!-- City ----------------------------------------------------------------------------->
 
-                                <x-dropdown.wrapper label="City" type="cityTyped">
+                                <x-aaran-ui::dropdown.wrapper label="City" type="cityTyped">
                                     <div class="relative ">
-                                        <x-dropdown.input label="City" id="city_name"
+                                        <x-aaran-ui::dropdown.input label="City" id="city_name"
                                                           wire:model.live="city_name"
                                                           wire:keydown.arrow-up="decrementCity"
                                                           wire:keydown.arrow-down="incrementCity"
                                                           wire:keydown.enter="enterCity"/>
-                                        <x-dropdown.select>
+                                        <x-aaran-ui::dropdown.select>
                                             @if($cityCollection)
                                                 @forelse ($cityCollection as $i => $city)
-                                                    <x-dropdown.option highlight="{{$highlightCity === $i  }}"
+                                                    <x-aaran-ui::dropdown.option highlight="{{$highlightCity === $i  }}"
                                                                        wire:click.prevent="setCity('{{$city->vname}}','{{$city->id}}')">
                                                         {{ $city->vname }}
-                                                    </x-dropdown.option>
+                                                    </x-aaran-ui::dropdown.option>
                                                 @empty
-                                                    <x-dropdown.create  wire:click.prevent="citySave('{{$city_name}}')" label="City" />
+                                                    <x-aaran-ui::dropdown.create  wire:click.prevent="citySave('{{$city_name}}')" label="City" />
                                                 @endforelse
                                             @endif
-                                        </x-dropdown.select>
+                                        </x-aaran-ui::dropdown.select>
                                     </div>
-                                </x-dropdown.wrapper>
+                                </x-aaran-ui::dropdown.wrapper>
                                 @error('city_name')
                                 <span class="text-red-400">{{$message}}</span>
                                 @enderror
 
                                 <!-- State ---------------------------------------------------------------------------->
 
-                                <x-dropdown.wrapper label="State" type="stateTyped">
+                                <x-aaran-ui::dropdown.wrapper label="State" type="stateTyped">
                                     <div class="relative ">
-                                        <x-dropdown.input label="State" id="state_name"
+                                        <x-aaran-ui::dropdown.input label="State" id="state_name"
                                                           wire:model.live="state_name"
                                                           wire:keydown.arrow-up="decrementState"
                                                           wire:keydown.arrow-down="incrementState"
                                                           wire:keydown.enter="enterState"/>
-                                        <x-dropdown.select>
+                                        <x-aaran-ui::dropdown.select>
                                             @if($stateCollection)
                                                 @forelse ($stateCollection as $i => $states)
-                                                    <x-dropdown.option highlight="{{$highlightState === $i  }}"
+                                                    <x-aaran-ui::dropdown.option highlight="{{$highlightState === $i  }}"
                                                                        wire:click.prevent="setState('{{$states->vname}}','{{$states->id}}')">
                                                         {{ $states->vname }}
-                                                    </x-dropdown.option>
+                                                    </x-aaran-ui::dropdown.option>
                                                 @empty
-                                                    <x-dropdown.create wire:click.prevent="stateSave('{{ $state_name }}')" label="State" />
+                                                    <x-aaran-ui::dropdown.create wire:click.prevent="stateSave('{{ $state_name }}')" label="State" />
                                                 @endforelse
                                             @endif
-                                        </x-dropdown.select>
+                                        </x-aaran-ui::dropdown.select>
                                     </div>
-                                </x-dropdown.wrapper>
+                                </x-aaran-ui::dropdown.wrapper>
 
                                 @error('state_name')
                                 <span class="text-red-400">{{$message}}</span>
                                 @enderror
                                 <!-- Pin-code ------------------------------------------------------------------------->
 
-                                <x-dropdown.wrapper label="Pincode" type="pincodeTyped">
+                                <x-aaran-ui::dropdown.wrapper label="Pincode" type="pincodeTyped">
                                     <div class="relative ">
-                                        <x-dropdown.input label="Pincode" id="pincode_name"
+                                        <x-aaran-ui::dropdown.input label="Pincode" id="pincode_name"
                                                           wire:model.live="pincode_name"
                                                           wire:keydown.arrow-up="decrementPincode"
                                                           wire:keydown.arrow-down="incrementPincode"
                                                           wire:keydown.enter="enterPincode"/>
-                                        <x-dropdown.select>
+                                        <x-aaran-ui::dropdown.select>
                                             @if($pincodeCollection)
                                                 @forelse ($pincodeCollection as $i => $pincode)
-                                                    <x-dropdown.option highlight="{{$highlightPincode === $i  }}"
+                                                    <x-aaran-ui::dropdown.option highlight="{{$highlightPincode === $i  }}"
                                                                        wire:click.prevent="setPincode('{{$pincode->vname}}','{{$pincode->id}}')">
                                                         {{ $pincode->vname }}
-                                                    </x-dropdown.option>
+                                                    </x-aaran-ui::dropdown.option>
                                                 @empty
-                                                    <x-dropdown.create wire:click.prevent="pincodeSave('{{$pincode_name}}')" label="Pincode" />
+                                                    <x-aaran-ui::dropdown.create wire:click.prevent="pincodeSave('{{$pincode_name}}')" label="Pincode" />
                                                 @endforelse
                                             @endif
-                                        </x-dropdown.select>
+                                        </x-aaran-ui::dropdown.select>
                                     </div>
-                                </x-dropdown.wrapper>
+                                </x-aaran-ui::dropdown.wrapper>
                                 @error('pincode_name')
                                 <span class="text-red-400">{{$message}}</span>
                                 @enderror
 
                                 <!-- country ------------------------------------------------------------------------->
-                                <x-dropdown.wrapper label="Country" type="countryTyped">
+                                <x-aaran-ui::dropdown.wrapper label="Country" type="countryTyped">
                                     <div class="relative">
-                                        <x-dropdown.input label="Country" id="country_name"
+                                        <x-aaran-ui::dropdown.input label="Country" id="country_name"
                                                           wire:model.live="country_name"
                                                           wire:keydown.arrow-up="decrementCountry"
                                                           wire:keydown.arrow-down="incrementCountry"
                                                           wire:keydown.enter="enterCountry"/>
-                                        <x-dropdown.select>
+                                        <x-aaran-ui::dropdown.select>
                                             @if($countryCollection)
                                                 @forelse ($countryCollection as $i => $country)
-                                                    <x-dropdown.option highlight="{{$highlightCountry === $i}}"
+                                                    <x-aaran-ui::dropdown.option highlight="{{$highlightCountry === $i}}"
                                                                        wire:click.prevent="setCountry('{{$country->vname}}','{{$country->id}}')">
                                                         {{ $country->vname }}
-                                                    </x-dropdown.option>
+                                                    </x-aaran-ui::dropdown.option>
                                                 @empty
-                                                    <x-dropdown.create wire:click.prevent="countrySave('{{$country_name}}')" label="Country" />
+                                                    <x-aaran-ui::dropdown.create wire:click.prevent="countrySave('{{$country_name}}')" label="Country" />
                                                 @endforelse
                                             @endif
-                                        </x-dropdown.select>
+                                        </x-aaran-ui::dropdown.select>
                                     </div>
-                                </x-dropdown.wrapper>
+                                </x-aaran-ui::dropdown.wrapper>
                                 @error('country_name')
                                 <span class="text-red-400">{{$message}}</span>
                                 @enderror
                             </div>
-                        </x-tabs.content>
+                        </x-aaran-ui::tabs.content>
 
                         <!-- Tab 3 ------------------------------------------------------------------------------------>
 
-                        <x-tabs.content>
+                        <x-aaran-ui::tabs.content>
                             <div class="flex flex-col py-2">
                                 <label for="bg_image"
                                        class="w-full text-zinc-500 tracking-wide pb-4 px-2">Company Logo</label>
@@ -243,7 +243,7 @@
                                                      src="{{URL(\Illuminate\Support\Facades\Storage::url('images/'.$old_logo))}}"
                                                      alt="">
                                             @else
-                                                <x-icons.icon :icon="'logo'" class="w-auto h-auto block "/>
+                                                <x-aaran-ui::icons.icon :icon="'logo'" class="w-auto h-auto block "/>
                                             @endif
                                         </div>
                                     </div>
@@ -254,7 +254,7 @@
                                                    class="text-gray-500 font-semibold text-base rounded flex flex-col items-center
                                    justify-center cursor-pointer border-2 border-gray-300 border-dashed p-2
                                    mx-auto font-[sans-serif]">
-                                                <x-icons.icon icon="cloud-upload" class="w-8 h-auto block text-gray-400"/>
+                                                <x-aaran-ui::icons.icon icon="cloud-upload" class="w-8 h-auto block text-gray-400"/>
                                                 Upload Photo
                                                 <input type="file" id='bg_image' wire:model="logo" class="hidden"/>
                                                 <p class="text-xs font-light text-gray-400 mt-2">PNG and JPG are
@@ -271,64 +271,64 @@
                                 </div>
                             </div>
 
-                        </x-tabs.content>
+                        </x-aaran-ui::tabs.content>
 
                         <!-- Tab 4 ------------------------------------------------------------------------------------>
 
-                        <x-tabs.content>
+                        <x-aaran-ui::tabs.content>
                             <div class="flex flex-col gap-3">
 
                                 <!-- Bank Details --------------------------------------------------------------------->
 
-                                <x-input.floating wire:model="acc_no" label="Account No" />
-                                <x-input.floating wire:model="ifsc_code" label="IFSC Code" />
-                                <x-input.floating wire:model="bank" label="Bank" />
-                                <x-input.floating wire:model="branch" label="Branch" />
-                                <x-input.floating wire:model.live="inv_pfx" label="Invoice Prefix"/>
-                                <x-input.floating wire:model.live="iec_no" label="IEC No"/>
+                                <x-aaran-ui::input.floating wire:model="acc_no" label="Account No" />
+                                <x-aaran-ui::input.floating wire:model="ifsc_code" label="IFSC Code" />
+                                <x-aaran-ui::input.floating wire:model="bank" label="Bank" />
+                                <x-aaran-ui::input.floating wire:model="branch" label="Branch" />
+                                <x-aaran-ui::input.floating wire:model.live="inv_pfx" label="Invoice Prefix"/>
+                                <x-aaran-ui::input.floating wire:model.live="iec_no" label="IEC No"/>
                             </div>
-                        </x-tabs.content>
+                        </x-aaran-ui::tabs.content>
 
                         <!-- Tab 5 ------------------------------------------------------------------------------------>
 
-                        <x-tabs.content>
+                        <x-aaran-ui::tabs.content>
 
                             <div class="flex flex-col gap-3">
-                                <x-input.floating wire:model="msme_no" label="MSME No" />
+                                <x-aaran-ui::input.floating wire:model="msme_no" label="MSME No" />
 
-                                <x-dropdown.wrapper label="MSME Type" type="MsmeTypeTyped">
+                                <x-aaran-ui::dropdown.wrapper label="MSME Type" type="MsmeTypeTyped">
                                     <div class="relative ">
-                                        <x-dropdown.input label="MSME Type" id="msme_type_name"
+                                        <x-aaran-ui::dropdown.input label="MSME Type" id="msme_type_name"
                                                           wire:model.live="msme_type_name"
                                                           wire:keydown.arrow-up="decrementMsmeType"
                                                           wire:keydown.arrow-down="incrementMsmeType"
                                                           wire:keydown.enter="enterMsmeType"/>
-                                        <x-dropdown.select>
+                                        <x-aaran-ui::dropdown.select>
                                             @if($msmeTypeCollection)
                                                 @forelse ($msmeTypeCollection as $i => $msmeType)
-                                                    <x-dropdown.option highlight="{{$highlightMsmeType === $i  }}"
+                                                    <x-aaran-ui::dropdown.option highlight="{{$highlightMsmeType === $i  }}"
                                                                        wire:click.prevent="setMsmeType('{{$msmeType->vname}}','{{$msmeType->id}}')">
                                                         {{ $msmeType->vname }}
-                                                    </x-dropdown.option>
+                                                    </x-aaran-ui::dropdown.option>
                                                 @empty
-                                                    <x-dropdown.create wire:click.prevent="msmeTypeSave('{{$msme_type_name}}')"
+                                                    <x-aaran-ui::dropdown.create wire:click.prevent="msmeTypeSave('{{$msme_type_name}}')"
                                                                        label="Msme Type"/>
                                                 @endforelse
                                             @endif
-                                        </x-dropdown.select>
+                                        </x-aaran-ui::dropdown.select>
                                     </div>
-                                </x-dropdown.wrapper>
+                                </x-aaran-ui::dropdown.wrapper>
 
 {{--                                <x-input.floating wire:model="msme_type" label="MSME Type" />--}}
                             </div>
-                        </x-tabs.content>
+                        </x-aaran-ui::tabs.content>
                     </x-slot>
-                </x-tabs.tab-panel>
+                </x-aaran-ui::tabs.tab-panel>
             </div>
-        </x-forms.create>
+        </x-aaran-ui::forms.create>
 
         <!-- Actions ------------------------------------------------------------------------------------------->
 
-    </x-forms.m-panel>
+    </x-aaran-ui::forms.m-panel>
 
 </div>

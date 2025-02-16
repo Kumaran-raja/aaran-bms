@@ -6,16 +6,16 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     Route::get('/companies', Aaran\Master\Livewire\Company\Index::class)->name('companies');
-//
-    Route::get('/contacts', Aaran\Master\Livewire\Contact\Index::class)->name('contacts');
+    Route::get('/companies/{id}/upsert', Aaran\Master\Livewire\Company\Upsert::class)->name('companies.upsert');
 
+    Route::get('/contacts', Aaran\Master\Livewire\Contact\Index::class)->name('contacts');
     Route::get('/contacts/{id}/upsert', Aaran\Master\Livewire\Contact\Upsert::class)->name('contacts.upsert');
-//
-//    Route::get('/products', App\Livewire\Master\Product\Index::class)->name('products');
-//
-//    Route::get('/orders', App\Livewire\Master\Orders\Index::class)->name('orders');
-//
-//    Route::get('/styles', App\Livewire\Master\Style\Index::class)->name('styles');
+
+    Route::get('/products', Aaran\Master\Livewire\Product\Index::class)->name('products');
+
+    Route::get('/orders', Aaran\Master\Livewire\Orders\Index::class)->name('orders');
+
+    Route::get('/styles', Aaran\Master\Livewire\Style\Index::class)->name('styles');
 
 
 });

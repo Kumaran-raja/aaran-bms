@@ -1,13 +1,15 @@
 <?php
 
-namespace App\Livewire\Master\Product;
+namespace Aaran\Master\Livewire\Product;
 
 use Aaran\Assets\Enums\ProductType;
-use Aaran\Common\Models\Common;
-use Aaran\Logbook\Models\Logbook;
+use Aaran\Assets\Trait\CommonTraitNew;
+use Aaran\Common\Models\GstPercent;
+use Aaran\Common\Models\Hsncode;
+use Aaran\Common\Models\Unit;
 use Aaran\Master\Models\Product;
-use App\Livewire\Trait\CommonTraitNew;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 
@@ -56,42 +58,40 @@ class Index extends Component
     #region[Get-Save]
     public function getSave(): void
     {
-        if ($this->common->vname != '') {
-            if ($this->common->vid == '') {
-                $this->validate($this->rules());
-                $this->common->vname = preg_replace('/[^A-Za-z0-9\-]/', '', $this->common->vname);
-                $Product = new Product();
-                $extraFields = [
-                    'producttype_id' => $this->producttype_id ?: ProductType::GOODS,
-                    'hsncode_id' => $this->hsncode_id ?: '62',
-                    'unit_id' => $this->unit_id ?: '97',
-                    'gstpercent_id' => $this->gstpercent_id ?: '99',
-                    'initial_quantity' => $this->quantity ?: '0',
-                    'initial_price' => $this->price ?: '0',
-                    'user_id' => auth()->id(),
-                    'company_id' => session()->get('company_id'),
-                ];
-                $this->common->save($Product, $extraFields);
-                $this->common->logEntry('Product','Product','create',$this->common->vname.' has been created');
-                $message = "Saved";
-            } else {
-                $Product = Product::find($this->common->vid);
-                $extraFields = [
-                    'producttype_id' => $this->producttype_id,
-                    'hsncode_id' => $this->hsncode_id,
-                    'unit_id' => $this->unit_id,
-                    'gstpercent_id' => $this->gstpercent_id,
-                    'initial_quantity' => $this->quantity,
-                    'initial_price' => $this->price,
-                    'user_id' => auth()->id(),
-                    'company_id' => session()->get('company_id'),
-                ];
-                $this->common->edit($Product, $extraFields);
-                $this->common->logEntry('Product','Product','update',$this->common->vname.' has been updated');
-                $message = "Updated";
-            }
-            $this->dispatch('notify', ...['type' => 'success', 'content' => $message . ' Successfully']);
+        if (empty($this->common->vname)) {
+            return;
         }
+
+        $this->common->vname = preg_replace('/[^A-Za-z0-9\-]/', '', $this->common->vname);
+
+        $extraFields = [
+            'producttype_id'  => $this->producttype_id ?: ProductType::GOODS,
+            'hsncode_id'      => $this->hsncode_id ?: Hsncode::value('id'),
+            'unit_id'         => $this->unit_id ?: Unit::value('id'),
+            'gstpercent_id'   => $this->gstpercent_id ?: GstPercent::value('id'),
+            'initial_quantity'=> $this->quantity ?: '0',
+            'initial_price'   => $this->price ?: '0',
+            'user_id'         => auth()->id(),
+            'company_id'      => session()->get('company_id') ?? 1, // Ensure default value
+        ];
+
+        if (empty($this->common->vid)) {
+            $this->validate($this->rules());
+            $product = new Product();
+            $this->common->save($product, $extraFields);
+            $message = 'Saved';
+        } else {
+            $product = Product::find($this->common->vid);
+            if ($product) {
+                $this->common->edit($product, $extraFields);
+                $message = 'Updated';
+            } else {
+                $this->dispatch('notify', ...['type' => 'error', 'content' => 'Product not found!']);
+                return;
+            }
+        }
+        $message = "Saved";
+        $this->dispatch('notify', ...['type' => 'success', 'content' => "$message Successfully"]);
     }
     #endregion
 
@@ -149,8 +149,7 @@ class Index extends Component
 
     public function hsncodeSave($name)
     {
-        $obj = Common::create([
-            'label_id' => 6,
+        $obj = Hsncode::create([
             'vname' => $name,
             'active_id' => '1'
         ]);
@@ -161,8 +160,8 @@ class Index extends Component
     public function getHsncodeList(): void
     {
         $this->hsncodeCollection = $this->hsncode_name ?
-            Common::search(trim($this->hsncode_name))->where('label_id', '=', '6')->get() :
-            Common::where('label_id', '=', '6')->get();
+            HsnCode::where('vname', 'like', '%' . trim($this->hsncode_name) . '%')->get() :
+            HsnCode::all();
     }
 #endregion
 
@@ -206,7 +205,7 @@ class Index extends Component
         $this->producttypeCollection = Collection::empty();
         $this->highlightProductType = 0;
 
-        $this->producttype_name = $obj['vname'] ?? '';
+        $this->producttype_name = $obj['name'] ?? '';
         $this->producttype_id = $obj['id'] ?? '';
     }
 
@@ -217,23 +216,11 @@ class Index extends Component
         $this->producttypeTyped = false;
     }
 
-    public function productTypeSave($name)
-    {
-        $obj = Common::create([
-            'label_id' => '15',
-            'vname' => $name,
-            'active_id' => '1'
-        ]);
-        $v = ['name' => $name, 'id' => $obj->id];
-        $this->refreshProductType($v);
-    }
-
     public function getProductTypeList(): void
     {
-        $this->producttypeCollection = $this->producttype_name ?
-            Common::search(trim($this->producttype_name))->where('label_id', '=', '15')->get() :
-            Common::where('label_id', '=', '15')->get();
+        $this->producttypeCollection = collect(ProductType::getList());
     }
+#endregion
 #endregion
 
     #region[unit]
@@ -284,28 +271,27 @@ class Index extends Component
     public function refreshUnit($v): void
     {
         $this->unit_id = $v['id'];
-        $this->unit_name = $v['name'];
+        $this->unit_name = $v['vname'];
         $this->unitTyped = false;
     }
 
     public function unitSave($name)
     {
-        $obj = Common::create([
-            'label_id' => '16',
+        $obj = Unit::create([
             'vname' => $name,
             'active_id' => '1'
         ]);
-        $v = ['name' => $name, 'id' => $obj->id];
+        $v = ['vname' => $name, 'id' => $obj->id];
         $this->refreshUnit($v);
     }
 
     public function getUnitList(): void
     {
         $this->unitCollection = $this->unit_name ?
-            Common::search(trim($this->unit_name))->where('label_id', '=', '16')->get() :
-            Common::where('label_id', '=', '16')->get();
+            Unit::where('vname', 'like', '%' . trim($this->unit_name) . '%')->get() :
+            Unit::all();
     }
-#endregion
+    #endregion
 
     #region[gstpercent]
     #[validate]
@@ -361,20 +347,20 @@ class Index extends Component
 
     public function gstPercentSave($name)
     {
-        $obj = Common::create([
-            'label_id' => '17',
+        $obj = GstPercent::create([
             'vname' => $name,
+            'desc' => null,
             'active_id' => '1'
         ]);
         $v = ['name' => $name, 'id' => $obj->id];
         $this->refreshGstPercent($v);
     }
 
-    public function getGstPercentList(): void
+    public function getGstpercentList(): void
     {
         $this->gstpercentCollection = $this->gstpercent_name ?
-            Common::search(trim($this->gstpercent_name))->where('label_id', '=', '17')->get() :
-            Common::where('label_id', '=', '17')->get();
+            GstPercent::where('vname', 'like', '%' . trim($this->gstpercent_name) . '%')->get() :
+            GstPercent::all();
     }
 #endregion
 
@@ -387,17 +373,20 @@ class Index extends Component
             $this->common->vname = $Product->vname;
             $this->common->active_id = $Product->active_id;
             $this->hsncode_id = $Product->hsncode_id;
-            $this->hsncode_name = $Product->hsncode_id ? Common::find($Product->hsncode_id)->vname : '';
+            $this->hsncode_name = $Product->hsncode_id ? Hsncode::find($Product->hsncode_id)->vname : '';
             $this->producttype_id = $Product->producttype_id;
-            $this->producttype_name = $Product->producttype_id ? Common::find($Product->producttype_id)->vname : '';
+            $this->producttype_name = $Product->producttype_id->name ?? 'Unknown';
             $this->unit_id = $Product->unit_id;
-            $this->unit_name = $Product->unit_id ? Common::find($Product->unit_id)->vname : '';
+            $this->unit_name = $Product->unit_id ? Unit::find($Product->unit_id)->vname : '';
             $this->gstpercent_id = $Product->gstpercent_id;
-            $this->gstpercent_name = $Product->gstpercent_id ? Common::find($Product->gstpercent_id)->vname : '';
+            $this->gstpercent_name = $Product->gstpercent_id ? GstPercent::find($Product->gstpercent_id)->vname : '';
             $this->quantity = $Product->initial_quantity;
             $this->price = $Product->initial_price;
             return $Product;
         }
+        $message = "Updated";
+        $this->dispatch('notify', ...['type' => 'success', 'content' => $message . ' Successfully']);
+
         return null;
     }
     #endregion
@@ -431,32 +420,51 @@ class Index extends Component
     {
         return Product::select(
             'products.*',
-            'producttype.vname as producttype_name',
-            'unit.vname as unit_name',
-            'hsncode.vname as hsncode_name',
-            'gstpercent.vname as gstpercent_name',
+            DB::raw("CASE products.producttype_id
+                WHEN 1 THEN 'Goods'
+                WHEN 2 THEN 'Services'
+                ELSE 'Unknown'
+             END as producttype_name"),
+            'units.vname as unit_name',
+            'hsncodes.vname as hsncode_name',
+            'gst_percents.vname as gstpercent_name'
         )
-            ->where('products.company_id', session()->get('company_id'))
-            ->where('products.active_id', $this->getListForm->activeRecord)
-            ->join('commons as producttype', 'producttype.id', '=', 'products.producttype_id')
-            ->join('commons as unit', 'unit.id', '=', 'products.unit_id')
-            ->join('commons as hsncode', 'hsncode.id', '=', 'products.hsncode_id')
-            ->join('commons as gstpercent', 'gstpercent.id', '=', 'products.gstpercent_id')
-            ->orderBy('products.id', $this->getListForm->sortAsc ? 'asc' : 'desc')
+            ->leftJoin('units', 'units.id', '=', 'products.unit_id')
+            ->leftJoin('hsncodes', 'hsncodes.id', '=', 'products.hsncode_id')
+            ->leftJoin('gst_percents', 'gst_percents.id', '=', 'products.gstpercent_id')
+            ->whereNotNull('products.company_id') // Prevent null filter issues
+            ->whereNotNull('products.active_id') // Ensure active records are fetched
+            ->orderBy('products.id', 'desc')
             ->paginate($this->getListForm->perPage);
     }
 
+    #region[Delete]
+    public function deleteFunction($id): void
+    {
+        if ($id) {
+            $obj = Product::find($id);
+            if ($obj) {
+                $obj->delete();
+                $message = "Deleted Successfully";
+                $this->dispatch('notify', ...['type' => 'success', 'content' => $message]);
+            }
+        }
+    }
+    #endregion
+
     public function render()
     {
+        $list = $this->getList();
+
         $this->getHsncodeList();
         $this->getProductTypeList();
         $this->getUnitList();
         $this->getGstPercentList();
-        $this->log = Logbook::where('model_name','Product')->take(5)->get();
+//        $this->log = Logbook::where('model_name','Product')->take(5)->get();
 
-        return view('livewire.master.product.index')->with([
-            'list' => $this->getList()
-        ]);
+        return view('master::Product.index')
+            ->with([
+            'list' => $list ]);
     }
     #endregion
 }
