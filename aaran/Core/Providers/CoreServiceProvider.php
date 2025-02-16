@@ -2,8 +2,6 @@
 
 namespace Aaran\Core\Providers;
 
-use Aaran\Core\Listeners\SetTenantIdInSession;
-use Illuminate\Auth\Events\Login;
 use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
 use Aaran\Core\Livewire\Role;
