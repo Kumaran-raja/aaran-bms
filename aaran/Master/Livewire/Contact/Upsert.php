@@ -269,19 +269,13 @@ class Upsert extends Component
         $this->highlightState++;
     }
 
-    public function setState($stateId, $index): void
+    public function setState($vname, $id, $index): void
     {
-        $state = State::find($stateId);
-
-        if ($state) {
-            $this->state_name = $state->vname;
-            $this->state_id = $state->id;
-
-            Arr::set($this->itemList[$index], 'state_name', $state->vname);
-            Arr::set($this->itemList[$index], 'state_id', $state->id);
-
-            $this->getStateList();
-        }
+        $this->state_name = $vname;
+        $this->state_id = $id;
+        Arr::set($this->itemList[$index], 'state_name', $vname);
+        Arr::set($this->itemList[$index], 'state_id', $id);
+        $this->getStateList();
     }
 
     public function enterState($index): void
@@ -311,20 +305,14 @@ class Upsert extends Component
     }
 
 
-    public function stateSave($vname, $index): void
+    public function stateSave($vname, $index)
     {
-        $state = State::create([
+        $obj = State::create([
             'vname' => $vname,
-            'active_id' => 1,
+            'active_id' => 1
         ]);
-
-        $data = [
-            'vname' => $state->vname,
-            'id' => $state->id,
-            'index' => $index
-        ];
-
-        $this->refreshState($data);
+        $v = ['vname' => $vname, 'id' => $obj->id,'index' => $index];
+        $this->refreshState($v);
     }
 
 
@@ -469,23 +457,22 @@ class Upsert extends Component
     }
 
     #[On('refresh-country')]
-    public function refreshCountry($v, $index): void
+    public function refreshCountry($v): void
     {
         $this->country_id = $v['id'];
         $this->country_name = $v['vname'];
-        Arr::set($this->itemList[$index], 'country_name', $v['vname']);
-        Arr::set($this->itemList[$index], 'country_id', $v['id']);
+        Arr::set($this->itemList[$v['index']], 'country_name', $v['vname']);
+        Arr::set($this->itemList[$v['index']], 'country_id', $v['id']);
         $this->countryTyped = false;
     }
 
-    public function countrySave($name, $index): void
+    public function countrySave($vname, $index)
     {
         $obj = Country::create([
-            'vname' => $name, // Ensure 'vname' is used consistently
-            'active_id' => 1,
+            'vname' => $vname,
+            'active_id' => 1
         ]);
-
-        $v = ['vname' => $obj->vname, 'id' => $obj->id, 'index' => $index]; // Use 'vname' here
+        $v = ['vname' => $vname, 'id' => $obj->id,'index' => $index];
         $this->refreshCountry($v);
     }
 
@@ -601,7 +588,7 @@ class Upsert extends Component
     public function setMsmeType($id): void
     {
         $id = (int) $id; // Convert to integer before passing it
-        $msmeType = MsmeType::tryFrom((int) $id);
+        $msmeType = MsmeType::tryFrom($id);
 
         if ($msmeType) {
             $this->msme_type_id = $msmeType->value;

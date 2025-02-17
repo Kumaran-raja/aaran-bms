@@ -380,10 +380,9 @@ class Index extends Component
     #endregion
 
     #region[MSME Type]
-
     public $msme_type_id = '';
     public $msme_type_name = '';
-    public Collection $msmeTypeCollection;
+    public array $msmeTypeCollection = [];
     public $highlightMsmeType = 0;
     public $msmeTypeTyped = false;
 
@@ -405,51 +404,47 @@ class Index extends Component
         $this->highlightMsmeType++;
     }
 
-    public function setMsmeType($name, $id): void
+    public function setMsmeType($id): void
     {
-        $this->msme_type_name = $name;
-        $this->msme_type_id = $id;
-        $this->getMsmeTypeList();
+        $id = (int) $id; // Convert to integer before passing it
+//        $msmeType = MsmeType::tryFrom((int) $id);
+        $msmeType = MsmeType::tryFrom($id);
+
+
+        if ($msmeType) {
+            $this->msme_type_id = $msmeType->value;
+            $this->msme_type_name = $msmeType->getName();
+        }
     }
+
 
     public function enterMsmeType(): void
     {
         $obj = $this->msmeTypeCollection[$this->highlightMsmeType] ?? null;
-
-        $this->msme_type_name = '';
-        $this->msmeTypeCollection = Collection::empty();
+        $this->msmeTypeCollection = [];
         $this->highlightMsmeType = 0;
 
-        $this->msme_type_name = $obj['vname'] ?? '';
-        $this->msme_type_id = $obj['id'] ?? '';
+        if ($obj) {
+            $this->setMsmeType($obj['id']);
+        }
     }
 
     #[On('refresh-msme-type')]
     public function refreshMsmeType($v): void
     {
-        $this->msme_type_id = $v['id'];
-        $this->msme_type_name = $v['name'];
+        $this->setMsmeType($v['id']);
         $this->msmeTypeTyped = false;
-    }
-
-    public function msmeTypeSave($name)
-    {
-        $obj = MsmeType::create([
-            'label_id' => 23,
-            'vname' => $name,
-            'active_id' => '1'
-        ]);
-
-        $v = ['name' => $name, 'id' => $obj->id];
-        $this->refreshMsmeType($v);
     }
 
     public function getMsmeTypeList(): void
     {
-//        $this->msmeTypeCollection =  MsmeType::cases()->get();
-
+        $this->msmeTypeCollection = collect(MsmeType::cases())->map(fn ($type) => [
+            'id' => $type->value,
+            'vname' => $type->getName(),
+        ])->toArray();
     }
-    #endregion
+
+#endregion
 
     #region[save]
     public function getSave(): void
@@ -600,7 +595,7 @@ class Index extends Component
             $this->gstin = $obj->gstin;
             $this->msme_no = $obj->msme_no;
             $this->msme_type_id = $obj->msme_type_id;
-//            $this->msme_type_name = MsmeType::find($obj->msme_type_id)->vname;
+            $this->msme_type_name = MsmeType::tryFrom($obj->msme_type_id)->getName();
             $this->pan = $obj->pan;
             $this->email = $obj->email;
             $this->website = $obj->website;
@@ -638,6 +633,20 @@ class Index extends Component
     {
         $this->tenants = Tenant::all();
 
+    }
+    #endregion
+
+    #region[delete]
+    public function deleteFunction($id): void
+    {
+        if ($id) {
+            $obj = Company::find($id);
+            if ($obj) {
+                $obj->delete();
+                $message = "Deleted Successfully";
+                $this->dispatch('notify', ...['type' => 'success', 'content' => $message]);
+            }
+        }
     }
     #endregion
 
