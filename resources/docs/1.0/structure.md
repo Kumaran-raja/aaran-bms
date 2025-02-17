@@ -9,6 +9,7 @@
 ## Default Design
 
 ```code
+└── Laravel
     ├── app
     ├── bootstrap
     ├── config
@@ -42,8 +43,6 @@ The default Laravel directory structure is as follows:
         The modular design of Aaran BMS is based on the Laravel framework, 
         which is a popular PHP framework for building web applications.
 
-        `aaran`: Contains the root directory of the BMS.
-
 ```code
     └── aaran
         └── Blog
@@ -55,18 +54,18 @@ The default Laravel directory structure is as follows:
 ```
 
 
-The directory named `aaran` is the root of a nested directory structure. 
-The structure under `aaran` includes various subdirectories and files.
+&nbsp;&nbsp;&nbsp;The directory named `aaran` is the root of a nested directory structure.</br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The structure under `aaran` includes various subdirectories and files.
 
-- `aaran`: Root directory.
-    - `Blog`: Subdirectory under `aaran`.
-        - `Database`: Contains database-related files such as migrations and seeders.
-        - `Livewire`: Contains classes and Blade views.
+- `aaran`: Root directory of the BMS.
+    - `Blog`: Subdirectory under `aaran` act as Modular Folder.
+        - `Database`: Contains database-related files such as migrations, Factory and seeders.
+        - `Livewire`: Contains class and Blade views.
         - `Models`: Contains models.
         - `Providers`: Contains service providers.
         - `Tests`: Contains test files.
       
-    - `Blog`: Files under `aaran`.
+    - Files under `aaran`.
         - `api`: Contains API routes.
         - `Config`: Contains configuration files.
         - `routes`: Contains route files.
