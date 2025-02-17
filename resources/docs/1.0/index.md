@@ -1,3 +1,4 @@
 - ## Get Started
     - [Overview](/{{route}}/{{version}}/overview)
     - [Directory structure](/{{route}}/{{version}}/structure)
+    - [Aaran Command](/{{route}}/{{version}}/make)
