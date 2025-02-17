@@ -16,7 +16,7 @@ class S202_ContactSeeder extends Seeder
             'company_id'=>'1',
             'user_id'=>'1',
             'active_id'=>'1',
-            'contact_type_id'=>'124',
+            'contact_type_id'=>'1',
             'whatsapp'=>'0123456789',
             'mobile'=>'0123456789',
             'contact_person'=>'123',
@@ -29,10 +29,10 @@ class S202_ContactSeeder extends Seeder
             'contact_id'=>'1',
             'address_1'=>'7th block',
             'address_2'=>'kuvempu layout',
-            'city_id'=>'128',
-            'state_id'=>'47',
-            'country_id'=>'60',
-            'pincode_id'=>'129',
+            'city_id'=>'2',
+            'state_id'=>'2',
+            'country_id'=>'2',
+            'pincode_id'=>'2',
         ]);
     }
 }
