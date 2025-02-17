@@ -28,7 +28,7 @@ shadow-md print:hidden">
         </div>
         <div class="w-5/12 flex sm:flex-row flex-col sm:justify-end justify-evenly items-center space-y-1">
             <div class="flex max-w-max justify-center items-center">
-{{-- TODO:              <livewire:default-company.index/>--}}
+                <livewire:DefaultCompany::SwitchDefaultCompany/>
             </div>
 
             {{-- login menu--}}
@@ -87,7 +87,7 @@ shadow-md print:hidden">
                                 @csrf
 
                                 <x-dropdown-link href="{{ route('logout') }}"
-                                                     onclick="event.preventDefault();
+                                                 onclick="event.preventDefault();
                                                 this.closest('form').submit();">
                                     {{ __('Log Out') }}
                                 </x-dropdown-link>

@@ -36,6 +36,9 @@ class CoreServiceProvider extends ServiceProvider
         Livewire::component('versions::index', Versions\Index::class);
         Livewire::component('DefaultCompany::Index', DefaultCompany\Index::class);
 
+        Livewire::component('DefaultCompany::SwitchDefaultCompany', DefaultCompany\SwitchDefaultCompany::class);
+        Livewire::component('DefaultCompany::SwitchAcyear', DefaultCompany\SwitchAcyear::class);
+
 
     }
 
