@@ -1,2 +1,3 @@
 - ## Get Started
     - [Overview](/{{route}}/{{version}}/overview)
+    - [Directory structure](/{{route}}/{{version}}/structure)
