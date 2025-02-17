@@ -2,6 +2,7 @@
     <x-slot name="header">Company</x-slot>
 
     <x-aaran-ui::forms.m-panel>
+        <x-aaran-ui::alerts.notification />
 
         <!-- Top Controls --------------------------------------------------------------------------------------------->
 
@@ -303,23 +304,23 @@
                                                           wire:keydown.arrow-up="decrementMsmeType"
                                                           wire:keydown.arrow-down="incrementMsmeType"
                                                           wire:keydown.enter="enterMsmeType"/>
-                                        <x-aaran-ui::dropdown.select>
+
+                                        <x-aaran-ui::dropdown.select wire:model="msme_type_id">
                                             @if($msmeTypeCollection)
-                                                @forelse ($msmeTypeCollection as $i => $msmeType)
-                                                    <x-aaran-ui::dropdown.option highlight="{{$highlightMsmeType === $i  }}"
-                                                                       wire:click.prevent="setMsmeType('{{$msmeType->vname}}','{{$msmeType->id}}')">
-                                                        {{ $msmeType->vname }}
+                                                @foreach ($msmeTypeCollection as $msmeType)
+                                                    <x-aaran-ui::dropdown.option
+                                                        :highlight="$highlightMsmeType === $loop->index"
+                                                        wire:click.prevent="setMsmeType('{{ $msmeType['id'] }}')">
+                                                        {{ $msmeType['vname'] }}
                                                     </x-aaran-ui::dropdown.option>
-                                                @empty
-                                                    <x-aaran-ui::dropdown.create wire:click.prevent="msmeTypeSave('{{$msme_type_name}}')"
-                                                                       label="Msme Type"/>
-                                                @endforelse
+                                                @endforeach
                                             @endif
                                         </x-aaran-ui::dropdown.select>
+
                                     </div>
                                 </x-aaran-ui::dropdown.wrapper>
 
-{{--                                <x-input.floating wire:model="msme_type" label="MSME Type" />--}}
+{{--                                <x-aaran-ui::input.floating wire:model="msme_type" label="MSME Type" />--}}
                             </div>
                         </x-aaran-ui::tabs.content>
                     </x-slot>
