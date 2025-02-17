@@ -1,11 +1,15 @@
 <?php
 
-namespace App\Livewire\Entries\Sales;
+namespace Aaran\Entries\Livewire\Sales;
 
-use Aaran\Common\Models\Common;
+
+use Aaran\Assets\LivewireForms\MasterGstApi;
+use Aaran\Common\Models\Colour;
+use Aaran\Common\Models\Despatch;
+use Aaran\Common\Models\Size;
+use Aaran\Common\Models\Transport;
 use Aaran\Entries\Models\Sale;
 use Aaran\Entries\Models\Saleitem;
-use Aaran\Logbook\Models\Logbook;
 use Aaran\Master\Models\Contact;
 use Aaran\Master\Models\ContactDetail;
 use Aaran\Master\Models\Order;
@@ -14,8 +18,6 @@ use Aaran\Master\Models\Style;
 use Aaran\MasterGst\Models\MasterGstEway;
 use Aaran\MasterGst\Models\MasterGstIrn;
 use Aaran\MasterGst\Models\MasterGstToken;
-use App\Livewire\Forms\MasterGstApi;
-use App\Livewire\Trait\CommonTraitNew;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Database\Eloquent\Collection;
@@ -27,7 +29,6 @@ use Livewire\Component;
 
 class Upsert extends Component
 {
-    use CommonTraitNew;
 
     #region[E-invoice properties]
     public MasterGstApi $masterGstApi;
@@ -493,6 +494,7 @@ class Upsert extends Component
         $this->transport_id = $obj['id'] ?? '';
     }
 
+    #[On('refresh-transport')]
     public function refreshTransport($v): void
     {
         $this->transport_id = $v['id'];
@@ -504,8 +506,7 @@ class Upsert extends Component
     public function transportSave($name)
     {
         if ($name) {
-            $obj = Common::create([
-                'label_id' => '11',
+            $obj = Transport::create([
                 'vname' => $name,
                 'active_id' => '1',
             ]);
@@ -516,9 +517,9 @@ class Upsert extends Component
 
     public function getTransportList(): void
     {
-        $this->transportCollection = $this->transport_name ? Common::search(trim($this->transport_name))->where('label_id',
-            '=', 11)
-            ->get() : Common::where('label_id', '=', 11)->Orwhere('id', '=', '1')->get();
+        $this->transportCollection = $this->transport_name ?
+            Transport::search(trim($this->transport_name))->get() :
+            Transport::all();
     }
 
     #endregion
@@ -568,6 +569,7 @@ class Upsert extends Component
         $this->despatch_id = $obj['id'] ?? '';
     }
 
+    #[On('refresh-despatch')]
     public function refreshDespatch($v): void
     {
         $this->despatch_id = $v['id'];
@@ -579,8 +581,7 @@ class Upsert extends Component
     public function despatchSave($name)
     {
         if ($name) {
-            $obj = Common::create([
-                'label_id' => '12',
+            $obj = Despatch::create([
                 'vname' => $name,
                 'active_id' => '1',
             ]);
@@ -591,87 +592,87 @@ class Upsert extends Component
 
     public function getDespatchList(): void
     {
-        $this->despatchCollection = $this->despatch_name ? Common::search(trim($this->despatch_name))->where('label_id',
-            '=', 12)
-            ->get() : Common::where('label_id', '=', 12)->get();
+        $this->despatchCollection = $this->despatch_name ?
+            Despatch::search(trim($this->despatch_name))->get() :
+            Despatch::all();
     }
 
     #endregion
 
-    #region[Ledger]
-
-    public $ledger_id = '';
-    public $ledger_name = '';
-    public Collection $ledgerCollection;
-    public $highlightLedger = 0;
-    public $ledgerTyped = false;
-
-    public function decrementLedger(): void
-    {
-        if ($this->highlightLedger === 0) {
-            $this->highlightLedger = count($this->ledgerCollection) - 1;
-            return;
-        }
-        $this->highlightLedger--;
-    }
-
-    public function incrementLedger(): void
-    {
-        if ($this->highlightLedger === count($this->ledgerCollection) - 1) {
-            $this->highlightLedger = 0;
-            return;
-        }
-        $this->highlightLedger++;
-    }
-
-    public function setLedger($name, $id): void
-    {
-        $this->ledger_name = $name;
-        $this->ledger_id = $id;
-        $this->getLedgerList();
-    }
-
-    public function enterLedger(): void
-    {
-        $obj = $this->ledgerCollection[$this->highlightLedger] ?? null;
-
-        $this->ledger_name = '';
-        $this->ledgerCollection = Collection::empty();
-        $this->highlightLedger = 0;
-
-        $this->ledger_name = $obj['vname'] ?? '';
-        $this->ledger_id = $obj['id'] ?? '';
-    }
-
-    public function refreshLedger($v): void
-    {
-        $this->ledger_id = $v['id'];
-        $this->ledger_name = $v['name'];
-        $this->ledgerTyped = false;
-
-    }
-
-    public function ledgerSave($name)
-    {
-        if ($name) {
-            $obj = Common::create([
-                'label_id' => '9',
-                'vname' => $name,
-                'active_id' => '1',
-            ]);
-            $v = ['name' => $name, 'id' => $obj->id];
-            $this->refreshLedger($v);
-        }
-    }
-
-    public function getLedgerList(): void
-    {
-        $this->ledgerCollection = $this->ledger_name ? Common::search(trim($this->ledger_name))->where('label_id', '=',
-            10)
-            ->get() : Common::where('label_id', '=', 10)->Orwhere('id', '=', '1')->get();
-    }
-
-    #endregion
+//    #region[Ledger]
+//
+//    public $ledger_id = '';
+//    public $ledger_name = '';
+//    public Collection $ledgerCollection;
+//    public $highlightLedger = 0;
+//    public $ledgerTyped = false;
+//
+//    public function decrementLedger(): void
+//    {
+//        if ($this->highlightLedger === 0) {
+//            $this->highlightLedger = count($this->ledgerCollection) - 1;
+//            return;
+//        }
+//        $this->highlightLedger--;
+//    }
+//
+//    public function incrementLedger(): void
+//    {
+//        if ($this->highlightLedger === count($this->ledgerCollection) - 1) {
+//            $this->highlightLedger = 0;
+//            return;
+//        }
+//        $this->highlightLedger++;
+//    }
+//
+//    public function setLedger($name, $id): void
+//    {
+//        $this->ledger_name = $name;
+//        $this->ledger_id = $id;
+//        $this->getLedgerList();
+//    }
+//
+//    public function enterLedger(): void
+//    {
+//        $obj = $this->ledgerCollection[$this->highlightLedger] ?? null;
+//
+//        $this->ledger_name = '';
+//        $this->ledgerCollection = Collection::empty();
+//        $this->highlightLedger = 0;
+//
+//        $this->ledger_name = $obj['vname'] ?? '';
+//        $this->ledger_id = $obj['id'] ?? '';
+//    }
+//
+//    public function refreshLedger($v): void
+//    {
+//        $this->ledger_id = $v['id'];
+//        $this->ledger_name = $v['name'];
+//        $this->ledgerTyped = false;
+//
+//    }
+//
+//    public function ledgerSave($name)
+//    {
+//        if ($name) {
+//            $obj = Common::create([
+//                'label_id' => '9',
+//                'vname' => $name,
+//                'active_id' => '1',
+//            ]);
+//            $v = ['name' => $name, 'id' => $obj->id];
+//            $this->refreshLedger($v);
+//        }
+//    }
+//
+//    public function getLedgerList(): void
+//    {
+//        $this->ledgerCollection = $this->ledger_name ? Common::search(trim($this->ledger_name))->where('label_id', '=',
+//            10)
+//            ->get() : Common::where('label_id', '=', 10)->Orwhere('id', '=', '1')->get();
+//    }
+//
+//    #endregion
 
     #region[Product]
 
@@ -793,8 +794,7 @@ class Upsert extends Component
 
     public function colourSave($name)
     {
-        $obj = Common::create([
-            'label_id' => 7,
+        $obj = Colour::create([
             'vname' => $name,
             'active_id' => '1'
         ]);
@@ -804,9 +804,9 @@ class Upsert extends Component
 
     public function getColourList(): void
     {
-        $this->colourCollection = $this->colour_name ? Common::search(trim($this->colour_name))->where('label_id', '=',
-            7)
-            ->get() : Common::where('label_id', '=', 7)->Orwhere('id', '=', '1')->get();
+        $this->colourCollection = $this->colour_name ?
+            Colour::search(trim($this->colour_name))->get() :
+            Colour::all();
     }
 
     #endregion
@@ -866,8 +866,7 @@ class Upsert extends Component
 
     public function sizeSave($name)
     {
-        $obj = Common::create([
-            'label_id' => '8',
+        $obj = Size::create([
             'vname' => $name,
             'active_id' => '1'
         ]);
@@ -877,8 +876,9 @@ class Upsert extends Component
 
     public function getSizeList(): void
     {
-        $this->sizeCollection = $this->size_name ? Common::search(trim($this->size_name))->where('label_id', '=', 8)
-            ->get() : Common::where('label_id', '=', 8)->Orwhere('id', '=', '1')->get();
+        $this->sizeCollection = $this->size_name ?
+            Size::search(trim($this->size_name))->get() :
+            Size::all();
     }
 
     #endregion
@@ -1146,30 +1146,30 @@ class Upsert extends Component
 
     #region[api]
     #region[apiAuthenticate]
-    public function apiAuthenticate()
-    {
-        $apiToken = MasterGstToken::orderByDesc('id')->first();
-        if ($apiToken) {
-            if (\Illuminate\Support\Carbon::now()->format('Y-m-d H:i:s') < $apiToken->expires_at) {
-                $this->token = $apiToken->token;
-            } else {
-                $this->masterGstApi->authenticate();
-                $obj = MasterGstToken::orderByDesc('id')->first();
-                $this->token = $obj->token;
-            }
-        } else {
-            $this->masterGstApi->authenticate();
-            $obj = MasterGstToken::orderByDesc('id')->first();
-            $this->token = $obj->token;
-        }
-    }
-    #endregion
-    #endregion
+//    public function apiAuthenticate()
+//    {
+//        $apiToken = MasterGstToken::orderByDesc('id')->first();
+//        if ($apiToken) {
+//            if (\Illuminate\Support\Carbon::now()->format('Y-m-d H:i:s') < $apiToken->expires_at) {
+//                $this->token = $apiToken->token;
+//            } else {
+//                $this->masterGstApi->authenticate();
+//                $obj = MasterGstToken::orderByDesc('id')->first();
+//                $this->token = $obj->token;
+//            }
+//        } else {
+//            $this->masterGstApi->authenticate();
+//            $obj = MasterGstToken::orderByDesc('id')->first();
+//            $this->token = $obj->token;
+//        }
+//    }
+//    #endregion
+//    #endregion
 
     #region[mount]
     public function mount($id): void
     {
-        $this->apiAuthenticate();
+//        $this->apiAuthenticate();
         if ($id != 0) {
             $obj = Sale::find($id);
             $this->common->vid = $obj->id;
@@ -1253,7 +1253,7 @@ class Upsert extends Component
 
             $this->invoice_no = Sale::nextNo();
             $this->uniqueno = session()->get('company_id') . '~' . session()->get('acyear') . '~' . $this->invoice_no;
-            $this->common->active_id = true;
+//            $this->common->active_id = true;
             $this->sales_type = '1';
             $this->gst_percent = 5;
             $this->additional = 0;
@@ -1266,7 +1266,7 @@ class Upsert extends Component
             $this->Vehtype = 'R';
             $this->TransdocDt = Carbon::now()->format('Y-m-d');
             $this->transport_id = 1;
-            $this->transport_name = Common::find(1)->vname;
+//            $this->transport_name = Common::find(1)->vname;
             $this->Vehno = '-';
         }
 
@@ -1427,10 +1427,10 @@ class Upsert extends Component
 
     #endregion
 
-    public function getSalesLog()
-    {
-        $this->salesLogs = Logbook::where('model_name', 'Sales')->where('vname', $this->invoice_no)->get();
-    }
+//    public function getSalesLog()
+//    {
+//        $this->salesLogs = Logbook::where('model_name', 'Sales')->where('vname', $this->invoice_no)->get();
+//    }
 
     #region[Render]
 
@@ -1448,11 +1448,11 @@ class Upsert extends Component
 
     public function render()
     {
-        $this->getSalesLog();
+//        $this->getSalesLog();
         $this->getContactList();
         $this->getOrderList();
         $this->getTransportList();
-        $this->getLedgerList();
+//        $this->getLedgerList();
         $this->getColourList();
         $this->getProductList();
         $this->getSizeList();
@@ -1460,7 +1460,7 @@ class Upsert extends Component
         $this->getShipping_address();
         $this->getStyleList();
         $this->getDespatchList();
-        return view('livewire.entries.sales.upsert');
+        return view('entries::Sales.upsert');
     }
     #endregion
 }

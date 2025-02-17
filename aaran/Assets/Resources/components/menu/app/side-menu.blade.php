@@ -49,6 +49,10 @@
                 <x-aaran-ui::menu.app.sub.master/>
             @endif
 
+            @if(\Aaran\Assets\Features\Customise::hasEntries())
+                <x-aaran-ui::menu.app.sub.entries/>
+            @endif
+
             @if(\Aaran\Assets\Features\Customise::hasCore())
                 <x-aaran-ui::menu.app.sub.core/>
             @endif

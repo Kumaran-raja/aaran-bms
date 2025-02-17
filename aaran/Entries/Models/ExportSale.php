@@ -2,7 +2,6 @@
 
 namespace Aaran\Entries\Models;
 
-use Aaran\Common\Models\Common;
 use Aaran\Entries\Database\Factories\ExportSaleFactory;
 use Aaran\Master\Models\Company;
 use Aaran\Master\Models\Contact;
@@ -48,9 +47,5 @@ class ExportSale extends Model
         return $this->belongsTo(Style::class);
     }
 
-    public static function commons($id)
-    {
-        return Common::find($id)->vname;
-    }
 
 }

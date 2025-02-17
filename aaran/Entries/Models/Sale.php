@@ -2,7 +2,6 @@
 
 namespace Aaran\Entries\Models;
 
-use Aaran\Common\Models\Common;
 use Aaran\Entries\Database\Factories\SaleFactory;
 use Aaran\Master\Models\Company;
 use Aaran\Master\Models\Contact;
@@ -70,10 +69,6 @@ class Sale extends Model
         return $this->belongsTo(Style::class);
     }
 
-    public static function commons($id)
-    {
-        return Common::find($id)->vname;
-    }
 
     public static function Irn($id)
     {

@@ -5,15 +5,15 @@ use Illuminate\Support\Facades\Route;
 //Entries
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
-    Route::get('/sales', \Aaran\Web\Livewire\Home\Index::class)->name('sales');
-    Route::get('/purchase', \Aaran\Web\Livewire\Home\Index::class)->name('purchase');
-    Route::get('/transactions', \Aaran\Web\Livewire\Home\Index::class)->name('transactions');
-    Route::get('/showArticles', \Aaran\Web\Livewire\Home\Index::class)->name('showArticles');
+    Route::get('/sales', Aaran\Entries\Livewire\Sales\Index::class)->name('sales');
+    Route::get('/sales/{id}/upsert', Aaran\Entries\Livewire\Sales\Upsert::class)->name('sales.upsert');
+
+//    Route::get('/purchase', \Aaran\Web\Livewire\Home\Index::class)->name('purchase');
+//    Route::get('/transactions', \Aaran\Web\Livewire\Home\Index::class)->name('transactions');
+//    Route::get('/showArticles', \Aaran\Web\Livewire\Home\Index::class)->name('showArticles');
 
 
 
-
-//    Route::get('/sales/{id}/upsert', Aaran\Entries\Livewire\Sales\Upsert::class)->name('sales.upsert');
 //    Route::get('/sales/{id}/eway', Aaran\Entries\Livewire\Sales\EwayBill::class)->name('sales.eway');
 //    Route::get('/sales/{id}/einvoice', Aaran\Entries\Livewire\Sales\Einvoice::class)->name('sales.einvoice');
 //    Route::get('/sales/{id}/print', App\Http\Controllers\Entries\Sales\SalesInvoiceController::class)->name('sales.print');
