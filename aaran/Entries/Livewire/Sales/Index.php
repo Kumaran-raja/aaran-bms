@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Livewire\Entries\Sales;
+namespace Aaran\Entries\Livewire\Sales;
 
+use Aaran\Assets\Trait\CommonTraitNew;
 use Aaran\Entries\Models\Sale;
-use Aaran\Logbook\Models\Logbook;
-use App\Livewire\Trait\CommonTraitNew;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -53,18 +52,18 @@ class Index extends Component
 //    }
 //    #endregion
 
-    public function getSalesLog()
-    {
-        $this->salesAllLogs = Logbook::where('model_name', 'Sales')->take(8)->get();
-    }
+//    public function getSalesLog()
+//    {
+//        $this->salesAllLogs = Logbook::where('model_name', 'Sales')->take(8)->get();
+//    }
 
     #region[render]
     public function render()
     {
-        $this->getSalesLog();
+//        $this->getSalesLog();
         $this->getListForm->searchField='invoice_no';
         $this->getListForm->sortField='invoice_no';
-        return view('livewire.entries.sales.index')->with([
+        return view('entries::Sales.index')->with([
             'list'=>$this->getListForm->getList(Sale::class,function ($query){
                 return  $query->where('company_id','=',session()->get('company_id'))->where('acyear',session()->get('acyear'));
             }),

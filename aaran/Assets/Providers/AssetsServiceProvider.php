@@ -67,6 +67,7 @@ class AssetsServiceProvider extends ServiceProvider
 
         Blade::component('components.menu.app.sub.common', 'common-header');
         Blade::component('components.menu.app.base.route-menuitem', 'common-header');
+        Blade::component('components.button.e-inv', 'button.e-inv');
 
     }
 
