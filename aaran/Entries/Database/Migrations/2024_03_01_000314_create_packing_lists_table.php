@@ -8,7 +8,8 @@ return new class extends Migration
 {
     public function up(): void
     {
-        if (Aaran\Aadmin\Src\Customise::hasExportSales()) {
+        if (Aaran\Assets\Features\Customise::hasEntries()) {
+
             Schema::create('packing_lists', function (Blueprint $table) {
                 $table->id();
                 $table->foreignId('export_sales_id')->references('id')->on('export_sales')->onDelete('cascade');

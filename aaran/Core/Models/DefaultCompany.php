@@ -2,7 +2,7 @@
 
 namespace Aaran\Core\Models;
 
-//use Aaran\Master\Models\Company;
+use Aaran\Master\Models\Company;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -24,7 +24,7 @@ class DefaultCompany extends Model
 
     public function company(): BelongsTo
     {
-//        return $this->belongsTo(Company::class); TODO: after company
+        return $this->belongsTo(Company::class);
     }
 
     public static function search(string $searches)

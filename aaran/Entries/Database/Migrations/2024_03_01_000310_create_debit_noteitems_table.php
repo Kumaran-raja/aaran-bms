@@ -7,15 +7,15 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration {
     public function up()
     {
-        if (Aaran\Aadmin\Src\Customise::hasEntries()) {
+        if (Aaran\Assets\Features\Customise::hasEntries()) {
 
             Schema::create('debit_noteitems', function (Blueprint $table) {
                 $table->id();
                 $table->foreignId('sale_id')->references('id')->on('sales');
                 $table->foreignId('product_id')->references('id')->on('products');
                 $table->string('description')->nullable();
-                $table->foreignId('colour_id')->references('id')->on('commons');
-                $table->foreignId('size_id')->references('id')->on('commons');
+                $table->foreignId('colour_id')->references('id')->on('colours');
+                $table->foreignId('size_id')->references('id')->on('sizes');
                 $table->decimal('qty');
                 $table->decimal('price');
                 $table->string('gst_percent')->nullable();

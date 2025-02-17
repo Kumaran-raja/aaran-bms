@@ -13,6 +13,6 @@ class DatabaseSeeder extends Seeder
     {
         S00_CoreSeeder::run();
         S000_CommonSeeder::run();
-//        S199_MasterSeeder::run();
+        S199_MasterSeeder::run();
     }
 }

@@ -9,7 +9,8 @@ return new class extends Migration
 
     public function up(): void
     {
-        if (Aaran\Aadmin\Src\Customise::hasExportSales()) {
+        if (Aaran\Assets\Features\Customise::hasEntries()) {
+
             Schema::create('export_sale_items', function (Blueprint $table) {
                 $table->id();
                 $table->foreignId('export_sales_id')->references('id')->on('export_sales')->onDelete('cascade');
@@ -17,8 +18,8 @@ return new class extends Migration
                 $table->string('no_of_count')->nullable();
                 $table->foreignId('product_id')->references('id')->on('products');
                 $table->string('description')->nullable();
-                $table->foreignId('colour_id')->references('id')->on('commons');
-                $table->foreignId('size_id')->references('id')->on('commons');
+                $table->foreignId('colour_id')->references('id')->on('colours');
+                $table->foreignId('size_id')->references('id')->on('sizes');
                 $table->decimal('qty');
                 $table->decimal('price');
                 $table->string('gst_percent')->nullable();

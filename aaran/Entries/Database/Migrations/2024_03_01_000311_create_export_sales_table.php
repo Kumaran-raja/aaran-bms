@@ -8,7 +8,8 @@ return new class extends Migration
 {
     public function up(): void
     {
-        if (Aaran\Aadmin\Src\Customise::hasExportSales()) {
+        if (Aaran\Assets\Features\Customise::hasEntries()) {
+
             Schema::create('export_sales', function (Blueprint $table) {
                 $table->id();
                 $table->string('uniqueno')->unique();

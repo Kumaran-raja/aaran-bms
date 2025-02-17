@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration {
     public function up()
     {
-        if (Aaran\Aadmin\Src\Customise::hasEntries()) {
+        if (Aaran\Assets\Features\Customise::hasEntries()) {
 
             Schema::create('purchases', function (Blueprint $table) {
                 $table->id();
@@ -20,7 +20,7 @@ return new class extends Migration {
                 $table->date('purchase_date');
                 $table->integer('Entry_no')->nullable();
                 $table->string('sales_type')->nullable();
-                $table->foreignId('transport_id')->references('id')->on('commons');
+                $table->foreignId('transport_id')->references('id')->on('transports');
                 $table->string('bundle')->nullable();
                 $table->text('term')->nullable();
                 $table->decimal('total_qty', 11, 3)->nullable();
