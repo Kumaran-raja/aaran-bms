@@ -68,7 +68,7 @@
                                                                         {{ $order->vname }}
                                                                     </x-aaran-ui::dropdown.option>
                                                                 @empty
-{{--                                                                    @livewire('controls.model.order-model',[$order_name])--}}
+                                                                    @livewire('aaran.master.order.model.order-model',[$order_name])
                                                                 @endforelse
                                                             @endif
                                                         </x-aaran-ui::dropdown.select>
@@ -97,7 +97,7 @@
                                                                         {{ $style->vname }}
                                                                     </x-aaran-ui::dropdown.option>
                                                                 @empty
-{{--                                                                    @livewire('controls.model.style-model',[$style_name])--}}
+                                                                    @livewire('aaran.master.style.model.style-model',[$style_name])
                                                                 @endforelse
                                                             @endif
                                                         </x-aaran-ui::dropdown.select>
@@ -141,7 +141,7 @@
                                                                     </x-aaran-ui::dropdown.option>
                                                                 @empty
                                                                     <button
-                                                                        wire:click.prevent="despatchSave('{{$dispatch_name}}')"
+                                                                        wire:click.prevent="despatchSave('{{$despatch_name}}')"
                                                                         class="text-white bg-green-500 text-center w-full">
                                                                         create
                                                                     </button>
