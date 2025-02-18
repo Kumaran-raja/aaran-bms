@@ -11,10 +11,10 @@ use Aaran\Master\Livewire\Product;
 use Aaran\Master\Livewire\Orders;
 use Aaran\Master\Livewire\Style;
 
-use Aaran\Master\Livewire\Contact\Model\ContactModel;
-use Aaran\Master\Livewire\Orders\Model\OrderModel;
-use Aaran\Master\Livewire\Style\Model\StyleModel;
-use Aaran\Master\Livewire\Product\Model\ProductModel;
+use Aaran\Master\Livewire\Contact\Lookup\ContactModel;
+use Aaran\Master\Livewire\Orders\Lookup\OrderModel;
+use Aaran\Master\Livewire\Style\Lookup\StyleModel;
+use Aaran\Master\Livewire\Product\Lookup\ProductModel;
 
 
 class MasterServiceProvider extends ServiceProvider

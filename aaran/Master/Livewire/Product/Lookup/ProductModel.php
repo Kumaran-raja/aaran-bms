@@ -1,6 +1,6 @@
 <?php
 
-namespace Aaran\Master\Livewire\Product\Model;
+namespace Aaran\Master\Livewire\Product\Lookup;
 
 use Aaran\Assets\Enums\ProductType;
 use Aaran\Common\Models\GstPercent;

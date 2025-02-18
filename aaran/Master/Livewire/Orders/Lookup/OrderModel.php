@@ -1,6 +1,6 @@
 <?php
 
-namespace Aaran\Master\Livewire\Orders\Model;
+namespace Aaran\Master\Livewire\Orders\Lookup;
 
 use Aaran\Master\Models\Order;
 use Livewire\Component;

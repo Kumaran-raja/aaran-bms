@@ -1,6 +1,6 @@
 <?php
 
-namespace Aaran\Master\Livewire\Contact\Model;
+namespace Aaran\Master\Livewire\Contact\Lookup;
 
 
 use Aaran\Assets\Enums\MsmeType;

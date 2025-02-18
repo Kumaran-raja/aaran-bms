@@ -6,7 +6,7 @@ class SaleEntry
 {
     public static function enabled(string $feature): bool
     {
-        return match (config('aadmin.app_type')) {
+        return match (config('aaran-app.app_code')) {
             config('software.DEVELOPER') => in_array($feature, config('developer.SalesEntry', [])),
             config('software.OFFSET') => in_array($feature, config('offset.SalesEntry', [])),
         };

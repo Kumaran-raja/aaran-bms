@@ -75,9 +75,9 @@ This structure is typically used in PHP projects to organize code and resources 
 
 ---
 
-## Module Design in `AARAN BMS`
+## Module Design in `AARAN-BMS`
 ---
- >>A module in **`AARAN BMS`** is a self-contained unit of functionality that encapsulates specific features or components of the application.
+ >>A module in **`AARAN-BMS`** is a self-contained unit of functionality that encapsulates specific features or components of the application.
    Each module is organized into a well-defined structure, consisting of directories and files that represent different parts of the module.
     
 ---

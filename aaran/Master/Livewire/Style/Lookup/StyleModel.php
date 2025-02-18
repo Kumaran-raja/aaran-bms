@@ -1,6 +1,6 @@
 <?php
 
-namespace Aaran\Master\Livewire\Style\Model;
+namespace Aaran\Master\Livewire\Style\Lookup;
 
 use Aaran\Master\Models\Style;
 use Livewire\Component;

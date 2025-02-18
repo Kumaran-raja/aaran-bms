@@ -47,8 +47,9 @@
                                             @error('contact_name')
                                             <span class="text-red-400">{{$message}}</span>@enderror
                                         </div>
+
                                         <div class="h-16 ">
-{{--                                            @if(\Aaran\Aadmin\Src\SaleEntry::hasOrder())--}}
+                                            @if(\Aaran\Assets\Features\SaleEntry::hasOrder())
                                                 <x-aaran-ui::dropdown.wrapper label="Order NO" type="orderTyped">
                                                     <div class="relative ">
                                                         <x-aaran-ui::dropdown.input label="Order NO" id="order_name"
@@ -74,10 +75,10 @@
                                                         </x-aaran-ui::dropdown.select>
                                                     </div>
                                                 </x-aaran-ui::dropdown.wrapper>
-{{--                                            @endif--}}
+                                            @endif
                                         </div>
                                         <div class="h-16 ">
-{{--                                            @if(\Aaran\Aadmin\Src\SaleEntry::hasStyle())--}}
+                                            @if(\Aaran\Assets\Features\SaleEntry::hasStyle())
 
                                                 <x-aaran-ui::dropdown.wrapper label="Style" type="style_name">
                                                     <div class="relative ">
@@ -104,7 +105,7 @@
 
                                                     </div>
                                                 </x-aaran-ui::dropdown.wrapper>
-{{--                                            @endif--}}
+                                            @endif
                                         </div>
                                     </div>
                                     <div class="w-full space-y-3 ">
@@ -115,12 +116,12 @@
                                             <x-aaran-ui::input.model-date wire:model="invoice_date" label="Invoice Date"/>
                                         </div>
                                         <div class=" ">
-{{--                                            @if(\Aaran\Aadmin\Src\SaleEntry::hasJob_no())--}}
+                                            @if(\Aaran\Assets\Features\SaleEntry::hasJob_no())
                                                 <x-aaran-ui::input.floating wire:model="job_no" label="Job No"/>
-{{--                                            @endif--}}
+                                            @endif
                                         </div>
                                         <div class="">
-{{--                                            @if(\Aaran\Aadmin\Src\SaleEntry::hasDespatch())--}}
+                                            @if(\Aaran\Assets\Features\SaleEntry::hasDespatch())
                                                 <x-aaran-ui::dropdown.wrapper label="Despatch No" type="despatchTyped">
                                                     <div class="relative ">
                                                         <x-aaran-ui::dropdown.input
@@ -150,7 +151,7 @@
                                                         </x-aaran-ui::dropdown.select>
                                                     </div>
                                                 </x-aaran-ui::dropdown.wrapper>
-{{--                                            @endif--}}
+                                            @endif
                                         </div>
                                         <div class="h-16 ">
                                             <x-aaran-ui::input.model-select wire:model="sales_type" :label="'Sales Type'">
@@ -166,22 +167,22 @@
                                     Sales Items
                                 </div>
                                 <div class="w-full flex  gap-x-1 pb-4">
-{{--                                    @if(\Aaran\Aadmin\Src\SaleEntry::hasPo_no())--}}
+                                    @if(\Aaran\Assets\Features\SaleEntry::hasPo_no())
                                         <div class="">
                                             <x-aaran-ui::input.floating id="qty" wire:model.live="po_no" label="Po No"/>
                                         </div>
-{{--                                    @endif--}}
-{{--                                    @if(\Aaran\Aadmin\Src\SaleEntry::hasDc_no())--}}
+                                    @endif
+                                    @if(\Aaran\Assets\Features\SaleEntry::hasDc_no())
                                         <div class="">
                                             <x-aaran-ui::input.floating id="dc" wire:model.live="dc_no" label="DC No."/>
                                         </div>
-{{--                                    @endif--}}
-{{--                                    @if(\Aaran\Aadmin\Src\SaleEntry::hasNo_of_roll())--}}
+                                    @endif
+                                    @if(\Aaran\Assets\Features\SaleEntry::hasNo_of_roll())
                                         <div class="">
                                             <x-aaran-ui::input.floating id="no_of_roll" wire:model.live="no_of_roll"
                                                               label="No of Roll"/>
                                         </div>
-{{--                                    @endif--}}
+                                    @endif
                                     <div class="w-[30%]">
                                         <x-aaran-ui::dropdown.wrapper label="Particulars" type="productTyped">
                                             <div class="relative ">
@@ -209,13 +210,13 @@
                                             </div>
                                         </x-aaran-ui::dropdown.wrapper>
                                     </div>
-{{--                                    @if(\Aaran\Aadmin\Src\SaleEntry::hasProductDescription())--}}
+                                    @if(\Aaran\Assets\Features\SaleEntry::hasProductDescription())
                                         <div class="w-[20%]">
                                             <x-aaran-ui::input.floating id="qty" wire:model.live="description"
                                                               label="description"/>
                                         </div>
-{{--                                    @endif--}}
-{{--                                    @if(\Aaran\Aadmin\Src\SaleEntry::hasColour())--}}
+                                    @endif
+                                    @if(\Aaran\Assets\Features\SaleEntry::hasColour())
                                         <div class="w-[15%]">
 
                                             <x-aaran-ui::dropdown.wrapper label="Colour Name" type="colourTyped">
@@ -245,8 +246,8 @@
                                                 </div>
                                             </x-aaran-ui::dropdown.wrapper>
                                         </div>
-{{--                                    @endif--}}
-{{--                                    @if(\Aaran\Aadmin\Src\SaleEntry::hasSize())--}}
+                                    @endif
+                                    @if(\Aaran\Assets\Features\SaleEntry::hasSize())
                                         <div class="w-[15%]">
                                             <x-aaran-ui::dropdown.wrapper label="Size Name" type="sizeTyped">
                                                 <div class="relative ">
@@ -278,7 +279,7 @@
                                                 </div>
                                             </x-aaran-ui::dropdown.wrapper>
                                         </div>
-{{--                                    @endif--}}
+                                    @endif
                                     <div class="w-[10%]">
                                         <x-aaran-ui::input.floating id="qty" wire:model.live="qty" label="Quantity"/>
                                     </div>
@@ -292,22 +293,22 @@
                                         <table class="w-full text-xs ">
                                             <tr class="bg-zinc-50  text-gray-400 border-b font-medium font-sans tracking-wider">
                                                 <th class="py-4 border-r">#</th>
-{{--                                                @if(\Aaran\Aadmin\Src\SaleEntry::hasPo_no())--}}
+                                                @if(\Aaran\Assets\Features\SaleEntry::hasPo_no())
                                                     <th class="border-r">PO</th>
-{{--                                                @endif--}}
-{{--                                                @if(\Aaran\Aadmin\Src\SaleEntry::hasDc_no())--}}
+                                                @endif
+                                                @if(\Aaran\Assets\Features\SaleEntry::hasDc_no())
                                                     <th class="border-r">DC</th>
-{{--                                                @endif--}}
-{{--                                                @if(\Aaran\Aadmin\Src\SaleEntry::hasNo_of_roll())--}}
+                                                @endif
+                                                @if(\Aaran\Assets\Features\SaleEntry::hasNo_of_roll())
                                                     <th class="border-r">No 0f Rolls</th>
-{{--                                                @endif--}}
+                                                @endif
                                                 <th class="border-r">Items</th>
-{{--                                                @if(\Aaran\Aadmin\Src\SaleEntry::hasColour())--}}
+                                                @if(\Aaran\Assets\Features\SaleEntry::hasColour())
                                                     <th width="5%" class="border-r">Color</th>
-{{--                                                @endif--}}
-{{--                                                @if(\Aaran\Aadmin\Src\SaleEntry::hasSize())--}}
+                                                @endif
+                                                @if(\Aaran\Assets\Features\SaleEntry::hasSize())
                                                     <th width="4%" class="border-r">Size</th>
-{{--                                                @endif--}}
+                                                @endif
                                                 <th width="8%" class="border-r">Quantity</th>
                                                 <th width="8%" class="border-r">Rate</th>
                                                 <th width="9%" class="border-r">Taxable</th>
@@ -321,18 +322,18 @@
                                                     <tr class="text-center border-b font-lex tracking-wider hover:bg-amber-50">
                                                         <td class="py-2 border-r"
                                                             wire:click.prevent="changeItems({{$index}})">{{$index+1}}</td>
-{{--                                                        @if(\Aaran\Aadmin\Src\SaleEntry::hasPo_no())--}}
+                                                        @if(\Aaran\Assets\Features\SaleEntry::hasPo_no())
                                                             <td class="py-2 border-r"
                                                                 wire:click.prevent="changeItems({{$index}})">{{$row['po_no']}}</td>
-{{--                                                        @endif--}}
-{{--                                                        @if(\Aaran\Aadmin\Src\SaleEntry::hasDc_no())--}}
+                                                        @endif
+                                                        @if(\Aaran\Assets\Features\SaleEntry::hasDc_no())
                                                             <td class="py-2 border-r"
                                                                 wire:click.prevent="changeItems({{$index}})">{{$row['dc_no']}}</td>
-{{--                                                        @endif--}}
-{{--                                                        @if(\Aaran\Aadmin\Src\SaleEntry::hasNo_of_roll())--}}
+                                                        @endif
+                                                        @if(\Aaran\Assets\Features\SaleEntry::hasNo_of_roll())
                                                             <td class="py-2 border-r"
                                                                 wire:click.prevent="changeItems({{$index}})">{{$row['no_of_roll']}}</td>
-{{--                                                        @endif--}}
+                                                        @endif
 
                                                         <td class="py-2 border-r text-left px-2"
                                                             wire:click.prevent="changeItems({{$index}})">
@@ -340,19 +341,19 @@
                                                                 @if($row['description'])
                                                                     &nbsp;-&nbsp;
                                                                 @endif
-{{--                                                                @if(\Aaran\Aadmin\Src\SaleEntry::hasProductDescription())--}}
+                                                                @if(\Aaran\Assets\Features\SaleEntry::hasProductDescription())
                                                                     {{ $row['description']}}
-{{--                                                                @endif--}}
+                                                                @endif
                                                             </div>
                                                         </td>
-{{--                                                        @if(\Aaran\Aadmin\Src\SaleEntry::hasColour())--}}
+                                                        @if(\Aaran\Assets\Features\SaleEntry::hasColour())
                                                             <td class="py-2 border-r"
                                                                 wire:click.prevent="changeItems({{$index}})">{{$row['colour_name']}}</td>
-{{--                                                        @endif--}}
-{{--                                                        @if(\Aaran\Aadmin\Src\SaleEntry::hasSize())--}}
+                                                        @endif
+                                                        @if(\Aaran\Assets\Features\SaleEntry::hasSize())
                                                             <td class="py-2 border-r"
                                                                 wire:click.prevent="changeItems({{$index}})">{{$row['size_name']}}</td>
-{{--                                                        @endif--}}
+                                                        @endif
 
                                                         <td class="py-2 border-r"
                                                             wire:click.prevent="changeItems({{$index}})">{{$row['qty']}}</td>
@@ -375,12 +376,12 @@
                                                 @endforeach
                                             @endif
                                             <tr class="bg-zinc-50 text-gray-400 text-center font-sans tracking-wider">
-{{--                                                @if(\Aaran\Aadmin\Src\SaleEntry::hasSize() or \Aaran\Aadmin\Src\SaleEntry::hasColour())--}}
+                                                @if(\Aaran\Assets\Features\SaleEntry::hasSize() or \Aaran\Assets\Features\SaleEntry::hasColour())
 
                                                     <td class="py-2 border-r" colspan="4">TOTALS.</td>
-{{--                                                @else--}}
+                                                @else
                                                     <td class="py-2 border-r" colspan="4">TOTALS.</td>
-{{--                                                @endif--}}
+                                                @endif
                                                 <td class="border-r font-semibold">{{$total_qty}}</td>
                                                 <td class="border-r">&nbsp;</td>
                                                 <td class="border-r font-semibold">{{number_format($total_taxable,2,'.','')}}</td>
@@ -433,7 +434,7 @@
                         <x-aaran-ui::tabs.content>
                             <div class="w-1/2 space-y-8 h-52 pt-3">
                                 <div>
-{{--                                    @if(\Aaran\Aadmin\Src\SaleEntry::hasBillingAddress())--}}
+                                    @if(\Aaran\Assets\Features\SaleEntry::hasBillingAddress())
                                         <x-aaran-ui::dropdown.wrapper label="Billing Address" type="orderTyped">
                                             <div class="relative ">
                                                 <x-aaran-ui::dropdown.input label="Billing Address" id="billing_address"
@@ -461,10 +462,10 @@
                                                 </x-aaran-ui::dropdown.select>
                                             </div>
                                         </x-aaran-ui::dropdown.wrapper>
-{{--                                    @endif--}}
+                                    @endif
                                 </div>
                                 <div>
-{{--                                    @if(\Aaran\Aadmin\Src\SaleEntry::hasShippingAddress())--}}
+                                    @if(\Aaran\Assets\Features\SaleEntry::hasShippingAddress())
                                         <x-aaran-ui::dropdown.wrapper label="Shipping Address" type="shipping_addressTyped">
                                             <div class="relative ">
                                                 <x-aaran-ui::dropdown.input label="Shipping Address" id="shipping_address"
@@ -492,7 +493,7 @@
                                                 </x-aaran-ui::dropdown.select>
                                             </div>
                                         </x-aaran-ui::dropdown.wrapper>
-{{--                                    @endif--}}
+                                    @endif
                                 </div>
                                 {{--                                <div>{{$billing_address->address_1, $billing_address->address_2}}</div>--}}
                             </div>
@@ -500,7 +501,7 @@
                         <x-aaran-ui::tabs.content>
                             <div class="flex justify-between gap-5 h-56 pt-3">
                                 <div class="w-full space-y-8 ">
-{{--                                    @if(\Aaran\Aadmin\Src\SaleEntry::hasTransport())--}}
+                                    @if(\Aaran\Assets\Features\SaleEntry::hasTransport())
                                         <x-aaran-ui::dropdown.wrapper label="Transport" type="transportTyped">
                                             <div class="relative ">
                                                 <x-aaran-ui::dropdown.input label="Transport" id="transport_name"
@@ -530,7 +531,7 @@
                                                 <span class="text-red-400">{{$message}}</span>@enderror
                                             </div>
                                         </x-aaran-ui::dropdown.wrapper>
-{{--                                    @endif--}}
+                                    @endif
                                     <x-aaran-ui::input.model-date wire:model="TransdocDt" label="Transport Date"/>
                                     <x-aaran-ui::input.model-select wire:model="TransMode" label="Transport Mode">
                                         <option value="">Choose..</option>
@@ -564,12 +565,12 @@
                             <div class="w-1/2 space-y-8 gap-5 h-52 pt-3">
 
 
-{{--                                @if(\Aaran\Aadmin\Src\SaleEntry::hasDestination())--}}
+                                @if(\Aaran\Assets\Features\SaleEntry::hasDestination())
                                     <x-aaran-ui::input.floating wire:model="destination" label="Destination"/>
-{{--                                @endif--}}
-{{--                                @if(\Aaran\Aadmin\Src\SaleEntry::hasBundle())--}}
+                                @endif
+                                @if(\Aaran\Assets\Features\SaleEntry::hasBundle())
                                     <x-aaran-ui::input.floating wire:model="bundle" label="Bundle"/>
-{{--                                @endif--}}
+                                @endif
                             </div>
                         </x-aaran-ui::tabs.content>
                         <x-aaran-ui::tabs.content>
