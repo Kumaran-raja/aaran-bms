@@ -4,6 +4,7 @@ namespace Aaran\Entries\Livewire\Sales;
 
 
 use Aaran\Assets\LivewireForms\MasterGstApi;
+use Aaran\Books\Models\Ledger;
 use Aaran\Common\Models\Colour;
 use Aaran\Common\Models\Despatch;
 use Aaran\Common\Models\Size;
@@ -599,80 +600,79 @@ class Upsert extends Component
 
     #endregion
 
-//    #region[Ledger]
-//
-//    public $ledger_id = '';
-//    public $ledger_name = '';
-//    public Collection $ledgerCollection;
-//    public $highlightLedger = 0;
-//    public $ledgerTyped = false;
-//
-//    public function decrementLedger(): void
-//    {
-//        if ($this->highlightLedger === 0) {
-//            $this->highlightLedger = count($this->ledgerCollection) - 1;
-//            return;
-//        }
-//        $this->highlightLedger--;
-//    }
-//
-//    public function incrementLedger(): void
-//    {
-//        if ($this->highlightLedger === count($this->ledgerCollection) - 1) {
-//            $this->highlightLedger = 0;
-//            return;
-//        }
-//        $this->highlightLedger++;
-//    }
-//
-//    public function setLedger($name, $id): void
-//    {
-//        $this->ledger_name = $name;
-//        $this->ledger_id = $id;
-//        $this->getLedgerList();
-//    }
-//
-//    public function enterLedger(): void
-//    {
-//        $obj = $this->ledgerCollection[$this->highlightLedger] ?? null;
-//
-//        $this->ledger_name = '';
-//        $this->ledgerCollection = Collection::empty();
-//        $this->highlightLedger = 0;
-//
-//        $this->ledger_name = $obj['vname'] ?? '';
-//        $this->ledger_id = $obj['id'] ?? '';
-//    }
-//
-//    public function refreshLedger($v): void
-//    {
-//        $this->ledger_id = $v['id'];
-//        $this->ledger_name = $v['name'];
-//        $this->ledgerTyped = false;
-//
-//    }
-//
-//    public function ledgerSave($name)
-//    {
-//        if ($name) {
-//            $obj = Common::create([
-//                'label_id' => '9',
-//                'vname' => $name,
-//                'active_id' => '1',
-//            ]);
-//            $v = ['name' => $name, 'id' => $obj->id];
-//            $this->refreshLedger($v);
-//        }
-//    }
-//
-//    public function getLedgerList(): void
-//    {
-//        $this->ledgerCollection = $this->ledger_name ? Common::search(trim($this->ledger_name))->where('label_id', '=',
-//            10)
-//            ->get() : Common::where('label_id', '=', 10)->Orwhere('id', '=', '1')->get();
-//    }
-//
-//    #endregion
+    #region[Ledger]
+
+    public $ledger_id = '';
+    public $ledger_name = '';
+    public Collection $ledgerCollection;
+    public $highlightLedger = 0;
+    public $ledgerTyped = false;
+
+    public function decrementLedger(): void
+    {
+        if ($this->highlightLedger === 0) {
+            $this->highlightLedger = count($this->ledgerCollection) - 1;
+            return;
+        }
+        $this->highlightLedger--;
+    }
+
+    public function incrementLedger(): void
+    {
+        if ($this->highlightLedger === count($this->ledgerCollection) - 1) {
+            $this->highlightLedger = 0;
+            return;
+        }
+        $this->highlightLedger++;
+    }
+
+    public function setLedger($name, $id): void
+    {
+        $this->ledger_name = $name;
+        $this->ledger_id = $id;
+        $this->getLedgerList();
+    }
+
+    public function enterLedger(): void
+    {
+        $obj = $this->ledgerCollection[$this->highlightLedger] ?? null;
+
+        $this->ledger_name = '';
+        $this->ledgerCollection = Collection::empty();
+        $this->highlightLedger = 0;
+
+        $this->ledger_name = $obj['vname'] ?? '';
+        $this->ledger_id = $obj['id'] ?? '';
+    }
+
+    public function refreshLedger($v): void
+    {
+        $this->ledger_id = $v['id'];
+        $this->ledger_name = $v['name'];
+        $this->ledgerTyped = false;
+
+    }
+
+    public function ledgerSave($name)
+    {
+        if ($name) {
+            $obj = Ledger::create([
+                'vname' => $name,
+                'active_id' => '1',
+            ]);
+            $v = ['name' => $name, 'id' => $obj->id];
+            $this->refreshLedger($v);
+        }
+    }
+
+    public function getLedgerList(): void
+    {
+        $this->ledgerCollection = $this->ledger_name ?
+            Ledger::search(trim($this->ledger_name))->get() :
+            Ledger::all();
+    }
+
+    #endregion
 
     #region[Product]
 
@@ -1188,11 +1188,11 @@ class Upsert extends Component
             $this->style_id = $obj->style_id;
             $this->style_name = $obj->style->vname;
             $this->despatch_id = $obj->despatch_id;
-            $this->despatch_name = $obj->despatch_id ? Common::find($obj->despatch_id)->vname : '';
+            $this->despatch_name = $obj->despatch_id ? Despatch::find($obj->despatch_id)->vname : '';
             $this->job_no = $obj->job_no;
             $this->sales_type = $obj->sales_type;
             $this->transport_id = $obj->transport_id;
-            $this->transport_name = $obj->transport_id ? Common::find($obj->transport_id)->vname : '';
+            $this->transport_name = $obj->transport_id ? Transport::find($obj->transport_id)->vname : '';
             $this->destination = $obj->destination;
             $this->bundle = $obj->bundle;
             $this->distance = $obj->distance;
@@ -1208,7 +1208,7 @@ class Upsert extends Component
             $this->total_taxable = $obj->total_taxable;
             $this->total_gst = $obj->total_gst;
             $this->ledger_id = $obj->ledger_id;
-            $this->ledger_name = $obj->ledger_id ? Common::find($obj->ledger_id)->vname : '';
+            $this->ledger_name = $obj->ledger_id ? Ledger::find($obj->ledger_id)->vname : '';
             $this->additional = $obj->additional;
             $this->round_off = $obj->round_off;
             $this->grand_total = $obj->grand_total;

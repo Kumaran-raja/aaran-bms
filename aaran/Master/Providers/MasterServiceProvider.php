@@ -2,6 +2,7 @@
 
 namespace Aaran\Master\Providers;
 
+
 use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
 
@@ -10,6 +11,8 @@ use Aaran\Master\Livewire\Contact;
 use Aaran\Master\Livewire\Product;
 use Aaran\Master\Livewire\Orders;
 use Aaran\Master\Livewire\Style;
+
+use Aaran\Master\Livewire\Contact\Model\ContactModel;
 
 
 class MasterServiceProvider extends ServiceProvider
@@ -33,6 +36,11 @@ class MasterServiceProvider extends ServiceProvider
 
         Livewire::component('contact.index', Contact\Index::class);
         Livewire::component('contact.upsert', Contact\Upsert::class);
+
+//        Livewire::component('contact.model.contact-model', Contact\Model\ContactModel::class);
+        Livewire::component('aaran.master.contact.model.contact-model', ContactModel::class);
+
+
 
         Livewire::component('product.index', Product\Index::class);
         Livewire::component('orders.index', Orders\Index::class);
