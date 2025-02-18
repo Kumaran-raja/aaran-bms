@@ -38,7 +38,7 @@
                                                                     {{ $contact->vname }}
                                                                 </x-aaran-ui::dropdown.option>
                                                             @empty
-                                                                @livewire('controls.model.contact-model',[$contact_name])
+                                                                @livewire('aaran.master.contact.model.contact-model', [$contact_name])
                                                             @endforelse
                                                         @endif
                                                     </x-aaran-ui::dropdown.select>
@@ -68,7 +68,7 @@
                                                                         {{ $order->vname }}
                                                                     </x-aaran-ui::dropdown.option>
                                                                 @empty
-                                                                    @livewire('controls.model.order-model',[$order_name])
+                                                                    @livewire('aaran.master.order.model.order-model',[$order_name])
                                                                 @endforelse
                                                             @endif
                                                         </x-aaran-ui::dropdown.select>
@@ -97,7 +97,7 @@
                                                                         {{ $style->vname }}
                                                                     </x-aaran-ui::dropdown.option>
                                                                 @empty
-                                                                    @livewire('controls.model.style-model',[$style_name])
+                                                                    @livewire('aaran.master.style.model.style-model',[$style_name])
                                                                 @endforelse
                                                             @endif
                                                         </x-aaran-ui::dropdown.select>
@@ -141,7 +141,7 @@
                                                                     </x-aaran-ui::dropdown.option>
                                                                 @empty
                                                                     <button
-                                                                        wire:click.prevent="despatchSave('{{$dispatch_name}}')"
+                                                                        wire:click.prevent="despatchSave('{{$despatch_name}}')"
                                                                         class="text-white bg-green-500 text-center w-full">
                                                                         create
                                                                     </button>
@@ -200,8 +200,9 @@
 {{--                                                                &nbsp;{{\Aaran\Entries\Models\Sale::commons($product->gstpercent_id)}}--}}
                                                                 %
                                                             </x-aaran-ui::dropdown.option>
+
                                                         @empty
-                                                            @livewire('controls.model.product-model',[$product_name])
+                                                            @livewire('aaran.master.product.model.product-model',[$product_name])
                                                         @endforelse
                                                     @endif
                                                 </x-aaran-ui::dropdown.select>
@@ -625,37 +626,37 @@
     <!-- Display Items ----------------------------------------------------------------------------------------------->
 
     {{--    </x-forms.m-panel>--}}
-    <div class="max-w-6xl mx-auto">
-        @if( $common->vid != "")
-            <x-aaran-ui::forms.m-panel-bottom-button routes="{{ route('sales.print', [$this->common->vid])}}" save back print/>
-        @else
+{{--    <div class="max-w-6xl mx-auto">--}}
+{{--        @if( $common->vid != "")--}}
+{{--            <x-aaran-ui::forms.m-panel-bottom-button routes="{{ route('sales.print', [$this->common->vid])}}" save back print/>--}}
+{{--        @else--}}
             <x-aaran-ui::forms.m-panel-bottom-button save back/>
-        @endif
-    </div>
+{{--        @endif--}}
+{{--    </div>--}}
 
-    <div class="max-w-6xl px-10 mx-auto py-16 space-y-4">
-        @if(!$salesLogs->isEmpty())
-            <div class="text-xs text-orange-600  font-merri underline underline-offset-4">Activity</div>
-        @endif
-        @foreach($salesLogs as $row)
-            <div class="px-6">
-                <div class="relative ">
-                    <div class=" border-l-[3px] border-dotted px-8 text-[10px]  tracking-wider py-3">
-                        <div class="flex gap-x-5 ">
-                            <div class="inline-flex text-gray-500 items-center font-sans font-semibold">
-                                <span>Invoice No:</span> <span>{{$row->vname}}</span></div>
-                            <div class="inline-flex  items-center space-x-1 font-merri"><span
-                                    class="text-blue-600">@</span><span
-                                    class="text-gray-500">{{$row->user->name}}</span>
-                            </div>
-                        </div>
-                        <div
-                            class="text-gray-400 text-[8px] font-semibold">{{date('M d, Y', strtotime($row->created_at))}}</div>
-                        <div class="pb-2 font-lex leading-5 py-2 text-justify">{!! $row->description !!}</div>
-                    </div>
-                    <div class="absolute top-0 -left-1 h-2.5 w-2.5  rounded-full bg-teal-600 "></div>
-                </div>
-            </div>
-        @endforeach
-    </div>
+{{--    <div class="max-w-6xl px-10 mx-auto py-16 space-y-4">--}}
+{{--        @if(!$salesLogs->isEmpty())--}}
+{{--            <div class="text-xs text-orange-600  font-merri underline underline-offset-4">Activity</div>--}}
+{{--        @endif--}}
+{{--        @foreach($salesLogs as $row)--}}
+{{--            <div class="px-6">--}}
+{{--                <div class="relative ">--}}
+{{--                    <div class=" border-l-[3px] border-dotted px-8 text-[10px]  tracking-wider py-3">--}}
+{{--                        <div class="flex gap-x-5 ">--}}
+{{--                            <div class="inline-flex text-gray-500 items-center font-sans font-semibold">--}}
+{{--                                <span>Invoice No:</span> <span>{{$row->vname}}</span></div>--}}
+{{--                            <div class="inline-flex  items-center space-x-1 font-merri"><span--}}
+{{--                                    class="text-blue-600">@</span><span--}}
+{{--                                    class="text-gray-500">{{$row->user->name}}</span>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                        <div--}}
+{{--                            class="text-gray-400 text-[8px] font-semibold">{{date('M d, Y', strtotime($row->created_at))}}</div>--}}
+{{--                        <div class="pb-2 font-lex leading-5 py-2 text-justify">{!! $row->description !!}</div>--}}
+{{--                    </div>--}}
+{{--                    <div class="absolute top-0 -left-1 h-2.5 w-2.5  rounded-full bg-teal-600 "></div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        @endforeach--}}
+{{--    </div>--}}
 </div>

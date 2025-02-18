@@ -2,8 +2,9 @@
 
 namespace Aaran\Entries\Livewire\Sales;
 
-
 use Aaran\Assets\LivewireForms\MasterGstApi;
+use Aaran\Assets\Trait\CommonTraitNew;
+use Aaran\Books\Models\Ledger;
 use Aaran\Common\Models\Colour;
 use Aaran\Common\Models\Despatch;
 use Aaran\Common\Models\Size;
@@ -17,7 +18,6 @@ use Aaran\Master\Models\Product;
 use Aaran\Master\Models\Style;
 use Aaran\MasterGst\Models\MasterGstEway;
 use Aaran\MasterGst\Models\MasterGstIrn;
-use Aaran\MasterGst\Models\MasterGstToken;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Database\Eloquent\Collection;
@@ -29,6 +29,7 @@ use Livewire\Component;
 
 class Upsert extends Component
 {
+    use CommonTraitNew;
 
     #region[E-invoice properties]
     public MasterGstApi $masterGstApi;
@@ -599,80 +600,79 @@ class Upsert extends Component
 
     #endregion
 
-//    #region[Ledger]
-//
-//    public $ledger_id = '';
-//    public $ledger_name = '';
-//    public Collection $ledgerCollection;
-//    public $highlightLedger = 0;
-//    public $ledgerTyped = false;
-//
-//    public function decrementLedger(): void
-//    {
-//        if ($this->highlightLedger === 0) {
-//            $this->highlightLedger = count($this->ledgerCollection) - 1;
-//            return;
-//        }
-//        $this->highlightLedger--;
-//    }
-//
-//    public function incrementLedger(): void
-//    {
-//        if ($this->highlightLedger === count($this->ledgerCollection) - 1) {
-//            $this->highlightLedger = 0;
-//            return;
-//        }
-//        $this->highlightLedger++;
-//    }
-//
-//    public function setLedger($name, $id): void
-//    {
-//        $this->ledger_name = $name;
-//        $this->ledger_id = $id;
-//        $this->getLedgerList();
-//    }
-//
-//    public function enterLedger(): void
-//    {
-//        $obj = $this->ledgerCollection[$this->highlightLedger] ?? null;
-//
-//        $this->ledger_name = '';
-//        $this->ledgerCollection = Collection::empty();
-//        $this->highlightLedger = 0;
-//
-//        $this->ledger_name = $obj['vname'] ?? '';
-//        $this->ledger_id = $obj['id'] ?? '';
-//    }
-//
-//    public function refreshLedger($v): void
-//    {
-//        $this->ledger_id = $v['id'];
-//        $this->ledger_name = $v['name'];
-//        $this->ledgerTyped = false;
-//
-//    }
-//
-//    public function ledgerSave($name)
-//    {
-//        if ($name) {
-//            $obj = Common::create([
-//                'label_id' => '9',
-//                'vname' => $name,
-//                'active_id' => '1',
-//            ]);
-//            $v = ['name' => $name, 'id' => $obj->id];
-//            $this->refreshLedger($v);
-//        }
-//    }
-//
-//    public function getLedgerList(): void
-//    {
-//        $this->ledgerCollection = $this->ledger_name ? Common::search(trim($this->ledger_name))->where('label_id', '=',
-//            10)
-//            ->get() : Common::where('label_id', '=', 10)->Orwhere('id', '=', '1')->get();
-//    }
-//
-//    #endregion
+    #region[Ledger]
+
+    public $ledger_id = '';
+    public $ledger_name = '';
+    public Collection $ledgerCollection;
+    public $highlightLedger = 0;
+    public $ledgerTyped = false;
+
+    public function decrementLedger(): void
+    {
+        if ($this->highlightLedger === 0) {
+            $this->highlightLedger = count($this->ledgerCollection) - 1;
+            return;
+        }
+        $this->highlightLedger--;
+    }
+
+    public function incrementLedger(): void
+    {
+        if ($this->highlightLedger === count($this->ledgerCollection) - 1) {
+            $this->highlightLedger = 0;
+            return;
+        }
+        $this->highlightLedger++;
+    }
+
+    public function setLedger($name, $id): void
+    {
+        $this->ledger_name = $name;
+        $this->ledger_id = $id;
+        $this->getLedgerList();
+    }
+
+    public function enterLedger(): void
+    {
+        $obj = $this->ledgerCollection[$this->highlightLedger] ?? null;
+
+        $this->ledger_name = '';
+        $this->ledgerCollection = Collection::empty();
+        $this->highlightLedger = 0;
+
+        $this->ledger_name = $obj['vname'] ?? '';
+        $this->ledger_id = $obj['id'] ?? '';
+    }
+
+    public function refreshLedger($v): void
+    {
+        $this->ledger_id = $v['id'];
+        $this->ledger_name = $v['name'];
+        $this->ledgerTyped = false;
+
+    }
+
+    public function ledgerSave($name)
+    {
+        if ($name) {
+            $obj = Ledger::create([
+                'vname' => $name,
+                'active_id' => '1',
+            ]);
+            $v = ['name' => $name, 'id' => $obj->id];
+            $this->refreshLedger($v);
+        }
+    }
+
+    public function getLedgerList(): void
+    {
+        $this->ledgerCollection = $this->ledger_name ?
+            Ledger::search(trim($this->ledger_name))->get() :
+            Ledger::all();
+    }
+
+    #endregion
 
     #region[Product]
 
@@ -705,7 +705,7 @@ class Upsert extends Component
     {
         $this->product_name = $name;
         $this->product_id = $id;
-        $this->gst_percent1 = Sale::commons($percent);
+//        $this->gst_percent1 = Sale::commons($percent);
         $this->getProductList();
     }
 
@@ -718,7 +718,7 @@ class Upsert extends Component
 
         $this->product_name = $obj['vname'] ?? '';
         $this->product_id = $obj['id'] ?? '';
-        $this->gst_percent1 = Sale::commons($obj['gstpercent_id']) ?? '';
+//        $this->gst_percent1 = Sale::commons($obj['gstpercent_id']) ?? '';
     }
 
     #[On('refresh-product')]
@@ -726,7 +726,7 @@ class Upsert extends Component
     {
         $this->product_id = $v['id'];
         $this->product_name = $v['name'];
-        $this->gst_percent1 = Sale::commons($v['gstpercent_id']);
+//        $this->gst_percent1 = Sale::commons($v['gstpercent_id']);
         $this->productTyped = false;
 
     }
@@ -970,10 +970,11 @@ class Upsert extends Component
                 }
                 $itemDetailsStr = implode(', ', $itemDetails);
 
-                $this->common->logEntry($this->invoice_no, 'Sales', 'create', "The Sales entry has been created for  . $this->contact_name. Items: {$itemDetailsStr}");
+//                $this->common->logEntry($this->invoice_no, 'Sales', 'create', "The Sales entry has been created for  . $this->contact_name. Items: {$itemDetailsStr}");
                 $this->contactUpdate();
                 $message = "Saved";
-            } else {
+            }
+        else {
                 $obj = Sale::find($this->common->vid);
                 $previousData = $obj->getOriginal();
 //                $mapping = [
@@ -1188,11 +1189,11 @@ class Upsert extends Component
             $this->style_id = $obj->style_id;
             $this->style_name = $obj->style->vname;
             $this->despatch_id = $obj->despatch_id;
-            $this->despatch_name = $obj->despatch_id ? Common::find($obj->despatch_id)->vname : '';
+            $this->despatch_name = $obj->despatch_id ? Despatch::find($obj->despatch_id)->vname : '';
             $this->job_no = $obj->job_no;
             $this->sales_type = $obj->sales_type;
             $this->transport_id = $obj->transport_id;
-            $this->transport_name = $obj->transport_id ? Common::find($obj->transport_id)->vname : '';
+            $this->transport_name = $obj->transport_id ? Transport::find($obj->transport_id)->vname : '';
             $this->destination = $obj->destination;
             $this->bundle = $obj->bundle;
             $this->distance = $obj->distance;
@@ -1208,7 +1209,7 @@ class Upsert extends Component
             $this->total_taxable = $obj->total_taxable;
             $this->total_gst = $obj->total_gst;
             $this->ledger_id = $obj->ledger_id;
-            $this->ledger_name = $obj->ledger_id ? Common::find($obj->ledger_id)->vname : '';
+            $this->ledger_name = $obj->ledger_id ? Ledger::find($obj->ledger_id)->vname : '';
             $this->additional = $obj->additional;
             $this->round_off = $obj->round_off;
             $this->grand_total = $obj->grand_total;
@@ -1253,7 +1254,7 @@ class Upsert extends Component
 
             $this->invoice_no = Sale::nextNo();
             $this->uniqueno = session()->get('company_id') . '~' . session()->get('acyear') . '~' . $this->invoice_no;
-//            $this->common->active_id = true;
+            $this->common->active_id = true;
             $this->sales_type = '1';
             $this->gst_percent = 5;
             $this->additional = 0;
@@ -1276,13 +1277,17 @@ class Upsert extends Component
     #endregion
 
     #region[add items]
-
     public function addItems(): void
     {
+        // Ensure correct data types before performing calculations
+        $qty = (int) $this->qty;
+        $price = (float) $this->price;
+        $gstPercent = (float) $this->gst_percent1;
+
         if ($this->itemIndex == "") {
             if (!(empty($this->product_name)) &&
-                !(empty($this->price)) &&
-                !(empty($this->qty))
+                !(empty($price)) &&
+                !(empty($qty))
             ) {
                 $this->itemList[] = [
                     'po_no' => $this->po_no,
@@ -1294,13 +1299,13 @@ class Upsert extends Component
                     'colour_name' => $this->colour_name,
                     'size_id' => $this->size_id,
                     'size_name' => $this->size_name,
-                    'qty' => $this->qty,
-                    'price' => $this->price,
-                    'gst_percent' => $this->gst_percent1,
+                    'qty' => $qty,
+                    'price' => $price,
+                    'gst_percent' => $gstPercent,
                     'description' => $this->description,
-                    'taxable' => $this->qty * $this->price,
-                    'gst_amount' => ($this->qty * $this->price) * $this->gst_percent1 / 100,
-                    'subtotal' => $this->qty * $this->price + (($this->qty * $this->price) * $this->gst_percent1 / 100),
+                    'taxable' => $qty * $price,
+                    'gst_amount' => ($qty * $price) * $gstPercent / 100,
+                    'subtotal' => $qty * $price + (($qty * $price) * $gstPercent / 100),
                 ];
             }
         } else {
@@ -1314,13 +1319,13 @@ class Upsert extends Component
                 'colour_name' => $this->colour_name,
                 'size_id' => $this->size_id,
                 'size_name' => $this->size_name,
-                'qty' => $this->qty,
-                'price' => $this->price,
-                'gst_percent' => $this->gst_percent1,
+                'qty' => $qty,
+                'price' => $price,
+                'gst_percent' => $gstPercent,
                 'description' => $this->description,
-                'taxable' => $this->qty * $this->price,
-                'gst_amount' => ($this->qty * $this->price) * $this->gst_percent1 / 100,
-                'subtotal' => $this->qty * $this->price + (($this->qty * $this->price) * $this->gst_percent1 / 100),
+                'taxable' => $qty * $price,
+                'gst_amount' => ($qty * $price) * $gstPercent / 100,
+                'subtotal' => $qty * $price + (($qty * $price) * $gstPercent / 100),
             ];
         }
 
@@ -1328,6 +1333,7 @@ class Upsert extends Component
         $this->resetsItems();
         $this->render();
     }
+
 
     public function resetsItems(): void
     {
@@ -1460,7 +1466,9 @@ class Upsert extends Component
         $this->getShipping_address();
         $this->getStyleList();
         $this->getDespatchList();
-        return view('entries::Sales.upsert');
+        return view('entries::Sales.upsert', [
+//            'list' => Sale::all();
+        ]);
     }
     #endregion
 }

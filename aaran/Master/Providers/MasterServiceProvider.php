@@ -11,6 +11,11 @@ use Aaran\Master\Livewire\Product;
 use Aaran\Master\Livewire\Orders;
 use Aaran\Master\Livewire\Style;
 
+use Aaran\Master\Livewire\Contact\Model\ContactModel;
+use Aaran\Master\Livewire\Orders\Model\OrderModel;
+use Aaran\Master\Livewire\Style\Model\StyleModel;
+use Aaran\Master\Livewire\Product\Model\ProductModel;
+
 
 class MasterServiceProvider extends ServiceProvider
 {
@@ -33,6 +38,13 @@ class MasterServiceProvider extends ServiceProvider
 
         Livewire::component('contact.index', Contact\Index::class);
         Livewire::component('contact.upsert', Contact\Upsert::class);
+
+
+        Livewire::component('aaran.master.contact.model.contact-model', ContactModel::class);
+        Livewire::component('aaran.master.order.model.order-model', OrderModel::class);
+        Livewire::component('aaran.master.style.model.style-model', StyleModel::class);
+        Livewire::component('aaran.master.product.model.product-model', ProductModel::class);
+
 
         Livewire::component('product.index', Product\Index::class);
         Livewire::component('orders.index', Orders\Index::class);
