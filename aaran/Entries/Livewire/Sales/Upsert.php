@@ -2,8 +2,8 @@
 
 namespace Aaran\Entries\Livewire\Sales;
 
-
 use Aaran\Assets\LivewireForms\MasterGstApi;
+use Aaran\Assets\Trait\CommonTraitNew;
 use Aaran\Books\Models\Ledger;
 use Aaran\Common\Models\Colour;
 use Aaran\Common\Models\Despatch;
@@ -18,7 +18,6 @@ use Aaran\Master\Models\Product;
 use Aaran\Master\Models\Style;
 use Aaran\MasterGst\Models\MasterGstEway;
 use Aaran\MasterGst\Models\MasterGstIrn;
-use Aaran\MasterGst\Models\MasterGstToken;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Database\Eloquent\Collection;
@@ -30,6 +29,7 @@ use Livewire\Component;
 
 class Upsert extends Component
 {
+    use CommonTraitNew;
 
     #region[E-invoice properties]
     public MasterGstApi $masterGstApi;
@@ -970,10 +970,11 @@ class Upsert extends Component
                 }
                 $itemDetailsStr = implode(', ', $itemDetails);
 
-                $this->common->logEntry($this->invoice_no, 'Sales', 'create', "The Sales entry has been created for  . $this->contact_name. Items: {$itemDetailsStr}");
+//                $this->common->logEntry($this->invoice_no, 'Sales', 'create', "The Sales entry has been created for  . $this->contact_name. Items: {$itemDetailsStr}");
                 $this->contactUpdate();
                 $message = "Saved";
-            } else {
+            }
+        else {
                 $obj = Sale::find($this->common->vid);
                 $previousData = $obj->getOriginal();
 //                $mapping = [
@@ -1253,7 +1254,7 @@ class Upsert extends Component
 
             $this->invoice_no = Sale::nextNo();
             $this->uniqueno = session()->get('company_id') . '~' . session()->get('acyear') . '~' . $this->invoice_no;
-//            $this->common->active_id = true;
+            $this->common->active_id = true;
             $this->sales_type = '1';
             $this->gst_percent = 5;
             $this->additional = 0;
@@ -1276,13 +1277,17 @@ class Upsert extends Component
     #endregion
 
     #region[add items]
-
     public function addItems(): void
     {
+        // Ensure correct data types before performing calculations
+        $qty = (int) $this->qty;
+        $price = (float) $this->price;
+        $gstPercent = (float) $this->gst_percent1;
+
         if ($this->itemIndex == "") {
             if (!(empty($this->product_name)) &&
-                !(empty($this->price)) &&
-                !(empty($this->qty))
+                !(empty($price)) &&
+                !(empty($qty))
             ) {
                 $this->itemList[] = [
                     'po_no' => $this->po_no,
@@ -1294,13 +1299,13 @@ class Upsert extends Component
                     'colour_name' => $this->colour_name,
                     'size_id' => $this->size_id,
                     'size_name' => $this->size_name,
-                    'qty' => $this->qty,
-                    'price' => $this->price,
-                    'gst_percent' => $this->gst_percent1,
+                    'qty' => $qty,
+                    'price' => $price,
+                    'gst_percent' => $gstPercent,
                     'description' => $this->description,
-                    'taxable' => $this->qty * $this->price,
-                    'gst_amount' => ($this->qty * $this->price) * $this->gst_percent1 / 100,
-                    'subtotal' => $this->qty * $this->price + (($this->qty * $this->price) * $this->gst_percent1 / 100),
+                    'taxable' => $qty * $price,
+                    'gst_amount' => ($qty * $price) * $gstPercent / 100,
+                    'subtotal' => $qty * $price + (($qty * $price) * $gstPercent / 100),
                 ];
             }
         } else {
@@ -1314,13 +1319,13 @@ class Upsert extends Component
                 'colour_name' => $this->colour_name,
                 'size_id' => $this->size_id,
                 'size_name' => $this->size_name,
-                'qty' => $this->qty,
-                'price' => $this->price,
-                'gst_percent' => $this->gst_percent1,
+                'qty' => $qty,
+                'price' => $price,
+                'gst_percent' => $gstPercent,
                 'description' => $this->description,
-                'taxable' => $this->qty * $this->price,
-                'gst_amount' => ($this->qty * $this->price) * $this->gst_percent1 / 100,
-                'subtotal' => $this->qty * $this->price + (($this->qty * $this->price) * $this->gst_percent1 / 100),
+                'taxable' => $qty * $price,
+                'gst_amount' => ($qty * $price) * $gstPercent / 100,
+                'subtotal' => $qty * $price + (($qty * $price) * $gstPercent / 100),
             ];
         }
 
@@ -1328,6 +1333,7 @@ class Upsert extends Component
         $this->resetsItems();
         $this->render();
     }
+
 
     public function resetsItems(): void
     {
@@ -1460,7 +1466,9 @@ class Upsert extends Component
         $this->getShipping_address();
         $this->getStyleList();
         $this->getDespatchList();
-        return view('entries::Sales.upsert');
+        return view('entries::Sales.upsert', [
+//            'list' => Sale::all();
+        ]);
     }
     #endregion
 }
