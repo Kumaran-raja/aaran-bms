@@ -393,7 +393,7 @@ class ContactModel extends Component
     public function getPincodeList(): void
     {
         $this->pincodeCollection = $this->itemList[$this->openTab]['pincode_name'] ?
-            Pincode::search(trim($this->pincode_name))->get() :
+            Pincode::search(trim($this->pincode_name))->get():
             Pincode::all();
     }
 

@@ -295,7 +295,7 @@
                                                                 wire:keydown.arrow-up="decrementMsmeType"
                                                                 wire:keydown.arrow-down="incrementMsmeType"
                                                                 wire:keydown.enter="enterMsmeType" />
-                                    <x <<x-aaran-ui::dropdown.select wire:model="msme_type_id">
+                                    <x-aaran-ui::dropdown.select wire:model="msme_type_id">
                                         @if($msmeTypeCollection)
                                             @foreach ($msmeTypeCollection as $msmeType)
                                                 <x-aaran-ui::dropdown.option

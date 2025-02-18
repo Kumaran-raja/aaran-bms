@@ -200,8 +200,9 @@
 {{--                                                                &nbsp;{{\Aaran\Entries\Models\Sale::commons($product->gstpercent_id)}}--}}
                                                                 %
                                                             </x-aaran-ui::dropdown.option>
+
                                                         @empty
-                                                            @livewire('controls.model.product-model',[$product_name])
+                                                            @livewire('aaran.master.product.model.product-model',[$product_name])
                                                         @endforelse
                                                     @endif
                                                 </x-aaran-ui::dropdown.select>

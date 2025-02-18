@@ -705,7 +705,7 @@ class Upsert extends Component
     {
         $this->product_name = $name;
         $this->product_id = $id;
-        $this->gst_percent1 = Sale::commons($percent);
+//        $this->gst_percent1 = Sale::commons($percent);
         $this->getProductList();
     }
 
@@ -718,7 +718,7 @@ class Upsert extends Component
 
         $this->product_name = $obj['vname'] ?? '';
         $this->product_id = $obj['id'] ?? '';
-        $this->gst_percent1 = Sale::commons($obj['gstpercent_id']) ?? '';
+//        $this->gst_percent1 = Sale::commons($obj['gstpercent_id']) ?? '';
     }
 
     #[On('refresh-product')]
@@ -726,7 +726,7 @@ class Upsert extends Component
     {
         $this->product_id = $v['id'];
         $this->product_name = $v['name'];
-        $this->gst_percent1 = Sale::commons($v['gstpercent_id']);
+//        $this->gst_percent1 = Sale::commons($v['gstpercent_id']);
         $this->productTyped = false;
 
     }
