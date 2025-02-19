@@ -38,7 +38,7 @@ class ContactDetail extends Model
         return collect([
             'address_1' => $obj->address_1,
             'address_2' => $obj->address_2,
-            'address_3' => City::find($obj->id)->vname . ' - ' . Pincode::find($obj->id)->vname . '.  ' . State::find($obj->id)->state_code,
+            'address_3' => City::find($obj->city_id)->vname . ' - ' . Pincode::find($obj->pincode_id)->vname . '.  ' . State::find($obj->state_id)->state_code,
             'country' => Country::find($obj->id)->vname,
             'gstcell' => 'GSTin : ' . $obj->gstin,
             'gstContact' => $obj->gstin,

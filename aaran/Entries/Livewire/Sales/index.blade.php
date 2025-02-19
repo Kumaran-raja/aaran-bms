@@ -2,6 +2,7 @@
     <x-slot name="header">Sales</x-slot>
 
     <x-aaran-ui::forms.m-panel>
+        <x-aaran-ui::alerts.notification />
 
         <x-aaran-ui::forms.top-controls :show-filters="$showFilters"/>
 
@@ -83,9 +84,9 @@
 {{--                        @if(\Aaran\Aadmin\Src\SaleEntry::hasEinvoice())--}}
                             <x-aaran-ui::table.cell-text>
                                 <a href="{{route('sales.upsert',[$row->id])}}">
-                                        <?php
-                                        $obj = \Aaran\Entries\Models\Sale::Irn($row->id);
-                                        ?>
+{{--                                        <?php--}}
+{{--                                        $obj = \Aaran\Entries\Models\Sale::Irn($row->id);--}}
+{{--                                        ?>--}}
                                     @if(isset($obj))
                                         @if($obj->status=='Generated')
                                             <div
@@ -121,18 +122,18 @@
                                 <div class="inline-flex items-center gap-x-4">
 {{--                                    @if(\Aaran\Aadmin\Src\SaleEntry::hasEinvoice())--}}
                                         <x-aaran-ui::button.e-inv
-                                            routes="{{route('sales.einvoice',[$row->id]) }}"/>
-                                        <x-aaran-ui::button.e-way routes="{{ route('sales.eway',[$row->id]) }}"/>
+{{--                                            routes="{{route('sales.einvoice',[$row->id]) }}"/>--}}
+{{--                                        <x-aaran-ui::button.e-way routes="{{ route('sales.eway',[$row->id]) }}"/>--}}
 {{--                                    @endif--}}
 {{--                                    @if(\Aaran\Aadmin\Src\SaleEntry::hasEway())--}}
-                                        <x-aaran-ui::button.e-way routes="{{ route('sales.eway',[$row->id]) }}"/>
+{{--                                        <x-aaran-ui::button.e-way routes="{{ route('sales.eway',[$row->id]) }}"/>--}}
 {{--                                    @endif--}}
                                 </div>
                             </x-aaran-ui::table.cell-text>
 {{--                        @endif--}}
 
                         <x-aaran-ui::table.cell-text>
-                            <x-aaran-ui::button.print-pdf routes="{{route('sales.print', [$row->id])}}"/>
+{{--                            <x-aaran-ui::button.print-pdf routes="{{route('sales.print', [$row->id])}}"/>--}}
                         </x-aaran-ui::table.cell-text>
 
                         <td class="max-w-max print:hidden">

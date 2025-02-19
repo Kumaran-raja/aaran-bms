@@ -1,6 +1,8 @@
 <div>
     <x-slot name="header">Sales</x-slot>
     {{--    <x-forms.m-panel>--}}
+    <x-aaran-ui::alerts.notification />
+
     <div class="space-y-5 pt-10 min-h-[40rem]">
         <div class="space-y-5">
             <div class="max-w-6xl mx-auto">
@@ -121,7 +123,7 @@
                                             @endif
                                         </div>
                                         <div class="">
-                                            @if(\Aaran\Assets\Features\SaleEntry::hasDespatch())
+{{--                                            @if(\Aaran\Assets\Features\SaleEntry::hasDespatch())--}}
                                                 <x-aaran-ui::dropdown.wrapper label="Despatch No" type="despatchTyped">
                                                     <div class="relative ">
                                                         <x-aaran-ui::dropdown.input
@@ -151,7 +153,7 @@
                                                         </x-aaran-ui::dropdown.select>
                                                     </div>
                                                 </x-aaran-ui::dropdown.wrapper>
-                                            @endif
+{{--                                            @endif--}}
                                         </div>
                                         <div class="h-16 ">
                                             <x-aaran-ui::input.model-select wire:model="sales_type" :label="'Sales Type'">
@@ -455,7 +457,7 @@
                                                             </x-aaran-ui::dropdown.option>
                                                         @empty
                                                             <x-aaran-ui::dropdown.new
-                                                                href="{{route('contacts.upsert',[$contact_id])}}"
+                                                                href="{{route('contacts.upsert',[0])}}"
                                                                 label="Billing Address"/>
                                                         @endforelse
                                                     @endif
@@ -486,7 +488,7 @@
                                                             </x-aaran-ui::dropdown.option>
                                                         @empty
                                                             <x-aaran-ui::dropdown.new
-                                                                href="{{route('contacts.upsert',[$contact_id])}}"
+                                                                href="{{route('contacts.upsert',[0])}}"
                                                                 label="Shipping Address"/>
                                                         @endforelse
                                                     @endif
@@ -495,7 +497,8 @@
                                         </x-aaran-ui::dropdown.wrapper>
                                     @endif
                                 </div>
-                                {{--                                <div>{{$billing_address->address_1, $billing_address->address_2}}</div>--}}
+{{--                          <div>{{$billing_address->address_1, $billing_address->address_2}}</div>--}}
+
                             </div>
                         </x-aaran-ui::tabs.content>
                         <x-aaran-ui::tabs.content>
