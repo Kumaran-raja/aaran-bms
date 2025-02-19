@@ -12,10 +12,6 @@ class BlogPost extends Model
 
     protected $guarded = [];
 
-    public static function common($id)
-    {
-        return Common::find($id)->vname;
-    }
 
     public function user(): BelongsTo
     {
@@ -25,7 +21,7 @@ class BlogPost extends Model
 
     public function category(): BelongsTo
     {
-        return $this->belongsTo(Common::class);
+        return $this->belongsTo(BlogCategory::class);
     }
 
     public function tag(): BelongsTo
@@ -33,12 +29,12 @@ class BlogPost extends Model
         return $this->belongsTo(BlogTag::class);
     }
 
-    public static function type($str)
-    {
-        if ($str) {
-            return Common::find($str)->vname;
-        } else return '';
-    }
+//    public static function type($str)
+//    {
+//        if ($str) {
+//            return Common::find($str)->vname;
+//        } else return '';
+//    }
 
     public static function tagName($str)
     {

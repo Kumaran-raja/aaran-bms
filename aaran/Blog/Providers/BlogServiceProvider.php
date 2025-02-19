@@ -4,6 +4,8 @@ namespace Aaran\Blog\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
+use Aaran\Blog\Livewire\blog;
+
 
 class BlogServiceProvider extends ServiceProvider
 {
@@ -22,7 +24,13 @@ class BlogServiceProvider extends ServiceProvider
         $this->loadMigrations();
 
         // Register Livewire components
-        Livewire::component('blog::blog-tag', blog\blogTag::class);
+        Livewire::component('blog::blog-index', blog\Index::class);
+        Livewire::component('blog::blog-Category', blog\Category::class);
+        Livewire::component('blog::blog-tag', blog\Tag::class);
+
+        Livewire::component('blog::blog-show', blog\Show::class);
+
+
 
     }
 

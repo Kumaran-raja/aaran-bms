@@ -2,9 +2,9 @@
 
 namespace Aaran\Blog\Livewire\blog;
 
+use Aaran\Blog\Models\BlogCategory;
 use Aaran\Blog\Models\BlogTag;
 use Aaran\Blog\Models\BlogPost;
-use Aaran\Common\Models\Common;
 use Aaran\Assets\Trait\CommonTraitNew;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
@@ -14,6 +14,7 @@ use Livewire\WithFileUploads;
 class Index extends Component
 {
     use CommonTraitNew;
+
     use WithFileUploads;
 
     #region[properties]
@@ -30,18 +31,18 @@ class Index extends Component
 
     public function mount()
     {
-        $this->BlogCategories = Common::where('label_id','=','18')->get();
+        $this->BlogCategories = BlogCategory::get();
     }
     #region[Get-Save]
     public function getSave(): void
     {
         if ($this->common->vname != '') {
             if ($this->common->vid == '') {
-                $Post = new Post();
+                $Post = new BlogPost();
                 $extraFields = [
                     'body' => $this->body,
-                    'blogcategory_id' => $this->blogcategory_id,
-                    'blogtag_id' => $this->blogtag_id,
+                    'blog_category_id' => $this->blog_category_id,
+                    'blog_tag_id' => $this->blog_tag_id,
                     'image' => $this->saveImage(),
                     'user_id' => auth()->id(),
                     'visibility' => $this->visibility,
@@ -53,8 +54,8 @@ class Index extends Component
                 $Post = BlogPost::find($this->common->vid);
                 $extraFields = [
                     'body' => $this->body,
-                    'blogcategory_id' => $this->blogcategory_id,
-                    'blogtag_id' => $this->blogtag_id,
+                    'blog_category_id' => $this->blog_category_id,
+                    'blog_tag_id' => $this->blog_tag_id,
                     'image' => $this->saveImage(),
                     'user_id' => auth()->id(),
                     'visibility' => $this->visibility,
@@ -75,10 +76,10 @@ class Index extends Component
             $this->common->vid = $Post->id;
             $this->common->vname = $Post->vname;
             $this->body = $Post->body;
-            $this->blogcategory_id = $Post->blogcategory_id;
-            $this->blogcategory_name = $Post->blogcategory_id?Common::find($Post->blogcategory_id)->vname:'';
-            $this->blogtag_id = $Post->blogtag_id;
-            $this->blogtag_name = $Post->blogtag_id?Common::find($Post->blogtag_id)->vname:'';
+            $this->blog_category_id = $Post->blogcategory_id;
+            $this->blog_category_name = $Post->blogcategory_id?BlogCategory::find($Post->blogcategory_id)->vname:'';
+            $this->blog_tag_id = $Post->blogtag_id;
+            $this->blog_tag_name = $Post->blogtag_id?BlogTag::find($Post->blogtag_id)->vname:'';
             $this->common->active_id = $Post->active_id;
             $this->old_image = $Post->image;
             $this->visibility = $Post->visibility;
@@ -95,10 +96,10 @@ class Index extends Component
         $this->common->vname = '';
         $this->common->active_id = '1';
         $this->body = '';
-        $this->blogcategory_id = '';
-        $this->blogcategory_name = '';
-        $this->blogtag_id = '';
-        $this->blogtag_name = '';
+        $this->blog_category_id = '';
+        $this->blog_category_name = '';
+        $this->blog_tag_id = '';
+        $this->blog_tag_name = '';
         $this->old_image = '';
         $this->image = '';
         $this->visibility = false;
@@ -132,8 +133,8 @@ class Index extends Component
     #endregion
 
     #region[blogCategory]
-    public $blogcategory_id = '';
-    public $blogcategory_name = '';
+    public $blog_category_id = '';
+    public $blog_category_name = '';
     public Collection $blogcategoryCollection;
     public $highlightBlogCategory = 0;
     public $blogcategoryTyped = false;
@@ -158,8 +159,8 @@ class Index extends Component
 
     public function setBlogcategory($name, $id): void
     {
-        $this->blogcategory_name = $name;
-        $this->blogcategory_id = $id;
+        $this->blog_category_name = $name;
+        $this->blog_category_id = $id;
         $this->getBlogcategoryList();
     }
 
@@ -167,25 +168,24 @@ class Index extends Component
     {
         $obj = $this->blogcategoryCollection[$this->highlightBlogcategory] ?? null;
 
-        $this->blogcategory_name = '';
+        $this->blog_category_name = '';
         $this->blogcategoryCollection = Collection::empty();
         $this->highlightBlogcategory = 0;
 
-        $this->blogcategory_name = $obj['vname'] ?? '';
-        $this->blogcategory_id = $obj['id'] ?? '';
+        $this->blog_category_name = $obj['vname'] ?? '';
+        $this->blog_category_id = $obj['id'] ?? '';
     }
 
     public function refreshBlogcategory($v): void
     {
-        $this->blogcategory_id = $v['id'];
-        $this->blogcategory_name = $v['name'];
+        $this->blog_category_id = $v['id'];
+        $this->blog_category_name = $v['name'];
         $this->blogcategoryTyped = false;
     }
 
     public function blogcategorySave($name)
     {
-        $obj = Common::create([
-            'label_id' => 18,
+        $obj = BlogCategory::create([
             'vname' => $name,
             'active_id' => '1'
         ]);
@@ -195,16 +195,16 @@ class Index extends Component
 
     public function getBlogcategoryList(): void
     {
-        $this->blogcategoryCollection = $this->blogcategory_name ?
-            Common::search(trim($this->blogcategory_name))->where('label_id', '=', '18')->get() :
-            Common::where('label_id', '=', '18')->get();
+        $this->blogcategoryCollection = $this->blog_category_name ?
+            BlogCategory::search(trim($this->blog_category_name))->get() :
+            BlogCategory::all();
     }
 
     #endregion
 
     #region[blogTag]
-    public $blogtag_id = '';
-    public $blogtag_name = '';
+    public $blog_tag_id = '';
+    public $blog_tag_name = '';
     public Collection $blogtagCollection;
     public $highlightBlogtag = 0;
     public $blogtagTyped = false;
@@ -229,8 +229,8 @@ class Index extends Component
 
     public function setBlogTag($name, $id): void
     {
-        $this->blogtag_name = $name;
-        $this->blogtag_id = $id;
+        $this->blog_tag_name = $name;
+        $this->blog_tag_id = $id;
         $this->getBlogtagList();
     }
 
@@ -238,25 +238,25 @@ class Index extends Component
     {
         $obj = $this->blogtagCollection[$this->highlightBlogtag] ?? null;
 
-        $this->blogtag_name = '';
+        $this->blog_tag_name = '';
         $this->blogtagCollection = Collection::empty();
         $this->highlightBlogtag = 0;
 
-        $this->blogtag_name = $obj['vname'] ?? '';
-        $this->blogtag_id = $obj['id'] ?? '';
+        $this->blog_tag_name = $obj['vname'] ?? '';
+        $this->blog_tag_id = $obj['id'] ?? '';
     }
 
     public function refreshBlogtag($v): void
     {
-        $this->blogtag_id = $v['id'];
-        $this->blogtag_name = $v['name'];
+        $this->blog_tag_id = $v['id'];
+        $this->blog_tag_name = $v['name'];
         $this->blogtagTyped = false;
     }
 
     public function blogtagSave($name)
     {
         $obj = BlogTag::create([
-            'blogcategory_id' => $this->blogcategory_id,
+            'blog_category_id' => $this->blog_category_id,
             'vname' => $name,
             'active_id' => '1'
         ]);
@@ -266,9 +266,9 @@ class Index extends Component
 
     public function getBlogTagList(): void
     {
-        $this->blogtagCollection = $this->blogtag_name ?
-            BlogTag::search(trim($this->blogtag_name))->where('blogcategory_id', '=', $this->blogcategory_id)->get() :
-            BlogTag::where('blogcategory_id', '=', $this->blogcategory_id)->get();
+        $this->blogtagCollection = $this->blog_tag_name ?
+            BlogCategory::search(trim($this->blog_tag_name))->get() :
+            BlogCategory::all();
     }
 
     #endregion
@@ -281,7 +281,7 @@ class Index extends Component
 
     public function gettags()
     {
-        $this->tags = BlogTag::where('blogcategory_id', '=', $this->category_id)->get();
+        $this->tags = BlogTag::where('blog_category_id', '=', $this->category_id)->get();
     }
 
     public function getFilter($id)
@@ -312,14 +312,14 @@ class Index extends Component
         $this->getBlogcategoryList();
         $this->getBlogtagList();
 
-        return view('livewire.blog.index')->with([
+        return view('blog::blog.index')->with([
             'list' => $this ->getListForm ->getList(BlogPost::class,function ($query){
                 return $query->latest()->when($this->tagfilter,function ($query,$tagfilter){
-                    return $query->whereIn('blogtag_id',$tagfilter);
+                    return $query->whereIn('blog_tag_id',$tagfilter);
                 });
             }),
             'firstPost'=>BlogPost::latest()->take(1)->when($this->tagfilter,function ($query,$tagfilter){
-                return $query->whereIn('blogtag_id',$tagfilter);
+                return $query->whereIn('blog_tag_id',$tagfilter);
             })->get(),
         ]);
     }
