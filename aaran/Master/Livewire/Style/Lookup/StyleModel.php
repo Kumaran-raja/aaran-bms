@@ -39,6 +39,6 @@ class StyleModel extends Component
     }
     public function render()
     {
-        return view('master::Style.Model.style-model');
+        return view('master::Style.Lookup.style-model');
     }
 }

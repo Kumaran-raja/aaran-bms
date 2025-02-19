@@ -39,6 +39,6 @@ class OrderModel extends Component
     }
     public function render()
     {
-        return view('master::Orders.Model.order-model');
+        return view('master::Orders.Lookup.order-model');
     }
 }

@@ -38,7 +38,7 @@
                                                                     {{ $contact->vname }}
                                                                 </x-aaran-ui::dropdown.option>
                                                             @empty
-                                                                @livewire('aaran.master.contact.model.contact-model', [$contact_name])
+                                                                @livewire('aaran.master.contact.lookup.contact-model', [$contact_name])
                                                             @endforelse
                                                         @endif
                                                     </x-aaran-ui::dropdown.select>
@@ -69,7 +69,7 @@
                                                                         {{ $order->vname }}
                                                                     </x-aaran-ui::dropdown.option>
                                                                 @empty
-                                                                    @livewire('aaran.master.order.model.order-model',[$order_name])
+                                                                    @livewire('aaran.master.order.lookup.order-model',[$order_name])
                                                                 @endforelse
                                                             @endif
                                                         </x-aaran-ui::dropdown.select>
@@ -98,7 +98,7 @@
                                                                         {{ $style->vname }}
                                                                     </x-aaran-ui::dropdown.option>
                                                                 @empty
-                                                                    @livewire('aaran.master.style.model.style-model',[$style_name])
+                                                                    @livewire('aaran.master.style.lookup.style-model',[$style_name])
                                                                 @endforelse
                                                             @endif
                                                         </x-aaran-ui::dropdown.select>
@@ -203,7 +203,7 @@
                                                             </x-aaran-ui::dropdown.option>
 
                                                         @empty
-                                                            @livewire('aaran.master.product.model.product-model',[$product_name])
+                                                            @livewire('aaran.master.product.lookup.product-model',[$product_name])
                                                         @endforelse
                                                     @endif
                                                 </x-aaran-ui::dropdown.select>

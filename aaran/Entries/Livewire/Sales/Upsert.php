@@ -1100,8 +1100,8 @@ class Upsert extends Component
                 $changesMessage = implode(' , ', $changes);
                 $newItemsMessage = !empty($newItems) ? implode('; ', $newItems) : 'No new items created';
 
-                $this->common->logEntry($this->invoice_no,'Sales', 'update',
-                    "The Sales entry has been updated for {$this->contact_name}. Changes: {$changesMessage} . New Items: {$newItemsMessage}") ;
+//                $this->common->logEntry($this->invoice_no,'Sales', 'update',
+//                    "The Sales entry has been updated for {$this->contact_name}. Changes: {$changesMessage} . New Items: {$newItemsMessage}") ;
                 $this->contactUpdate();
                 $message = "Updated";
             }
