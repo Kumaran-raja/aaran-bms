@@ -5,14 +5,15 @@
 
         <!-- header --------------------------------------------------------------------------------------------------->
 
-        <div class="h-[35rem] w-full bg-[#F7FAF9] bg-no-repeat bg-cover bg-center flex flex-col justify-center items-center"
-             style="background-image: url('/../../../images/blog/bgimage2.jpg');">
+        <div style="background-image: url('/../../../images/blog/business.jpg')"
+             class="h-[40rem] w-full bg-[#F7FAF9] bg-no-repeat bg-center bg-cover flex-col flex justify-center items-center">
 
             <div class="flex flex-col items-center justify-center w-8/12 mx-auto text-2xl text-white font-asul gap-y-2">
-                <span>Latest News</span>
-                <span>Everything that's going on at Enfold is collected here</span>
+                <span class="">Latest News</span>
+                <span class="" >Everything that's going on at Enfold is collected here</span>
             </div>
         </div>
+
 
 
         <div class="flex justify-center my-16 ">
@@ -228,7 +229,7 @@
     <x-aaran-ui::forms.create :id="$common->vid" :max-width="'xl'">
         <div class="flex flex-col gap-4">
 
-            {{--            <x-aaran-ui::inputmodel-text wire:model="common.vname" :label="'Name'"/> --}}
+{{--                        <x-aaran-ui::inputmodel-text wire:model="common.vname" :label="'Name'"/> --}}
 
             <input type="checkbox" wire:model="visibility">
             <label for="">Public</label>
@@ -239,7 +240,7 @@
 
             <x-aaran-ui::dropdown.wrapper label="Blog Category" type="blogcategoryTyped">
                 <div class="relative ">
-                    <x-aaran-ui::dropdown.input label="Blog Category" id="blogcategory_name" wire:model.live="blogcategory_name"
+                    <x-aaran-ui::dropdown.input label="Blog Category" id="blog_category_name" wire:model.live="blog_category_name"
                         wire:keydown.arrow-up="decrementBlogcategory" wire:keydown.arrow-down="incrementBlogcategory"
                         wire:keydown.enter="enterBlogcategory" />
                     <x-aaran-ui::dropdown.select>
@@ -250,7 +251,7 @@
                                     {{ $blogcategory->vname }}
                                 </x-aaran-ui::dropdown.option>
                             @empty
-                                <button wire:click.prevent="blogcategorySave('{{ $blogcategory_name }}')"
+                                <button wire:click.prevent="blogcategorySave('{{ $blog_category_name }}')"
                                     class="w-full text-center text-white bg-green-500">
                                     create
                                 </button>
@@ -262,7 +263,7 @@
 
             <x-aaran-ui::dropdown.wrapper label="Blog Tag" type="blogtagTyped">
                 <div class="relative ">
-                    <x-aaran-ui::dropdown.input label="Blog Tag" id="blogtag_name" wire:model.live="blogtag_name"
+                    <x-aaran-ui::dropdown.input label="Blog Tag" id="blog_tag_name" wire:model.live="blog_tag_name"
                         wire:keydown.arrow-up="decrementBlogtag" wire:keydown.arrow-down="incrementBlogtag"
                         wire:keydown.enter="enterBlogtag" />
                     <x-aaran-ui::dropdown.select>
@@ -273,7 +274,7 @@
                                     {{ $blogtag->vname }}
                                 </x-aaran-ui::dropdown.option>
                             @empty
-                                <button wire:click.prevent="blogtagSave('{{ $blogtag_name }}')"
+                                <button wire:click.prevent="blogtagSave('{{ $blog_tag_name }}')"
                                     class="w-full text-center text-blue-600 bg-blue-100  hover:font-bold">
                                     create
                                 </button>

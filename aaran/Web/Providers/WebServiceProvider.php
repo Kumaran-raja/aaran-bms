@@ -7,6 +7,7 @@ use Livewire\Livewire;
 
 use Aaran\Web\Livewire\Dashboard;
 use Aaran\Web\Livewire\Contact;
+use Aaran\Web\Livewire\Blog;
 
 
 class WebServiceProvider extends ServiceProvider
@@ -27,6 +28,7 @@ class WebServiceProvider extends ServiceProvider
 
         Livewire::component('web::index', Dashboard\Index::class);
         Livewire::component('web::index', Contact\Index::class);
+        Livewire::component('web::blog.index', Blog\Index::class);
     }
 
     protected function loadConfigs(): void

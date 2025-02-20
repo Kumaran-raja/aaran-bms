@@ -2,8 +2,7 @@
 
 namespace Aaran\Blog\Models;
 
-use Aaran\Common\Models\Common;
-use App\Models\User;
+use Aaran\Core\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -29,12 +28,11 @@ class BlogPost extends Model
         return $this->belongsTo(BlogTag::class);
     }
 
-//    public static function type($str)
-//    {
-//        if ($str) {
-//            return Common::find($str)->vname;
-//        } else return '';
-//    }
+    public static function type($id)
+    {
+        return BlogCategory::find($id)->vname ?? 'Unknown';
+    }
+
 
     public static function tagName($str)
     {

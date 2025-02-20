@@ -29,6 +29,7 @@ class Index extends Component
     public $visibility = false;
     #endregion
 
+
     public function mount()
     {
         $this->BlogCategories = BlogCategory::get();
@@ -141,8 +142,8 @@ class Index extends Component
 
     public function decrementBlogcategory(): void
     {
-        if ($this->highlightBlogcategory === 0) {
-            $this->highlightBlogcategory = count($this->blogcategoryCollection) - 1;
+        if ($this->highlightBlogCategory === 0) {
+            $this->highlightBlogCategory = count($this->blogcategoryCollection) - 1;
             return;
         }
         $this->highlightBlogcategory--;
@@ -150,11 +151,11 @@ class Index extends Component
 
     public function incrementBlogcategory(): void
     {
-        if ($this->highlightBlogcategory === count($this->blogcategoryCollection) - 1) {
-            $this->highlightBlogcategory = 0;
+        if ($this->highlightBlogCategory === count($this->blogcategoryCollection) - 1) {
+            $this->highlightBlogCategory = 0;
             return;
         }
-        $this->highlightBlogcategory++;
+        $this->highlightBlogCategory++;
     }
 
     public function setBlogcategory($name, $id): void
@@ -166,11 +167,11 @@ class Index extends Component
 
     public function enterBlogcategory(): void
     {
-        $obj = $this->blogcategoryCollection[$this->highlightBlogcategory] ?? null;
+        $obj = $this->blogcategoryCollection[$this->highlightBlogCategory] ?? null;
 
         $this->blog_category_name = '';
         $this->blogcategoryCollection = Collection::empty();
-        $this->highlightBlogcategory = 0;
+        $this->highlightBlogCategory = 0;
 
         $this->blog_category_name = $obj['vname'] ?? '';
         $this->blog_category_id = $obj['id'] ?? '';
@@ -267,8 +268,8 @@ class Index extends Component
     public function getBlogTagList(): void
     {
         $this->blogtagCollection = $this->blog_tag_name ?
-            BlogCategory::search(trim($this->blog_tag_name))->get() :
-            BlogCategory::all();
+            BlogTag::search(trim($this->blog_tag_name))->get() :
+            BlogTag::all();
     }
 
     #endregion
