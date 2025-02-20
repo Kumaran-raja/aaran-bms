@@ -27,7 +27,6 @@ class BlogServiceProvider extends ServiceProvider
         Livewire::component('blog::blog-index', blog\Index::class);
         Livewire::component('blog::blog-Category', blog\Category::class);
         Livewire::component('blog::blog-tag', blog\Tag::class);
-
         Livewire::component('blog::blog-show', blog\Show::class);
 
 

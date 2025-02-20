@@ -39,12 +39,12 @@
         <div class="w-2/12 pl-16 flex flex-col justify-center gap-y-7">
 
             <div class="w-full">
-                <x-icons.search-new/>
+                <x-aaran-ui::icons.search-new/>
             </div>
 
 
             <div class="inline-flex gap-3">
-                <img src="../../../../images/wp1.webp" alt="" class="w-10 h-10">
+                <img src="../../../../images/blog/demo.jpg" alt="" class="w-10 h-10">
 
                 <div>
                     <div class="uppercase">sadasd</div>
@@ -53,7 +53,7 @@
             </div>
 
             <div class="inline-flex gap-3">
-                <img src="../../../../images/wp1.webp" alt="" class="w-10 h-10">
+                <img src="../../../../images/blog/demo.jpg" alt="" class="w-10 h-10">
 
                 <div>
                     <div class="uppercase">sadasd</div>
@@ -62,7 +62,7 @@
             </div>
 
             <div class="inline-flex gap-3">
-                <img src="../../../../images/wp1.webp" alt="" class="w-10 h-10">
+                <img src="../../../../images/blog/demo.jpg" alt="" class="w-10 h-10">
 
                 <div>
                     <div class="uppercase">sadasd</div>
@@ -71,7 +71,7 @@
             </div>
 
             <div class="inline-flex gap-3">
-                <img src="../../../../images/wp1.webp" alt="" class="w-10 h-10">
+                <img src="../../../../images/blog/demo.jpg" alt="" class="w-10 h-10">
 
                 <div>
                     <div class="uppercase">sadasd</div>
@@ -103,7 +103,7 @@
                 <span>Post Comments</span>
 
                 <div class="inline-flex gap-1.5">
-                    <x-icons.icon :icon="'annotation'"
+                    <x-aaran-ui::icons.icon :icon="'annotation'"
                                   class="w-6 h-5"/>
                     <span class="text-md">({{$commentsCount}})</span>
                 </div>
@@ -127,9 +127,9 @@
 
 
                     <div class="flex">
-                        <x-icons.icon :icon="'pencil'" wire:click="editComment({{ $row->id }})"
+                        <x-aaran-ui::icons.icon :icon="'pencil'" wire:click="editComment({{ $row->id }})"
                                       class="text-gray-400 h-5 hover:cursor-pointer hover:text-black px-0.5 py-0.5 hover:rounded-sm inline-flex invisible group-hover:visible "/>
-                        <x-icons.icon :icon="'trash'" wire:click="getDelete({{ $row->id }})"
+                        <x-aaran-ui::icons.icon :icon="'trash'" wire:click="getDelete({{ $row->id }})"
                                       class="text-gray-400 h-5 hover:cursor-pointer hover:text-black px-0.5 py-0.5 hover:rounded-sm inline-flex invisible group-hover:visible"/>
 
                     </div>

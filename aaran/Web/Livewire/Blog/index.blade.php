@@ -9,12 +9,12 @@
 
                 <div class="group flex-col flex border-b gap-y-5">
                     <div class="flex flex-row justify-between ">
-                        <!-- we should do after create show -->
-{{--                        <a href="{{route('blog.Show',[$row->id])}}">--}}
+
+                        <a href="{{route('posts.show',[$row->id])}}">
 
                             <div class="text-3xl font-semibold font-merri animate__animated wow animate__backInLeft " data-wow-duration="3s">{{\Illuminate\Support\Str::words($row->vname,16)}}
                             </div>
-{{--                        </a>--}}
+                        </a>
                         <!-- Drop down ---------------------------------------------------------------------------->
 
                         @if(session()->get('tenant_id')!='')
@@ -41,12 +41,14 @@
 
                     <div class="space-y-5 pb-16">
                         @if($row->image != 'no image')
-{{--                            <a href="{{route('blog.Show',[$row->id])}}">--}}
+                            <a href="{{route('posts.show',[$row->id])}}">
                                 <div class="w-fill overflow-hidden shadow-md shadow-gray-400 rounded-sm">
 
-                                    <img src="{{ \Illuminate\Support\Facades\Storage::url('Storage/images/'.$row->image) }}" alt="" class="w-full h-[30rem] object-cover transition duration-500 hover:scale-105 ease-out ">
+                                    <img
+                                        src="{{ \Illuminate\Support\Facades\Storage::url('/images/'.$row->image) }}"
+                                        alt="" class="w-full h-[30rem] object-cover transition duration-500 hover:scale-105 ease-out ">
                                 </div>
-{{--                            </a>--}}
+                            </a>
                         @else
                             <x-aaran-ui::image.empty-img />
                         @endif
@@ -169,7 +171,7 @@
 
                     <x-aaran-ui::dropdown.wrapper label="Blog Tag" type="blogtagTyped">
                         <div class="relative ">
-                            <x-aaran-ui::dropdown.input label="Blog Tag" id="blogtag_name" wire:model.live="blogtag_name" wire:keydown.arrow-up="decrementBlogtag" wire:keydown.arrow-down="incrementBlogtag" wire:keydown.enter="enterBlogtag" />
+                            <x-aaran-ui::dropdown.input label="Blog Tag" id="blog_tag_name" wire:model.live="blog_tag_name" wire:keydown.arrow-up="decrementBlogtag" wire:keydown.arrow-down="incrementBlogtag" wire:keydown.enter="enterBlogtag" />
                             <x-aaran-ui::dropdown.select>
                                 @if($blogtagCollection)
                                     @forelse ($blogtagCollection as $i => $blogtag)
@@ -177,7 +179,7 @@
                                             {{ $blogtag->vname }}
                                         </x-aaran-ui::dropdown.option>
                                     @empty
-                                        <button wire:click.prevent="blogtagSave('{{$blogtag_name}}')" class=" bg-blue-100 text-blue-600 text-center hover:font-bold w-full">
+                                        <button wire:click.prevent="blogtagSave('{{$blog_tag_name}}')" class=" bg-blue-100 text-blue-600 text-center hover:font-bold w-full">
                                             create
                                         </button>
                                     @endforelse
@@ -240,7 +242,8 @@
                     @foreach($topPost as $row)
                         <div class="w-full h-auto flex gap-x-2 hover:bg-slate-100 group animate__animated wow animate__backInRight " data-wow-duration="3s">
                             <div class="w-2/6 overflow-hidden">
-                                <img src="{{ \Illuminate\Support\Facades\Storage::url('/images/'.$row->image) }}" alt="no image" class="w-full h-20 object-cover transition ease-in-out duration-300 hover:scale-105">
+                                <img src="{{ \Illuminate\Support\Facades\Storage::url('/images/'.$row->image) }}"
+                                    alt="no image" class="w-full h-20 object-cover transition ease-in-out duration-300 hover:scale-105">
                             </div>
 
                             <div class="w-4/6 flex-col flex py-1 font-lex">

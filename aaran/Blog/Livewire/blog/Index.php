@@ -302,7 +302,6 @@ class Index extends Component
         unset($this->tagfilter[$id]);
     }
 
-
     #region[Render]
     public function getRoute()
     {

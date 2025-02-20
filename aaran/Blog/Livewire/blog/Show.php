@@ -14,7 +14,7 @@ class Show extends Component
 
 
     public $posts;
-    public $post_id;
+    public $blog_post_id;
     public $vid = '';
     public $body;
     public $user_id;
@@ -25,9 +25,9 @@ class Show extends Component
     {
         if ($id != null) {
             $this->posts = BlogPost::find($id);
-            $this->post_id = $id;
+            $this->blog_post_id = $id;
             $this->user_id = Auth::id();
-            $this->commentsCount = BlogComment::where('post_id', $id)->count();
+            $this->commentsCount = BlogComment::where('blog_post_id', $id)->count();
         }
     }
 
@@ -39,18 +39,18 @@ class Show extends Component
                 'body' => 'required|min:3',
             ]
         );
-        if ($this->post_id != '') {
+        if ($this->blog_post_id != '') {
             if ($this->vid == '') {
                 BlogComment::create([
                     'body' => $this->body,
                     'user_id' => Auth::id(),
-                    'post_id' => $this->post_id,
+                    'blog_post_id' => $this->blog_post_id,
                 ]);
             } else {
                 $comment = BlogComment::find($this->vid);
                 $comment->body = $this->body;
                 $comment->user_id = Auth::id();
-                $comment->post_id = $this->post_id;
+                $comment->blog_post_id = $this->blog_post_id;
                 if ($comment->user_id == Auth::id()) {
                     $comment->save();
                 }
@@ -76,7 +76,7 @@ class Show extends Component
         $this->vid = $obj->id;
         $this->body = $obj->body;
         $this->user_id = $obj->user_id;
-        $this->post_id = $obj->post_id;
+        $this->blog_post_id = $obj->blog_post_id;
     }
 
     public
@@ -100,8 +100,8 @@ class Show extends Component
     public
     function render()
     {
-        return view('livewire.blog.show')->with([
-            'list' => BlogComment::where('post_id', '=', $this->post_id)->orderBy('created_at', 'desc')
+        return view('blog::blog.show')->with([
+            'list' => BlogComment::where('blog_post_id', '=', $this->blog_post_id)->orderBy('created_at', 'desc')
                 ->paginate(5)
         ]);
     }
