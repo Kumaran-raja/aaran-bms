@@ -2,6 +2,8 @@
     <x-slot name="header">Blog Tag</x-slot>
 
     <x-aaran-ui::forms.m-panel>
+        <x-aaran-ui::alerts.notification />
+
 
         <x-aaran-ui::forms.top-controls :show-filters="$showFilters"/>
 
@@ -18,7 +20,7 @@
                     vname
                 </x-aaran-ui::table.header-text>
 
-                <x-aaran-ui::table.header-text wire:click.prevent="sortBy('common_id')" sortIcon="{{$getListForm->sortAsc}}">Blog
+                <x-aaran-ui::table.header-text wire:click.prevent="sortBy('blog_category_id')" sortIcon="{{$getListForm->sortAsc}}">Blog
                     Category
                 </x-aaran-ui::table.header-text>
                 <x-aaran-ui::table.header-action/>
@@ -33,7 +35,9 @@
                         <x-aaran-ui::table.cell-text>{{$index+1}}</x-aaran-ui::table.cell-text>
                         <x-aaran-ui::table.cell-text>{{$row->vname}}</x-aaran-ui::table.cell-text>
                         <x-aaran-ui::table.cell-text>
-                            {{\Aaran\Blog\Models\BlogTag::common($row->blogcategory_id)}}
+{{--                            {{\Aaran\Blog\Models\BlogTag::common($row->blogcategory_id)}}--}}
+                            {{ optional($row->blogCategory)->vname ?? '-' }}
+
                         </x-aaran-ui::table.cell-text>
                         <x-aaran-ui::table.cell-action id="{{$row->id}}"/>
                     </x-aaran-ui::table.row>
@@ -52,8 +56,8 @@
 
                 <x-aaran-ui::dropdown.wrapper label="Blog Category" type="blogcategoryTyped">
                     <div class="relative ">
-                        <x-aaran-ui::dropdown.input label="Blog Category" id="blogcategory_name"
-                                          wire:model.live="blogcategory_name"
+                        <x-aaran-ui::dropdown.input label="Blog Category" id="blog_category_name"
+                                          wire:model.live="blog_category_name"
                                           wire:keydown.arrow-up="decrementBlogcategory"
                                           wire:keydown.arrow-down="incrementBlogcategory"
                                           wire:keydown.enter="enterBlogcategory"/>
@@ -66,7 +70,7 @@
                                     </x-aaran-ui::dropdown.option>
                                 @empty
                                     <button
-                                        wire:click.prevent="blogcategorySave('{{$blogcategory_name}}')"
+                                        wire:click.prevent="blogcategorySave('{{$blog_category_name}}')"
                                         class="text-white bg-green-500 text-center w-full">
                                         create
                                     </button>

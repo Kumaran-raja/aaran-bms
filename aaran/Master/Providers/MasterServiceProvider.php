@@ -40,10 +40,10 @@ class MasterServiceProvider extends ServiceProvider
         Livewire::component('contact.upsert', Contact\Upsert::class);
 
 
-        Livewire::component('aaran.master.contact.model.contact-model', ContactModel::class);
-        Livewire::component('aaran.master.order.model.order-model', OrderModel::class);
-        Livewire::component('aaran.master.style.model.style-model', StyleModel::class);
-        Livewire::component('aaran.master.product.model.product-model', ProductModel::class);
+        Livewire::component('aaran.master.contact.lookup.contact-model', ContactModel::class);
+        Livewire::component('aaran.master.order.lookup.order-model', OrderModel::class);
+        Livewire::component('aaran.master.style.lookup.style-model', StyleModel::class);
+        Livewire::component('aaran.master.product.lookup.product-model', ProductModel::class);
 
 
         Livewire::component('product.index', Product\Index::class);

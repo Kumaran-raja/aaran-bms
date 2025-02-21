@@ -6,7 +6,7 @@
 ])
 
 <div class="relative font-roboto tracking-wider">
-    <div style="background-image: url('/../../../images/wp1.webp')"
+    <div style="background-image: url('/../../../images/blog/bms.jpg')"
          class="h-[20rem] bg-no-repeat bg-cover bg-center bg-fixed opacity-95 brightness-50 bg-black">
     </div>
     <div class="w-full absolute text-white top-[120px] text-center flex-col flex items-center justify-center">

@@ -659,6 +659,7 @@ class Upsert extends Component
             $obj = Ledger::create([
                 'vname' => $name,
                 'active_id' => '1',
+                'user_id' => auth()->id()
             ]);
             $v = ['name' => $name, 'id' => $obj->id];
             $this->refreshLedger($v);
@@ -1100,8 +1101,8 @@ class Upsert extends Component
                 $changesMessage = implode(' , ', $changes);
                 $newItemsMessage = !empty($newItems) ? implode('; ', $newItems) : 'No new items created';
 
-                $this->common->logEntry($this->invoice_no,'Sales', 'update',
-                    "The Sales entry has been updated for {$this->contact_name}. Changes: {$changesMessage} . New Items: {$newItemsMessage}") ;
+//                $this->common->logEntry($this->invoice_no,'Sales', 'update',
+//                    "The Sales entry has been updated for {$this->contact_name}. Changes: {$changesMessage} . New Items: {$newItemsMessage}") ;
                 $this->contactUpdate();
                 $message = "Updated";
             }
@@ -1215,12 +1216,14 @@ class Upsert extends Component
             $this->grand_total = $obj->grand_total;
             $this->common->active_id = $obj->active_id;
 
-            $data = DB::table('saleitems')->select('saleitems.*',
-                'products.vname as product_name',
-                'colours.vname as colour_name',
-                'sizes.vname as size_name',)->join('products', 'products.id', '=', 'saleitems.product_id')
-                ->join('commons as colours', 'colours.id', '=', 'saleitems.colour_id')
-                ->join('commons as sizes', 'sizes.id', '=', 'saleitems.size_id')->where('sale_id', '=',
+            $data = DB::table('saleitems')
+                ->select('saleitems.*',
+                    'products.vname as product_name',
+                    'colours.vname as colour_name',
+                    'sizes.vname as size_name',)
+                ->join('products', 'products.id', '=', 'saleitems.product_id')
+                ->join('colours', 'colours.id', '=', 'saleitems.colour_id')
+                ->join('sizes', 'sizes.id', '=', 'saleitems.size_id')->where('sale_id', '=',
                     $id)->get()->transform(function ($data) {
                     return [
                         'saleitem_id' => $data->id,
@@ -1243,8 +1246,8 @@ class Upsert extends Component
                     ];
                 });
             $this->itemList = $data;
-            $this->e_invoiceDetails = MasterGstIrn::where('sales_id', $this->common->vid)->first();
-            $this->e_wayDetails = MasterGstEway::where('sales_id', $this->common->vid)->first();
+//            $this->e_invoiceDetails = MasterGstIrn::where('sales_id', $this->common->vid)->first();
+//            $this->e_wayDetails = MasterGstEway::where('sales_id', $this->common->vid)->first();
 
             $contact_outstanding = Contact::find($this->contact_id);
             $contact_outstanding->outstanding = ($contact_outstanding->contact_type_id == 124 ? $contact_outstanding->outstanding - $this->grand_total : $contact_outstanding->outstanding + $this->grand_total);
@@ -1458,7 +1461,7 @@ class Upsert extends Component
         $this->getContactList();
         $this->getOrderList();
         $this->getTransportList();
-//        $this->getLedgerList();
+        $this->getLedgerList();
         $this->getColourList();
         $this->getProductList();
         $this->getSizeList();

@@ -379,6 +379,6 @@ class ProductModel extends Component
         $this->getProductTypeList();
         $this->getUnitList();
         $this->getGstPercentList();
-        return view('master::Product.Model.product-model');
+        return view('master::Product.Lookup.product-model');
     }
 }

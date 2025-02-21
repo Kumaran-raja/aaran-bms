@@ -2,143 +2,120 @@
 
 namespace Aaran\Blog\Livewire\blog;
 
-use Aaran\Blog\Models\BlogTag;
-use Aaran\Common\Models\Common;
-use Aaran\Assets\Trait\CommonTraitNew;
-use Illuminate\Support\Collection;
+use Aaran\Assets\Trait\CommonTrait;
+use Aaran\Blog\Models\BlogCategory;
+use Illuminate\Support\Str;
+use Livewire\Attributes\Validate;
 use Livewire\Component;
 
 class Category extends Component
 {
-    use CommonTraitNew;
+    use CommonTrait;
 
-    #region[Get-Save]
+    #[Validate]
+    public string $vname = '';
+    public bool $active_id = true;
 
-    public function getSave()
+    #region[Validation]
+    public function rules(): array
     {
-        if ($this->common->vname != '') {
-            if ($this->common->vid == '') {
-                $blogTag = new BlogTag();
-                $extraFields = [
-                    'blogcategory_id' => $this->blogcategory_id,
-                ];
-                $this->common->save($blogTag, $extraFields);
-                $message = "Saved";
-            } else {
-                $blogTag = BlogTag::find($this->common->vid);
-                $extraFields = [
-                    'blogcategory_id' => $this->blogcategory_id,
-                ];
-                $this->common->edit($blogTag, $extraFields);
-                $message = "Updated";
+        return [
+            'vname' => 'required|unique:blog_categories,vname',
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'vname.required' => ':attribute is missing.',
+            'vname.unique' => 'This :attribute is already created.',
+        ];
+    }
+
+    public function validationAttributes(): array
+    {
+        return [
+            'vname' => 'category name',
+        ];
+    }
+
+    #endregion[Validation]
+
+    #region[getSave]
+    public function getSave(): void
+    {
+        $this->validate();
+
+        if ($this->vid == "") {
+            BlogCategory::create([
+                'vname' => Str::ucfirst($this->vname),
+                'active_id' => $this->active_id,
+            ]);
+            $message = "Saved";
+
+        } else {
+            $obj = BlogCategory::find($this->vid);
+            $obj->vname = Str::ucfirst($this->vname);
+            $obj->active_id = $this->active_id;
+            $obj->save();
+            $message = "Updated";
+        }
+
+        $this->dispatch('notify', ...['type' => 'success', 'content' => $message . ' Successfully']);
+    }
+    #endregion
+
+    #region[Clear Fields]
+    public function clearFields(): void
+    {
+        $this->vid = '';
+        $this->vname = '';
+        $this->active_id = '1';
+        $this->searches = '';
+    }
+    #endregion[Clear Fields]
+
+    #region[getObj]
+    public function getObj($id): void
+    {
+        if ($id) {
+            $obj = BlogCategory::find($id);
+            $this->vid = $obj->id;
+            $this->vname = $obj->vname;
+            $this->active_id = $obj->active_id;
+        }
+    }
+    #endregion
+
+    #region[getList]
+    public function getList()
+    {
+        return BlogCategory::search($this->searches)
+            ->where('active_id', '=', $this->activeRecord)
+            ->orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc')
+            ->paginate($this->perPage);
+    }
+    #endregion
+
+    #region[delete]
+    public function deleteFunction($id): void
+    {
+        if ($id) {
+            $obj = BlogCategory::find($id);
+            if ($obj) {
+                $obj->delete();
+                $message = "Deleted Successfully";
+                $this->dispatch('notify', ...['type' => 'success', 'content' => $message]);
             }
         }
     }
     #endregion
 
-    #region[blogCategory]
-    public $blogcategory_id = '';
-    public $blogcategory_name = '';
-    public Collection $blogcategoryCollection;
-    public $highlightBlogCategory = 0;
-    public $blogcategoryTyped = false;
-
-    public function decrementBlogcategory(): void
-    {
-        if ($this->highlightBlogCategory === 0) {
-            $this->highlightBlogCategory = count($this->blogcategoryCollection) - 1;
-            return;
-        }
-        $this->highlightBlogCategory--;
-    }
-
-    public function incrementBlogcategory(): void
-    {
-        if ($this->highlightBlogCategory === count($this->blogcategoryCollection) - 1) {
-            $this->highlightBlogCategory = 0;
-            return;
-        }
-        $this->highlightBlogCategory++;
-    }
-
-    public function setBlogcategory($name, $id): void
-    {
-        $this->blogcategory_name = $name;
-        $this->blogcategory_id = $id;
-        $this->getBlogcategoryList();
-    }
-
-    public function enterBlogcategory(): void
-    {
-        $obj = $this->blogcategoryCollection[$this->highlightBlogCategory] ?? null;
-
-        $this->blogcategory_name = '';
-        $this->blogcategoryCollection = Collection::empty();
-        $this->highlightBlogCategory = 0;
-
-        $this->blogcategory_name = $obj['vname'] ?? '';
-        $this->blogcategory_id = $obj['id'] ?? '';
-    }
-
-    public function refreshBlogcategory($v): void
-    {
-        $this->blogcategory_id = $v['id'];
-        $this->blogcategory_name = $v['name'];
-        $this->blogcategoryTyped = false;
-    }
-
-    public function blogcategorySave($name)
-    {
-        $obj = Common::create([
-            'label_id' => 18,
-            'vname' => $name,
-            'active_id' => '1'
-        ]);
-        $v = ['name' => $name, 'id' => $obj->id];
-        $this->refreshBlogcategory($v);
-    }
-
-    public function getBlogcategoryList(): void
-    {
-        $this->blogcategoryCollection = $this->blogcategory_name ?
-            Common::search(trim($this->blogcategory_name))->where('label_id', '=', '18')->get() :
-            Common::where('label_id', '=', '18')->get();
-    }
-
-    #endregion
-
-    public function getObj($id)
-    {
-        if ($id) {
-            $BlogTag = Category::find($id);
-            $this->common->vid = $BlogTag->id;
-            $this->common->vname = $BlogTag->vname;
-            $this->common->active_id = $BlogTag->active_id;
-            $this->blogcategory_id = $BlogTag->blogcategory_id;
-            $this->blogcategory_name = $BlogTag->blogcategory_id ? Common::find($BlogTag->blogcategory_id)->vname : '';
-            return $BlogTag;
-        }
-        return null;
-    }
-
-    public function clearFields()
-    {
-        $this->common->vid = '';
-        $this->common->vname = '';
-        $this->common->active_id = '1';
-        $this->blogcategory_id = '';
-        $this->blogcategory_name = '';
-    }
-
-    #region[Render]
+    #region[render]
     public function render()
     {
-        $this->getBlogcategoryList();
-
-        return view('livewire.blog.blog-tag.index')->with([
-            'list' => $this->getListForm->getList(BlogTag::class, function ($query) {
-                return $query->where('id', '>', '');
-            })
+        return view('blog::blog.Category')->with([
+            'list' => $this->getList()
         ]);
     }
     #endregion

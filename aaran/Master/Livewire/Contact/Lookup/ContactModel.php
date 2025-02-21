@@ -817,7 +817,7 @@ class ContactModel extends Component
         $this->getCountryList();
         $this->getMsmeTypeList();
         $this->getContactTypeList();
-        return view('master::Contact.Model.contact-model');
+        return view('master::Contact.Lookup.contact-model');
     }
     #endregion
 
