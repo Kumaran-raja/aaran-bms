@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Entries\Purchases;
+namespace Aaran\Entries\Controllers\Purchases;
 
+use Aaran\Assets\Helper\ConvertTo;
 use Aaran\Entries\Models\Purchase;
-use Aaran\Entries\Models\Sale;
 use Aaran\Master\Models\Company;
 use Aaran\Master\Models\ContactDetail;
-use App\Helper\ConvertTo;
 use App\Http\Controllers\Controller;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Collection;
@@ -22,7 +21,7 @@ class PurchaseInvoiceController extends Controller
 
             Pdf::setOption(['dpi' => 150, 'defaultPaperSize' => 'a4', 'defaultFont' => 'sans-serif','fontDir']);
 
-            $pdf = PDF::loadView('pdf-view.purchases.garment'
+            $pdf = PDF::loadView('aaran-ui::components.pdf-view.purchases.garment'
                 , [
                     'obj' => $purchases,
                     'rupees' => ConvertTo::ruppesToWords($purchases->grand_total),
@@ -48,14 +47,14 @@ class PurchaseInvoiceController extends Controller
             'orders.vname as order_no',
             'orders.order_name as order_name',
             'transports.vname as transport_name',
-            'transports.desc as transport_id',
-            'transports.desc_1 as transport_no',
+//            'transports.desc as transport_id',
+//            'transports.desc_1 as transport_no',
             'ledgers.vname as ledger_name',
         )
             ->join('contacts', 'contacts.id', '=', 'purchases.contact_id')
             ->join('orders', 'orders.id', '=', 'purchases.order_id')
-            ->join('commons as transports', 'transports.id', '=', 'purchases.transport_id')
-            ->join('commons as ledgers', 'ledgers.id', '=', 'purchases.ledger_id')
+            ->join('transports', 'transports.id', '=', 'purchases.transport_id')
+            ->join('ledgers', 'ledgers.id', '=', 'purchases.ledger_id')
             ->where('purchases.id', '=', $vid)
             ->get()
         ->firstOrFail();
@@ -72,10 +71,10 @@ class PurchaseInvoiceController extends Controller
                 'sizes.vname as size_name',
             )
             ->join('products', 'products.id', '=', 'purchaseitems.product_id')
-            ->join('commons as hsncodes', 'hsncodes.id', '=', 'products.hsncode_id')
-            ->join('commons as units', 'units.id', '=', 'products.unit_id')
-            ->join('commons as colours', 'colours.id', '=', 'purchaseitems.colour_id')
-            ->join('commons as sizes', 'sizes.id', '=', 'purchaseitems.size_id')
+            ->join('hsncodes', 'hsncodes.id', '=', 'products.hsncode_id')
+            ->join('units', 'units.id', '=', 'products.unit_id')
+            ->join('colours', 'colours.id', '=', 'purchaseitems.colour_id')
+            ->join('sizes', 'sizes.id', '=', 'purchaseitems.size_id')
             ->where('purchase_id', '=', $vid)
             ->get()
             ->transform(function ($data) {

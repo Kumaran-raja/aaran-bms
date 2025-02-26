@@ -47,12 +47,12 @@ class Index extends Component
     }
     #endregon
 
-//    #region[print]
-//    public function print($id): void
-//    {
-//        $this->redirect(route('sales.print', [$id]));
-//    }
-//    #endregion
+    #region[print]
+    public function print($id): void
+    {
+        $this->redirect(route('sales.print', [$id]));
+    }
+    #endregion
 
 //    public function getSalesLog()
 //    {

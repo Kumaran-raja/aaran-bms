@@ -87,7 +87,7 @@
                             <a href="{{route('purchase.upsert',[$row->id])}}"> {{$row->grand_total}}</a>
                         </x-aaran-ui::table.cell-text>
                         <x-aaran-ui::table.cell-text>
-{{--                            <x-aaran-ui::button.print-pdf routes="{{route('purchases.print', [$row->id])}}"/>--}}
+                            <x-aaran-ui::button.print-pdf routes="{{route('purchases.print', [$row->id])}}"/>
                         </x-aaran-ui::table.cell-text>
 
                         <!-- Table Action ----------------------------------------------------------------------------->

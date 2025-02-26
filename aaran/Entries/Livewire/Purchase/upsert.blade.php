@@ -533,7 +533,7 @@
 {{--    <div class="max-w-6xl mx-auto ">--}}
 {{--        @if( $common->vid != "")--}}
             <x-aaran-ui::forms.m-panel-bottom-button
-                routes="{{ route('sales.print', [$this->common->vid])}}"
+                routes="{{ route('purchases.print', [$this->common->vid])}}"
                 save back
                                            print/>
 {{--        @else--}}

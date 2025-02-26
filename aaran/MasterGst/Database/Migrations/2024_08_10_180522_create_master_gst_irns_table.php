@@ -6,10 +6,9 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-
     public function up(): void
     {
-        if (Aaran\Aadmin\Src\Customise::hasGstApi()) {
+        if (Aaran\Assets\Features\Customise::hasGstApi()) {
             Schema::create('master_gst_irns', function (Blueprint $table) {
                 $table->id();
                 $table->foreignId('sales_id')->references('id')->on('sales')->onDelete('cascade');

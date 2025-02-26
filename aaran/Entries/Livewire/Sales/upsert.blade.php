@@ -632,9 +632,9 @@
     {{--    </x-forms.m-panel>--}}
 {{--    <div class="max-w-6xl mx-auto">--}}
 {{--        @if( $common->vid != "")--}}
-{{--            <x-aaran-ui::forms.m-panel-bottom-button routes="{{ route('sales.print', [$this->common->vid])}}" save back print/>--}}
+            <x-aaran-ui::forms.m-panel-bottom-button routes="{{ route('sales.print', [$this->common->vid])}}" save back print/>
 {{--        @else--}}
-            <x-aaran-ui::forms.m-panel-bottom-button save back/>
+{{--            <x-aaran-ui::forms.m-panel-bottom-button save back/>--}}
 {{--        @endif--}}
 {{--    </div>--}}
 

@@ -133,7 +133,7 @@
 {{--                        @endif--}}
 
                         <x-aaran-ui::table.cell-text>
-{{--                            <x-aaran-ui::button.print-pdf routes="{{route('sales.print', [$row->id])}}"/>--}}
+                            <x-aaran-ui::button.print-pdf routes="{{route('sales.print', [$row->id])}}"/>
                         </x-aaran-ui::table.cell-text>
 
                         <td class="max-w-max print:hidden">
