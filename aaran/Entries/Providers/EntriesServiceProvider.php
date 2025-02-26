@@ -4,7 +4,9 @@ namespace Aaran\Entries\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
+
 use Aaran\Entries\Livewire\Sales;
+use Aaran\Entries\Livewire\Purchase;
 
 
 class EntriesServiceProvider extends ServiceProvider
@@ -36,6 +38,10 @@ class EntriesServiceProvider extends ServiceProvider
 
         Livewire::component('sales.index', Sales\Index::class);
         Livewire::component('sales.upsert', Sales\Upsert::class);
+
+        Livewire::component('purchase.index', Purchase\Index::class);
+        Livewire::component('purchase.upsert', Purchase\Upsert::class);
+
 
 
     }

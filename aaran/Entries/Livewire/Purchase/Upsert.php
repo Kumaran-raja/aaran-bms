@@ -1,16 +1,18 @@
 <?php
 
-namespace App\Livewire\Entries\Purchase;
+namespace Aaran\Entries\Livewire\Purchase;
 
-use Aaran\Common\Models\Common;
+use Aaran\Assets\Trait\CommonTraitNew;
+use Aaran\Books\Models\Ledger;
+use Aaran\Common\Models\Colour;
+use Aaran\Common\Models\Size;
+use Aaran\Common\Models\Transport;
 use Aaran\Entries\Models\Purchase;
 use Aaran\Entries\Models\Purchaseitem;
 use Aaran\Entries\Models\Sale;
-use Aaran\Logbook\Models\Logbook;
 use Aaran\Master\Models\Contact;
 use Aaran\Master\Models\Order;
 use Aaran\Master\Models\Product;
-use App\Livewire\Trait\CommonTraitNew;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Database\Eloquent\Collection;
@@ -243,8 +245,7 @@ class Upsert extends Component
     public function transportSave($name)
     {
         if ($name) {
-            $obj = Common::create([
-                'label_id' => '11',
+            $obj = Transport::create([
                 'vname' => $name,
                 'active_id' => '1',
             ]);
@@ -255,8 +256,9 @@ class Upsert extends Component
 
     public function getTransportList(): void
     {
-        $this->transportCollection = $this->transport_name ? Common::search(trim($this->transport_name))->where('label_id', '=', 11)
-            ->get() : Common::where('label_id', '=', 11)->Orwhere('id', '=', '1')->get();
+        $this->transportCollection = $this->transport_name ?
+            Transport::search(trim($this->transport_name))->get() :
+            Transport::all();
     }
 
     #endregion
@@ -317,10 +319,10 @@ class Upsert extends Component
     public function ledgerSave($name)
     {
         if ($name) {
-            $obj = Common::create([
-                'label_id' => '10',
+            $obj = Ledger::create([
                 'vname' => $name,
                 'active_id' => '1',
+                'user_id' => auth()->id()
             ]);
             $v = ['name' => $name, 'id' => $obj->id];
             $this->refreshLedger($v);
@@ -329,8 +331,9 @@ class Upsert extends Component
 
     public function getLedgerList(): void
     {
-        $this->ledgerCollection = $this->ledger_name ? Common::search(trim($this->ledger_name))->where('label_id', '=', 10)
-            ->get() : Common::where('label_id', '=', 10)->Orwhere('id', '=', '1')->get();
+        $this->ledgerCollection = $this->ledger_name ?
+            Ledger::search(trim($this->ledger_name))->get() :
+            Ledger::all();
     }
 
     #endregion
@@ -366,7 +369,7 @@ class Upsert extends Component
     {
         $this->product_name = $name;
         $this->product_id = $id;
-        $this->gst_percent1 = Sale::commons($percent);
+//        $this->gst_percent1 = Sale::commons($percent);
         $this->getProductList();
     }
 
@@ -394,7 +397,8 @@ class Upsert extends Component
 
     public function getProductList(): void
     {
-        $this->productCollection = $this->product_name ? Product::search(trim($this->product_name))
+        $this->productCollection = $this->product_name ?
+            Product::search(trim($this->product_name))
             ->where('company_id', '=', session()->get('company_id'))
             ->get() : Product::all()->where('company_id', '=', session()->get('company_id'));
     }
@@ -456,8 +460,7 @@ class Upsert extends Component
 
     public function colourSave($name)
     {
-        $obj = Common::create([
-            'label_id' => 7,
+        $obj = Colour::create([
             'vname' => $name,
             'active_id' => '1'
         ]);
@@ -467,8 +470,9 @@ class Upsert extends Component
 
     public function getColourList(): void
     {
-        $this->colourCollection = $this->colour_name ? Common::search(trim($this->colour_name))->where('label_id', '=', 7)
-            ->get() : Common::where('label_id', '=', 7)->Orwhere('id', '=', '1')->get();
+        $this->colourCollection = $this->colour_name ?
+            Colour::search(trim($this->colour_name))->get() :
+            Colour::all();
     }
 
     #endregion
@@ -529,8 +533,7 @@ class Upsert extends Component
 
     public function sizeSave($name)
     {
-        $obj = Common::create([
-            'label_id' => '8',
+        $obj = Size::create([
             'vname' => $name,
             'active_id' => '1'
         ]);
@@ -540,8 +543,9 @@ class Upsert extends Component
 
     public function getSizeList(): void
     {
-        $this->sizeCollection = $this->size_name ? Common::search(trim($this->size_name))->where('label_id', '=', 8)
-            ->get() : Common::where('label_id', '=', 8)->Orwhere('id', '=', '1')->get();
+        $this->sizeCollection = $this->size_name ?
+            Size::search(trim($this->size_name))->get() :
+            Size::all();
     }
 
     #endregion
@@ -576,7 +580,7 @@ class Upsert extends Component
                     ]);
                     $this->saveItem($obj->id);
                     $this->contactUpdate();
-                    $this->common->logEntry($this->purchase_no, 'Purchase', 'create', 'The Purchase entry has been created for ' . $this->contact_name);
+//                    $this->common->logEntry($this->purchase_no, 'Purchase', 'create', 'The Purchase entry has been created for ' . $this->contact_name);
                     $message = "Saved";
                     $this->getRoute();
                 } else {
@@ -634,8 +638,8 @@ class Upsert extends Component
                         $changes[] = "$friendlyName: '$oldValue' Changed to '$newValue'";
                     }
                     $changesMessage = implode(' , ', $changes);
-                    $this->common->logEntry($this->purchase_no, 'Purchase', 'update',
-                        "The Purchase entry has been updated for {$this->contact_name}. Changes: {$changesMessage}");
+//                    $this->common->logEntry($this->purchase_no, 'Purchase', 'update',
+//                        "The Purchase entry has been updated for {$this->contact_name}. Changes: {$changesMessage}");
                     $this->contactUpdate();
                     $message = "Updated";
                 }
@@ -693,13 +697,13 @@ class Upsert extends Component
             $this->order_name = $obj->order->vname;
             $this->sales_type = $obj->sales_type;
             $this->transport_id = $obj->transport_id;
-            $this->transport_name = $obj->transport_id ? Common::find($obj->transport_id)->vname : '';
+            $this->transport_name = $obj->transport_id ? Transport::find($obj->transport_id)->vname : '';
             $this->bundle = $obj->bundle;
             $this->total_qty = $obj->total_qty;
             $this->total_taxable = $obj->total_taxable;
             $this->total_gst = $obj->total_gst;
             $this->ledger_id = $obj->ledger_id;
-            $this->ledger_name = $obj->ledger_id ? Common::find($obj->ledger_id)->vname : '';
+            $this->ledger_name = $obj->ledger_id ? Ledger::find($obj->ledger_id)->vname : '';
             $this->additional = $obj->additional;
             $this->round_off = $obj->round_off;
             $this->grand_total = $obj->grand_total;
@@ -708,8 +712,8 @@ class Upsert extends Component
                 'products.vname as product_name',
                 'colours.vname as colour_name',
                 'sizes.vname as size_name',)->join('products', 'products.id', '=', 'purchaseitems.product_id')
-                ->join('commons as colours', 'colours.id', '=', 'purchaseitems.colour_id')
-                ->join('commons as sizes', 'sizes.id', '=', 'purchaseitems.size_id')->where('purchase_id', '=',
+                ->join('colours', 'colours.id', '=', 'purchaseitems.colour_id')
+                ->join('sizes', 'sizes.id', '=', 'purchaseitems.size_id')->where('purchase_id', '=',
                     $id)->get()->transform(function ($data) {
                     return [
                         'purchaseitem_id' => $data->id,
@@ -747,18 +751,13 @@ class Upsert extends Component
 
         $this->calculateTotal();
     }
-
-#endregion
+    #endregion
 
     #region[add items]
-
     public function addItems(): void
     {
-        if ($this->itemIndex == "") {
-            if (!(empty($this->product_name)) &&
-                !(empty($this->price)) &&
-                !(empty($this->qty))
-            ) {
+        if ($this->itemIndex === "") {
+            if (!empty($this->product_name) && !empty($this->price) && !empty($this->qty)) {
                 $this->itemList[] = [
                     'product_name' => $this->product_name,
                     'product_id' => $this->product_id,
@@ -767,12 +766,13 @@ class Upsert extends Component
                     'colour_name' => $this->colour_name,
                     'size_id' => $this->size_id,
                     'size_name' => $this->size_name,
-                    'qty' => $this->qty,
-                    'price' => $this->price,
-                    'gst_percent' => $this->gst_percent1,
-                    'taxable' => $this->qty * $this->price,
-                    'gst_amount' => ($this->qty * $this->price) * $this->gst_percent1 / 100,
-                    'subtotal' => $this->qty * $this->price + (($this->qty * $this->price) * $this->gst_percent1 / 100),
+                    'qty' => (int) $this->qty,
+                    'price' => (float) $this->price,
+                    'gst_percent' => (float) $this->gst_percent1,
+                    'taxable' => (int) $this->qty * (float) $this->price,
+                    'gst_amount' => ((int) $this->qty * (float) $this->price) * ((float) $this->gst_percent1 / 100),
+                    'subtotal' => ((int) $this->qty * (float) $this->price) +
+                        (((int) $this->qty * (float) $this->price) * ((float) $this->gst_percent1 / 100)),
                 ];
             }
         } else {
@@ -784,12 +784,13 @@ class Upsert extends Component
                 'colour_name' => $this->colour_name,
                 'size_id' => $this->size_id,
                 'size_name' => $this->size_name,
-                'qty' => $this->qty,
-                'price' => $this->price,
-                'gst_percent' => $this->gst_percent1,
-                'taxable' => $this->qty * $this->price,
-                'gst_amount' => ($this->qty * $this->price) * $this->gst_percent1 / 100,
-                'subtotal' => $this->qty * $this->price + (($this->qty * $this->price) * $this->gst_percent1 / 100),
+                'qty' => (int) $this->qty,
+                'price' => (float) $this->price,
+                'gst_percent' => (float) $this->gst_percent1,
+                'taxable' => (int) $this->qty * (float) $this->price,
+                'gst_amount' => ((int) $this->qty * (float) $this->price) * ((float) $this->gst_percent1 / 100),
+                'subtotal' => ((int) $this->qty * (float) $this->price) +
+                    (((int) $this->qty * (float) $this->price) * ((float) $this->gst_percent1 / 100)),
             ];
         }
 
@@ -797,6 +798,7 @@ class Upsert extends Component
         $this->resetsItems();
         $this->render();
     }
+
 
     public function resetsItems(): void
     {
@@ -888,14 +890,14 @@ class Upsert extends Component
 
 #endregion
 
-    #region[purchaseLogs]
-    public $purchaseLogs;
-
-    public function getPurchasesLog()
-    {
-        $this->purchaseLogs = Logbook::where('model_name', 'Purchase')->where('vname', $this->purchase_no)->get();
-    }
-    #endregion
+//    #region[purchaseLogs]
+//    public $purchaseLogs;
+//
+//    public function getPurchasesLog()
+//    {
+//        $this->purchaseLogs = Logbook::where('model_name', 'Purchase')->where('vname', $this->purchase_no)->get();
+//    }
+//    #endregion
 
     #region[Render]
     public function getRoute(): void
@@ -906,7 +908,7 @@ class Upsert extends Component
 
     public function render()
     {
-        $this->getPurchasesLog();
+//        $this->getPurchasesLog();
         $this->getContactList();
         $this->getOrderList();
         $this->getTransportList();
@@ -914,7 +916,7 @@ class Upsert extends Component
         $this->getColourList();
         $this->getProductList();
         $this->getSizeList();
-        return view('livewire.entries.purchase.upsert');
+        return view('entries::Purchase.upsert');
     }
 #endregion
 }

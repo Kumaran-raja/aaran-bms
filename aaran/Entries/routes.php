@@ -8,6 +8,13 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/sales', Aaran\Entries\Livewire\Sales\Index::class)->name('sales');
     Route::get('/sales/{id}/upsert', Aaran\Entries\Livewire\Sales\Upsert::class)->name('sales.upsert');
 
+    Route::get('/purchase', Aaran\Entries\Livewire\Purchase\Index::class)->name('purchase');
+    Route::get('/purchase/{id}/upsert', Aaran\Entries\Livewire\Purchase\Upsert::class)->name('purchase.upsert');
+    Route::get('/sales/{id}/print', Aaran\Entries\Controllers\Sales\SalesInvoiceController::class)->name('sales.print');
+
+
+
+
 //    Route::get('/purchase', \Aaran\Web\Livewire\Home\Index::class)->name('purchase');
 //    Route::get('/transactions', \Aaran\Web\Livewire\Home\Index::class)->name('transactions');
 //    Route::get('/showArticles', \Aaran\Web\Livewire\Home\Index::class)->name('showArticles');

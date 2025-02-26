@@ -42,6 +42,8 @@ class Index extends Component
         DB::table('saleitems')->where('sale_id', '=', $this->common->vid)->delete();
         $obj->delete();
         $this->showDeleteModal = false;
+        $message = "Deleted Successfully";
+        $this->dispatch('notify', ...['type' => 'success', 'content' => $message]);
     }
     #endregon
 

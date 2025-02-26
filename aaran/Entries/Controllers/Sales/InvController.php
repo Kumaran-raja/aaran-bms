@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Entries\Sales;
+namespace Aaran\Entries\Controllers\Sales;
 
+use Aaran\Assets\Helper\ConvertTo;
 use Aaran\Entries\Models\Sale;
 use Aaran\Master\Models\Company;
 use Aaran\Master\Models\ContactDetail;
 use Aaran\MasterGst\Models\MasterGstEway;
 use Aaran\MasterGst\Models\MasterGstIrn;
-use App\Helper\ConvertTo;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
