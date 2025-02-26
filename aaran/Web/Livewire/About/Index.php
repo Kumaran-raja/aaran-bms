@@ -20,7 +20,7 @@ class Index extends Component
     #[Layout('layouts.web')]
     public function render()
     {
-        return view('web::Home.index')->with([
+        return view('web::About.index')->with([
             'list' => $this->getList()
         ]);
     }
