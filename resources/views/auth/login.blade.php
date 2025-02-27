@@ -1,7 +1,7 @@
 <x-guest-layout>
     <x-authentication-card>
         <x-slot name="logo">
-            <x-authentication-card-logo />
+            <x-aaran-ui::logo.aaran :brand="'aaran'" class="w-20 h-auto " />
         </x-slot>
 
         <x-validation-errors class="mb-4" />
