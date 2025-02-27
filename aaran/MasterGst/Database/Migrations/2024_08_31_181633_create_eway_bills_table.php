@@ -9,7 +9,7 @@ return new class extends Migration
 
     public function up(): void
     {
-        if (Aaran\Aadmin\Src\Customise::hasGstApi()) {
+//        if (Aaran\Assets\Features\Customise::hasGstApi()) {
             Schema::create('eway_bills', function (Blueprint $table) {
                 $table->id();
                 $table->foreignId('sales_id')->references('id')->on('sales')->onDelete('cascade');
@@ -19,7 +19,7 @@ return new class extends Migration
                 $table->string('status')->nullable();
                 $table->timestamps();
             });
-        }
+//        }
     }
 
 

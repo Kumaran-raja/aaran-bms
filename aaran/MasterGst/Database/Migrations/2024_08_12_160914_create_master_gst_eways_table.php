@@ -8,7 +8,7 @@ return new class extends Migration
 {
     public function up(): void
     {
-        if (Aaran\Aadmin\Src\Customise::hasGstApi()) {
+//        if (Aaran\Aadmin\Src\Customise::hasGstApi()) {
             Schema::create('master_gst_eways', function (Blueprint $table) {
                 $table->id();
                 $table->foreignId('irn_id')->references('id')->on('master_gst_irns')->onDelete('cascade');
@@ -18,7 +18,7 @@ return new class extends Migration
                 $table->longText('ewbvalidtill');
                 $table->timestamps();
             });
-        }
+//        }
     }
 
     public function down(): void

@@ -1,6 +1,6 @@
 <div>
     <x-slot name="header">Sales E-Invoice</x-slot>
-    <x-forms.m-panel>
+    <x-aaran-ui::forms.m-panel>
         <div class="p-5 space-y-5 border-2 border-gray-300">
             <div class="flex justify-between">
                 <div class="space-y-2">
@@ -11,13 +11,13 @@
                     </div>
                     <div>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        {{Aaran\Common\Models\Common::find($companyDetails->city_id)->vname}},
-                        {{Aaran\Common\Models\Common::find($companyDetails->state_id)->vname}}-
-                        {{Aaran\Common\Models\Common::find($companyDetails->state_id)->desc}},
+                        {{Aaran\Common\Models\City::find($companyDetails->city_id)->vname}},
+                        {{Aaran\Common\Models\State::find($companyDetails->state_id)->vname}}-
+                        {{Aaran\Common\Models\State::find($companyDetails->state_id)->desc}},
                     </div>
                     <div>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        {{Aaran\Common\Models\Common::find($companyDetails->pincode_id)->vname}}.
+                        {{Aaran\Common\Models\Pincode::find($companyDetails->pincode_id)->vname}}.
                     </div>
                     <div class="">GST NO &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: {{$companyDetails->gstin}}.</div>
                 </div>
@@ -29,13 +29,13 @@
                     </div>
                     <div>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        {{Aaran\Common\Models\Common::find($addressDetails->city_id)->vname}},
-                        {{Aaran\Common\Models\Common::find($addressDetails->state_id)->vname}}-
-                        {{Aaran\Common\Models\Common::find($addressDetails->state_id)->desc}},
+                        {{Aaran\Common\Models\City::find($addressDetails->city_id)->vname}},
+                        {{Aaran\Common\Models\State::find($addressDetails->state_id)->vname}}-
+                        {{Aaran\Common\Models\State::find($addressDetails->state_id)->desc}},
                     </div>
                     <div>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        {{Aaran\Common\Models\Common::find($addressDetails->pincode_id)->vname}}.
+                        {{Aaran\Common\Models\Pincode::find($addressDetails->pincode_id)->vname}}.
                     </div>
                     <div class="">GST NO &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: {{$contactDetails->gstin}}.</div>
                 </div>
@@ -55,25 +55,25 @@
 
                                 <th class="w-12 px-2 text-center border border-gray-300">#</th>
 
-                                @if(\Aaran\Aadmin\Src\SaleEntry::hasPo_no())
+                                @if(\Aaran\Assets\Features\SaleEntry::hasPo_no())
                                     <th class="px-2 text-center border border-gray-300">Po</th>
                                 @endif
 
-                                @if(\Aaran\Aadmin\Src\SaleEntry::hasDc_no())
+                                @if(\Aaran\Assets\Features\SaleEntry::hasDc_no())
                                     <th class="px-2 text-center border border-gray-300">Dc</th>
                                 @endif
 
-                                @if(\Aaran\Aadmin\Src\SaleEntry::hasNo_of_roll())
+                                @if(\Aaran\Assets\Features\SaleEntry::hasNo_of_roll())
                                     <th class="px-2 text-center border border-gray-300">No of Roll</th>
                                 @endif
 
                                 <th class="px-2 text-center border border-gray-300">PRODUCT</th>
 
-                                @if(\Aaran\Aadmin\Src\SaleEntry::hasColour())
+                                @if(\Aaran\Assets\Features\SaleEntry::hasColour())
                                     <th class="px-2 text-center border border-gray-300">COLOUR</th>
                                 @endif
 
-                                @if(\Aaran\Aadmin\Src\SaleEntry::hasSize())
+                                @if(\Aaran\Assets\Features\SaleEntry::hasSize())
                                     <th class="px-2 text-center border border-gray-300">SIZE</th>
                                 @endif
 
@@ -102,17 +102,17 @@
                                         </td>
 
 
-                                        @if(\Aaran\Aadmin\Src\SaleEntry::hasPo_no())
+                                        @if(\Aaran\Assets\Features\SaleEntry::hasPo_no())
                                             <td class="px-2 text-left border border-gray-300 cursor-pointer"
                                                 wire:click.prevent="changeItems({{$index}})">{{$row['po_no']}}</td>
                                         @endif
 
-                                        @if(\Aaran\Aadmin\Src\SaleEntry::hasDc_no())
+                                        @if(\Aaran\Assets\Features\SaleEntry::hasDc_no())
                                             <td class="px-2 text-left border border-gray-300 cursor-pointer"
                                                 wire:click.prevent="changeItems({{$index}})">{{$row['dc_no']}}</td>
                                         @endif
 
-                                        @if(\Aaran\Aadmin\Src\SaleEntry::hasNo_of_roll())
+                                        @if(\Aaran\Assets\Features\SaleEntry::hasNo_of_roll())
                                             <td class="px-2 text-left border border-gray-300 cursor-pointer"
                                                 wire:click.prevent="changeItems({{$index}})">{{$row['no_of_roll']}}</td>
                                         @endif
@@ -123,19 +123,19 @@
                                                 @if($row['description'])
                                                     &nbsp;-&nbsp;
                                                 @endif
-                                                @if(\Aaran\Aadmin\Src\SaleEntry::hasProductDescription())
+                                                @if(\Aaran\Assets\Features\SaleEntry::hasProductDescription())
                                                     {{ $row['description']}}
                                                 @endif
                                             </div>
 
                                         </td>
 
-                                        @if(\Aaran\Aadmin\Src\SaleEntry::hasColour())
+                                        @if(\Aaran\Assets\Features\SaleEntry::hasColour())
                                             <td class="px-2 text-left border border-gray-300 cursor-pointer"
                                                 wire:click.prevent="changeItems({{$index}})">{{$row['colour_name']}}</td>
                                         @endif
 
-                                        @if(\Aaran\Aadmin\Src\SaleEntry::hasSize())
+                                        @if(\Aaran\Assets\Features\SaleEntry::hasSize())
                                             <td class="px-2 text-left border border-gray-300 cursor-pointer"
                                                 wire:click.prevent="changeItems({{$index}})">{{$row['size_name']}}</td>
                                         @endif
@@ -161,7 +161,7 @@
                             <tfoot class="mt-2">
                             <tr class="h-8 text-sm border border-gray-400 bg-cyan-50">
 
-                                @if(\Aaran\Aadmin\Src\SaleEntry::hasSize() or \Aaran\Aadmin\Src\SaleEntry::hasColour())
+                                @if(\Aaran\Assets\Features\SaleEntry::hasSize() or \Aaran\Assets\Features\SaleEntry::hasColour())
                                     <td colspan="4" class="px-2 text-xs text-right border border-gray-300">&nbsp;TOTALS&nbsp;&nbsp;&nbsp;</td>
                                 @else
                                     <td colspan="2" class="px-2 text-xs text-right border border-gray-300">&nbsp;TOTALS&nbsp;&nbsp;&nbsp;</td>
@@ -217,7 +217,7 @@
                     @if(isset($e_invoiceDetails->id))
                         <div class="flex flex-col items-center justify-center ">
                             <img class="w-[145px]"
-                                 src="{{\App\Helper\qrcoder::generate($e_invoiceDetails->signed_qrcode,22)}}"
+                                 src="{{\Aaran\Assets\Helper\qrcoder::generate($e_invoiceDetails->signed_qrcode,22)}}"
                                  alt="{{$e_invoiceDetails->signed_qrcode}}">
                             <div>Irn No : {{$e_invoiceDetails->irn}}</div>
                         </div>
@@ -256,35 +256,35 @@
             </div>
 
             <div class="flex gap-3">
-                <x-button.back-x wire:click="getRoute"/>
+                <x-aaran-ui::button.back-x wire:click="getRoute"/>
                 @if(!isset($e_invoiceDetails))
-                    <x-button.e-invoice-x wire:click="jsonFormate"/>
-                    <x-button.secondary wire:click="IrnDetails">GetIrn</x-button.secondary>
+                    <x-aaran-ui::button.e-invoice-x wire:click="jsonFormate"/>
+                    <x-aaran-ui::button.secondary wire:click="IrnDetails">GetIrn</x-aaran-ui::button.secondary>
                 @endif
                 @if(isset($e_invoiceDetails))
                     @if($e_invoiceDetails->status!='Canceled')
-                        <x-button.e-cancel-x wire:click="cancelIrn"/>
-                        <x-button.secondary wire:click="IrnDetails">GetIrn</x-button.secondary>
+                        <x-aaran-ui::button.e-cancel-x wire:click="cancelIrn"/>
+                        <x-aaran-ui::button.secondary wire:click="IrnDetails">GetIrn</x-aaran-ui::button.secondary>
                     @endif
                 @endif
             </div>
         </div>
 
-        <x-jet.modal wire:model.defer="showModel">
+        <x-aaran-ui::jet.modal wire:model.defer="showModel">
             <div class="px-6  pt-4">
                 <div class="text-lg">
-                    Cancel E-Invoice
+                    Cancel E-Invoice1
                 </div>
-                <x-forms.section-border class="py-2"/>
+                <x-aaran-ui::forms.section-border class="py-2"/>
                 <div class="flex flex-col gap-3 mt-5">
-                    <x-input.model-select :label="'Cancel Reason'" wire:model="CnlRsn">
+                    <x-aaran-ui::input.model-select :label="'Cancel Reason'" wire:model="CnlRsn">
                         <option>Choose..</option>
                         <option value="1">Duplicate</option>
                         <option value="2">Data entry mistake</option>
                         <option value="3">Order Cancelled</option>
                         <option value="4">Others</option>
-                    </x-input.model-select>
-                    <x-input.floating :label="'Cancel Remark'" wire:model="CnlRem"/>
+                    </x-aaran-ui::input.model-select>
+                    <x-aaran-ui::input.floating :label="'Cancel Remark'" wire:model="CnlRem"/>
                 </div>
                 <div class="mb-1">&nbsp;</div>
             </div>
@@ -292,13 +292,13 @@
                 <div class="w-full flex justify-between gap-3">
                     <div class="py-2">&nbsp;</div>
                     <div class="flex gap-3">
-                        <x-button.cancel-x wire:click.prevent="$set('showModel', false)"/>
-                        <x-button.e-cancel-x wire:click="getCancelIrn"/>
+                        <x-aaran-ui::button.cancel-x wire:click.prevent="$set('showModel', false)"/>
+                        <x-aaran-ui::button.e-cancel-x wire:click="getCancelIrn"/>
                     </div>
                 </div>
             </div>
-        </x-jet.modal>
-        <x-jet.modal wire:model="showError">
+        </x-aaran-ui::jet.modal>
+        <x-aaran-ui::jet.modal wire:model="showError">
             <div class="p-5 space-y-5">
                 <div class="">Reason for Failed to Generate IRN</div>
                 <div class="border-b-2">&nbsp;</div>
@@ -313,12 +313,12 @@
                 </div>
                 <div class="border-b-2">&nbsp;</div>
                 <div class="flex justify-end items-end space-x-3">
-                    <x-button.secondary wire:click.prevent="$set('showError', false)">Cancel</x-button.secondary>
+                    <x-aaran-ui::button.secondary wire:click.prevent="$set('showError', false)">Cancel</x-aaran-ui::button.secondary>
 
                 </div>
             </div>
-        </x-jet.modal>
-        <x-jet.modal wire:model="showIrnData" :maxWidth="'6xl'">
+        </x-aaran-ui::jet.modal>
+        <x-aaran-ui::jet.modal wire:model="showIrnData" :maxWidth="'6xl'">
             <div class="p-5 space-y-5">
                 <div class="">IRN Details</div>
                 <div class="border-b-2">&nbsp;</div>
@@ -333,10 +333,10 @@
                 </div>
                 <div class="border-b-2">&nbsp;</div>
                 <div class="flex justify-end items-end space-x-3">
-                    <x-button.secondary wire:click.prevent="$set('showIrnData', false)">Cancel</x-button.secondary>
+                    <x-aaran-ui::button.secondary wire:click.prevent="$set('showIrnData', false)">Cancel</x-aaran-ui::button.secondary>
 
                 </div>
             </div>
-        </x-jet.modal>
-    </x-forms.m-panel>
+        </x-aaran-ui::jet.modal>
+    </x-aaran-ui::forms.m-panel>
 </div>
