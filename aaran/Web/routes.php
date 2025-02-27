@@ -1,5 +1,6 @@
 <?php
 
+use Aaran\Web\Controller\Contact;
 use Illuminate\Support\Facades\Route;
 
 //web
@@ -9,7 +10,7 @@ Route::get('/abouts', Aaran\Web\Livewire\About\Index::class)->name('abouts');
 Route::get('/blogs', Aaran\Web\Livewire\Blog\Index::class)->name('blogs');
 Route::get('/services', Aaran\Web\Livewire\Service\Index::class)->name('services');
 Route::get('/contact', Aaran\Web\Livewire\Contact\Index::class)->name('contact');
-
+Route::post('/contact',[Contact::class,'store_message'])->name('contact.message');
 
 Route::middleware(['auth:sanctum',
     config('jetstream.auth_session'), 'verified'])->group(function () {

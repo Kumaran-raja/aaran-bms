@@ -1,6 +1,17 @@
 
 <div>
+
     <div class="relative ">
+        @if (session('success'))
+            <div id="flash-message" class="fixed top-[20px] right-0 transform -translate-x-1/2 bg-green-500 text-white p-3 rounded-md shadow-lg z-[9999] w-auto">
+                {{ session('success') }}
+            </div>
+            <script>
+                setTimeout(function() {
+                    document.getElementById('flash-message').style.display = 'none';
+                }, 5000); // Hide after 5 seconds
+            </script>
+        @endif
         <img src="{{ asset('images/contact/contact header.jpg') }}" class="w-full" alt="">
         <div class="absolute inset-0 flex flex-col items-center justify-center text-white bg-black/50">
             <h1 class="text-3xl sm:text-6xl font-bold">Contact us</h1>
@@ -30,11 +41,12 @@
     </div>
     <h1 class="text-center text-5xl bold my-7">Quick Contact</h1>
     <div class="my-5">
-        <form action="" method="post" class="flex flex-col items-center gap-y-3">
-            <input type="text" placeholder="Enter Your Name" class="w-2/3 lg:w-1/4 rounded-md"/><br/>
-            <input type="text" placeholder="Enter Email Address" class="w-2/3 lg:w-1/4 rounded-md"/><br/>
-            <input type="text" placeholder="Enter Your Phone" class="w-2/3 lg:w-1/4 rounded-md"/><br/>
-            <textarea type="text" placeholder="Message" class="w-2/3 lg:w-1/4 rounded-md"></textarea><br/>
+        <form action="/contact" method="post" class="flex flex-col items-center gap-y-3">
+            @csrf
+            <input type="text" name="name" placeholder="Enter Your Name" class="w-2/3 lg:w-1/4 rounded-md"/><br/>
+            <input type="text" name="email" placeholder="Enter Email Address" class="w-2/3 lg:w-1/4 rounded-md"/><br/>
+            <input type="text" name="phone" placeholder="Enter Your Phone" class="w-2/3 lg:w-1/4 rounded-md"/><br/>
+            <textarea type="text" name="message" placeholder="Message" class="w-2/3 lg:w-1/4 rounded-md"></textarea><br/>
             <button type="submit" class="mt-auto bg-orange-500 text-white p-2 rounded-md w-2/3 lg:w-1/4">Submit</button>
         </form>
     </div>
