@@ -3,7 +3,6 @@
 namespace Aaran\Common\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\Route;
 use Livewire\Livewire;
 
 use Aaran\Common\Livewire\city; // Example
@@ -17,11 +16,11 @@ use Aaran\Common\Livewire\colour;
 use Aaran\Common\Livewire\size;
 use Aaran\Common\Livewire\department;
 use Aaran\Common\Livewire\transport;
-use Aaran\Common\Livewire\ContactType;
+use Aaran\Common\Livewire\bank;
 use Aaran\Common\Livewire\gst;
 use Aaran\Common\Livewire\receipttype;
 use Aaran\Common\Livewire\dispatch;
-
+use Aaran\Common\Livewire\PaymentMode;
 
 
 class CommonServiceProvider extends ServiceProvider
@@ -54,10 +53,11 @@ class CommonServiceProvider extends ServiceProvider
         Livewire::component('common::size-list', size\SizeList::class);
         Livewire::component('common::department-list', department\DepartmentList::class);
         Livewire::component('common::transport-list', transport\TransportList::class);
-        Livewire::component('common::bank-list', ContactType\BankList::class);
+        Livewire::component('common::bank-list', bank\BankList::class);
         Livewire::component('common::gst-list', gst\GstList::class);
         Livewire::component('common::receipt-type-list', receipttype\ReceiptTypeList::class);
         Livewire::component('common::dispatch-list', dispatch\DispatchList::class);
+        Livewire::component('common::payment-mode-list', PaymentMode\PaymentModeList::class);
 
     }
 

@@ -21,6 +21,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/gst-percent', Aaran\Common\Livewire\gst\GstList::class)->name('gst-percent');
     Route::get('/receipt-types', Aaran\Common\Livewire\receipttype\ReceiptTypeList::class)->name('receipt-types');
     Route::get('/dispatches', Aaran\Common\Livewire\dispatch\DispatchList::class)->name('dispatches');
+    Route::get('/payment-modes', Aaran\Common\Livewire\PaymentMode\PaymentModeList::class)->name('payment-modes');
 
 
 
