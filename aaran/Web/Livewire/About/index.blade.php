@@ -76,35 +76,5 @@
             </div>
         </div>
     </section>
-    <footer class="bg-gray-900 text-gray-300 py-8">
-    <div class="max-w-7xl mx-auto px-5 flex flex-col md:flex-row justify-between items-center">
-       
-        <div class="mb-6 md:mb-0 text-center md:text-left">
-            <h2 class="text-2xl font-bold text-white">CODEXSUN</h2>
-            <p class="text-sm mt-2 text-gray-400">Empowering businesses with innovative solutions for a brighter future.</p>
-        </div>
-
-        <div class="text-center md:text-left">
-            <h3 class="text-lg font-semibold text-white">Contact Us</h3>
-            <p class="text-sm text-gray-400 mt-1">📧 Email: contact@gmail.com</p>
-            <p class="text-sm text-gray-400">📞 Phone: +123 456 7890</p>
-            <p class="text-sm text-gray-400">📞 Support: +987 654 3210</p>
-        </div>
-
-    
-        <div class="mt-6 md:mt-0">
-            <h3 class="text-lg font-semibold text-white text-center md:text-left">Follow Us</h3>
-            <div class="flex gap-4 mt-2">
-                <a href="#" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded-lg transition">Facebook</a>
-                <a href="#" class="bg-sky-500 hover:bg-sky-600 text-white px-3 py-2 rounded-lg transition">Twitter</a>
-                <a href="#" class="bg-red-600 hover:bg-red-700 text-white px-3 py-2 rounded-lg transition">YouTube</a>
-                <a href="#" class="bg-pink-500 hover:bg-pink-600 text-white px-3 py-2 rounded-lg transition">Instagram</a>
-            </div>
-        </div>
-    </div>
-
-    <div class="text-center text-sm text-gray-500 mt-6 border-t border-gray-700 pt-4">
-        &copy; 2025 CODEXSUN. All rights reserved.
-    </div>
-</footer>
+    <x-aaran-ui::web.home-new.footer-address/>
 </div>
