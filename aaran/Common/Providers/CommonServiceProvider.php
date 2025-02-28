@@ -21,7 +21,7 @@ use Aaran\Common\Livewire\gst;
 use Aaran\Common\Livewire\receipttype;
 use Aaran\Common\Livewire\dispatch;
 use Aaran\Common\Livewire\PaymentMode;
-
+use Aaran\Common\Livewire\ContactType;
 
 class CommonServiceProvider extends ServiceProvider
 {
@@ -57,6 +57,7 @@ class CommonServiceProvider extends ServiceProvider
         Livewire::component('common::gst-list', gst\GstList::class);
         Livewire::component('common::receipt-type-list', receipttype\ReceiptTypeList::class);
         Livewire::component('common::dispatch-list', dispatch\DispatchList::class);
+        Livewire::component('common::contact-type-list', ContactType\ContactTypeList::class);
         Livewire::component('common::payment-mode-list', PaymentMode\PaymentModeList::class);
 
     }

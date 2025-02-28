@@ -1,5 +1,5 @@
 <div>
-    <x-slot name="header">Bank</x-slot>
+    <x-slot name="header">ContactType</x-slot>
     <x-aaran-ui::forms.m-panel>
         <x-aaran-ui::alerts.notification />
 
@@ -8,7 +8,7 @@
         <x-aaran-ui::forms.top-controls :show-filters="$showFilters"/>
 
         <!-- Table Caption -------------------------------------------------------------------------------------------->
-        <x-aaran-ui::table.caption :caption="'Bank'">
+        <x-aaran-ui::table.caption :caption="'Contact Type'">
             {{$list->count()}}
         </x-aaran-ui::table.caption>
 
@@ -44,7 +44,7 @@
         <!-- Create/ Edit Popup --------------------------------------------------------------------------------------->
 
         <x-aaran-ui::forms.create :id="$vid">
-            <x-aaran-ui::input.floating wire:model="vname" label="Bank" />
+            <x-aaran-ui::input.floating wire:model="vname" label="Contact Tyoe" />
         </x-aaran-ui::forms.create>
 
 

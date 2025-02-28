@@ -114,7 +114,7 @@ class ContactTypeList extends Component
     #region[render]
     public function render()
     {
-        return view('common::bank.bank-list')->with([
+        return view('common::ContactType.contact-type-list')->with([
             'list' => $this->getList()
         ]);
     }
