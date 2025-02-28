@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Livewire\Entries\ExportSales;
+namespace Aaran\Entries\Livewire\ExportSales;
 
-use Aaran\Common\Models\Common;
+use Aaran\Assets\Trait\CommonTraitNew;
+use Aaran\Common\Models\Colour;
+use Aaran\Common\Models\GstPercent;
+use Aaran\Common\Models\Size;
 use Aaran\Entries\Models\ExportSale;
 use Aaran\Entries\Models\ExportSaleContact;
 use Aaran\Entries\Models\ExportSaleItem;
-use Aaran\Entries\Models\Sale;
-use Aaran\Logbook\Models\Logbook;
 use Aaran\Master\Models\Contact;
 use Aaran\Master\Models\Order;
 use Aaran\Master\Models\Product;
 use Aaran\Master\Models\Style;
-use App\Livewire\Trait\CommonTraitNew;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
@@ -343,7 +343,8 @@ class Upsert extends Component
     {
         $this->product_name = $name;
         $this->product_id = $id;
-        $this->gst_percent1 = Sale::commons($percent);
+//        $this->gst_percent1 = Sale::commons($percent);
+        $this->gst_percent1 = GstPercent::find($percent)?->vname ?? '';
         $this->getProductList();
     }
 
@@ -356,7 +357,9 @@ class Upsert extends Component
 
         $this->product_name = $obj['vname'] ?? '';
         $this->product_id = $obj['id'] ?? '';
-        $this->gst_percent1 = Sale::commons($obj['gstpercent_id']) ?? '';
+//        $this->gst_percent1 = Sale::commons($obj['gstpercent_id']) ?? '';
+        $this->gst_percent1 = GstPercent::find($obj['gstpercent_id'])?->vname ?? '';
+
     }
 
     #[On('refresh-product')]
@@ -364,7 +367,8 @@ class Upsert extends Component
     {
         $this->product_id = $v['id'];
         $this->product_name = $v['name'];
-        $this->gst_percent1 = Sale::commons($v['gstpercent_id']);
+//        $this->gst_percent1 = Sale::commons($v['gstpercent_id']);
+        $this->gst_percent1 = GstPercent::find($v['gstpercent_id'])?->vname ?? '';
         $this->productTyped = false;
 
     }
@@ -432,8 +436,7 @@ class Upsert extends Component
 
     public function colourSave($name)
     {
-        $obj = Common::create([
-            'label_id' => 7,
+        $obj = Colour::create([
             'vname' => $name,
             'active_id' => '1'
         ]);
@@ -443,9 +446,9 @@ class Upsert extends Component
 
     public function getColourList(): void
     {
-        $this->colourCollection = $this->colour_name ? Common::search(trim($this->colour_name))->where('label_id', '=',
-            7)
-            ->get() : Common::where('label_id', '=', 7)->Orwhere('id','=','1')->get();
+        $this->colourCollection = $this->colour_name ?
+            Colour::search(trim($this->colour_name))->get() :
+            Colour::all();
     }
 
     #endregion
@@ -505,8 +508,7 @@ class Upsert extends Component
 
     public function sizeSave($name)
     {
-        $obj = Common::create([
-            'label_id' => '8',
+        $obj = Size::create([
             'vname' => $name,
             'active_id' => '1'
         ]);
@@ -516,10 +518,10 @@ class Upsert extends Component
 
     public function getSizeList(): void
     {
-        $this->sizeCollection = $this->size_name ? Common::search(trim($this->size_name))->where('label_id', '=', 8)
-            ->get() : Common::where('label_id', '=', 8)->Orwhere('id','=','1')->get();
+        $this->sizeCollection = $this->size_name ?
+            Size::search(trim($this->size_name))->get() :
+            Size::all();
     }
-
     #endregion
 
     #region[Save]
@@ -556,7 +558,7 @@ class Upsert extends Component
                 ]);
                 $this->saveItem( $obj->id);
                 $this->saveContact( $obj->id);
-                $this->common->logEntry($this->invoice_no,'ExportSale','create','The ExportSale entry has been created for '.$this->contact_name);
+//                $this->common->logEntry($this->invoice_no,'ExportSale','create','The ExportSale entry has been created for '.$this->contact_name);
                 $message = "Saved";
             } else {
                 $obj = ExportSale::find($this->common->vid);
@@ -622,8 +624,8 @@ class Upsert extends Component
                     $changes[] = "$friendlyName: '$oldValue' Changed to '$newValue'";
                 }
                 $changesMessage = implode(' , ', $changes);
-                $this->common->logEntry($this->invoice_no,'ExportSale','update',
-                    "The Export Sales entry has been updated for {$this->contact_name}. Changes: {$changesMessage}");
+//                $this->common->logEntry($this->invoice_no,'ExportSale','update',
+//                    "The Export Sales entry has been updated for {$this->contact_name}. Changes: {$changesMessage}");
                 $message = "Updated";
             }
             $this->dispatch('notify', ...['type' => 'success', 'content' => $message.' Successfully']);
@@ -717,8 +719,8 @@ class Upsert extends Component
                 'colours.vname as colour_name',
                 'sizes.vname as size_name',)
                 ->join('products', 'products.id', '=', 'export_sale_items.product_id')
-                ->join('commons as colours', 'colours.id', '=', 'export_sale_items.colour_id')
-                ->join('commons as sizes', 'sizes.id', '=', 'export_sale_items.size_id')
+                ->join('colours', 'colours.id', '=', 'export_sale_items.colour_id')
+                ->join('sizes', 'sizes.id', '=', 'export_sale_items.size_id')
                 ->where('export_sales_id', '=',$id)
                 ->get()
                 ->transform(function ($data) {
@@ -951,18 +953,18 @@ class Upsert extends Component
 
 
     #endregion
-    public $exportLogs;
-
-    public function getExportLog()
-    {
-        $this->exportLogs = Logbook::where('model_name', 'ExportSale')->where('vname',$this->invoice_no)->get();
-//        dd($this->exportLogs);
-    }
+//    public $exportLogs;
+//
+//    public function getExportLog()
+//    {
+//        $this->exportLogs = Logbook::where('model_name', 'ExportSale')->where('vname',$this->invoice_no)->get();
+////        dd($this->exportLogs);
+//    }
 
     #region[render]
     public function render()
     {
-        $this->getExportLog();
+//        $this->getExportLog();
         $this->getContactList();
         $this->getConsigneeList();
         $this->getOrderList();
@@ -970,7 +972,7 @@ class Upsert extends Component
         $this->getProductList();
         $this->getColourList();
         $this->getSizeList();
-        return view('livewire.entries.export-sales.upsert');
+        return view('entries::ExportSales.upsert');
     }
     #endregion
 }

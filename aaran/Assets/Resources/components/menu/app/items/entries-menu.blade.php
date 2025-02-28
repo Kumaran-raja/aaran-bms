@@ -12,4 +12,6 @@
 
 <x-aaran-ui::menu.app.base.li-menuitem :routes="'sales'" :label="'Sales'"/>
 <x-aaran-ui::menu.app.base.li-menuitem :routes="'purchase'" :label="'Purchase'"/>
+<x-aaran-ui::menu.app.base.li-menuitem :routes="'exportsales'" :label="'Export Sales'"/>
+
 

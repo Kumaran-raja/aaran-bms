@@ -9,6 +9,8 @@ use Livewire\Livewire;
 use Aaran\Entries\Livewire\Sales;
 use Aaran\Entries\Livewire\Purchase;
 use Aaran\Entries\Livewire\Payment;
+use Aaran\Entries\Livewire\ExportSales;
+
 
 class EntriesServiceProvider extends ServiceProvider
 {
@@ -52,7 +54,8 @@ class EntriesServiceProvider extends ServiceProvider
 
         Livewire::component('payment.index', Payment\Index::class);
 
-
+        Livewire::component('export-sales.index', ExportSales\Index::class);
+        Livewire::component('export-sales.upsert', ExportSales\Upsert::class);
 
     }
 
