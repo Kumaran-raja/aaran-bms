@@ -16,6 +16,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/purchase/{id}/upsert', Aaran\Entries\Livewire\Purchase\Upsert::class)->name('purchase.upsert');
     Route::get('/purchases/{id}/print', Aaran\Entries\Controllers\Purchases\PurchaseInvoiceController::class)->name('purchases.print');
 
+    Route::get('transactions/{id}', Aaran\Entries\Livewire\Payment\Index::class)->name('transactions');
 
 
 

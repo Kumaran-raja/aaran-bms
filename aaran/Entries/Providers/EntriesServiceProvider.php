@@ -8,7 +8,7 @@ use Livewire\Livewire;
 
 use Aaran\Entries\Livewire\Sales;
 use Aaran\Entries\Livewire\Purchase;
-
+use Aaran\Entries\Livewire\Payment;
 
 class EntriesServiceProvider extends ServiceProvider
 {
@@ -47,10 +47,12 @@ class EntriesServiceProvider extends ServiceProvider
         Livewire::component('sales.eway-bill', Sales\EwayBill::class);
         Livewire::component('sales.einvoice', Sales\Einvoice::class);
 
-
-
         Livewire::component('purchase.index', Purchase\Index::class);
         Livewire::component('purchase.upsert', Purchase\Upsert::class);
+
+        Livewire::component('payment.index', Payment\Index::class);
+
+
 
     }
 
