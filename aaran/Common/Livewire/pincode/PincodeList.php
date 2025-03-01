@@ -21,7 +21,7 @@ class PincodeList extends Component
     public function rules(): array
     {
         return [
-            'vname' => 'required:pincodes,vname',
+            'vname' => 'required' . ($this->vid ? '' : '|unique:pincodes,vname'),
         ];
     }
 

@@ -20,7 +20,7 @@ class CityList extends Component
     public function rules(): array
     {
         return [
-            'vname' => 'required|unique:cities,vname',
+            'vname' => 'required' . ($this->vid ? '' : '|unique:cities,vname'),
         ];
     }
 

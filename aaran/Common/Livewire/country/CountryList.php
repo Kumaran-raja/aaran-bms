@@ -21,7 +21,7 @@ class CountryList extends Component
     public function rules(): array
     {
         return [
-            'vname' => 'required:countries,vname',
+            'vname' => 'required' . ($this->vid ? '' : '|unique:countries,vname'),
         ];
     }
 

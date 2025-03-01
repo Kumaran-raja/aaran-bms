@@ -20,7 +20,7 @@ class BankList extends Component
     public function rules(): array
     {
         return [
-            'vname' => 'required:banks,vname',
+            'vname' => 'required' . ($this->vid ? '' : '|unique:banks,vname'),
         ];
     }
 

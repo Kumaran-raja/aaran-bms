@@ -21,7 +21,7 @@ class TransportList extends Component
     public function rules(): array
     {
         return [
-            'vname' => 'required:transports,vname',
+            'vname' => 'required' . ($this->vid ? '' : '|unique:transports,vname'),
         ];
     }
 

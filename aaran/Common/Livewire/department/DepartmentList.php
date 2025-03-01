@@ -20,7 +20,7 @@ class DepartmentList extends Component
     public function rules(): array
     {
         return [
-            'vname' => 'required:departments,vname',
+            'vname' => 'required' . ($this->vid ? '' : '|unique:departments,vname'),
         ];
     }
 

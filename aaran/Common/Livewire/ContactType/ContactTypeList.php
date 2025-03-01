@@ -20,7 +20,7 @@ class ContactTypeList extends Component
     public function rules(): array
     {
         return [
-            'vname' => 'required:contact_types,vname',
+            'vname' => 'required' . ($this->vid ? '' : '|unique:contact_types,vname'),
         ];
     }
 

@@ -20,7 +20,7 @@ class ColourList extends Component
     public function rules(): array
     {
         return [
-            'vname' => 'required:colours,vname',
+            'vname' => 'required' . ($this->vid ? '' : '|unique:colours,vname'),
         ];
     }
 

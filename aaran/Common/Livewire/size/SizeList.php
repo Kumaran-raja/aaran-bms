@@ -20,7 +20,7 @@ class SizeList extends Component
     public function rules(): array
     {
         return [
-            'vname' => 'required:sizes,vname',
+            'vname' => 'required' . ($this->vid ? '' : '|unique:sizes,vname'),
         ];
     }
 
