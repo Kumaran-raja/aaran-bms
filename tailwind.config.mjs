@@ -10,17 +10,24 @@ export default {
         './storage/framework/views/*.php',
         './resources/views/**/*.blade.php',
         './aaran/**/*.blade.php',
-
     ],
 
     theme: {
         extend: {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
-                asul:["Asul", "sans-serif"],
+                asul: ["Asul", "sans-serif"],
+            },
+            keyframes: {
+                slideIn: {
+                    '0%': { transform: 'translateX(-50%)', opacity: '0' },
+                    '100%': { transform: 'translateX(0)', opacity: '1' },
+                },
+            },
+            animation: {
+                slideIn: 'slideIn 1s ease-out',
             },
         },
     },
-
     plugins: [forms, typography],
 };
