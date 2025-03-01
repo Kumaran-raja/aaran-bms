@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 //Common
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
-    Route::get('/cities', Aaran\Common\Livewire\city\CityList::class)->name('cities');
+    Route::get('/cities', Aaran\Common\Livewire\City\CityList::class)->name('cities');
     Route::get('/states', Aaran\Common\Livewire\state\StateList::class)->name('states');
     Route::get('/pin-codes', Aaran\Common\Livewire\pincode\PincodeList::class)->name('pin-codes');
     Route::get('/countries', Aaran\Common\Livewire\country\CountryList::class)->name('countries');
@@ -22,6 +22,10 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/dispatches', Aaran\Common\Livewire\dispatch\DispatchList::class)->name('dispatches');
     Route::get('/contact-types', Aaran\Common\Livewire\ContactType\ContactTypeList::class)->name('contact-types');
     Route::get('/payment-modes', Aaran\Common\Livewire\PaymentMode\PaymentModeList::class)->name('payment-modes');
+    Route::get('/account-types', Aaran\Common\Livewire\AccountType\AccountTypeList::class)->name('account-types');
+    Route::get('/transaction-types', Aaran\Common\Livewire\TransactionType\TransactionTypeList::class)->name('transaction-types');
+
+
 
 //    Route::get('/ledgers', App\Livewire\Common\LedgerList::class)->name('ledgers');
 //    Route::get('Factory', App\Livewire\Demo\Data\Factory\Index::class)->name('Factory');

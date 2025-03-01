@@ -25,5 +25,7 @@ class S000_CommonSeeder extends Seeder
        S115_GstPercentSeeder::run();
        S116_ContactTypeSeeder::run();
        S117_PaymentModeSeeder::run();
+       S118_TransactionTypeSeeder::run();
+       S119_AccountTypeSeeder::run();
     }
 }

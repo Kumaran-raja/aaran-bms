@@ -1,14 +1,14 @@
 <?php
 
-namespace Aaran\Temp\Providers;
+namespace Aaran\Transaction\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
 
-class TempServiceProvider extends ServiceProvider
+class TransactionServiceProvider extends ServiceProvider
 {
-    protected string $moduleName = 'Temp';
-    protected string $moduleNameLower = 'Temp';
+    protected string $moduleName = 'Transaction';
+    protected string $moduleNameLower = 'transaction';
 
     public function register(): void
     {
@@ -21,7 +21,7 @@ class TempServiceProvider extends ServiceProvider
     {
         $this->loadMigrations();
 
-        Livewire::component('temp::index', Temp\Index::class);
+//        Livewire::component('temp::index', Temp\Index::class);
     }
 
     protected function loadConfigs(): void

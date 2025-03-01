@@ -29,15 +29,9 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/exportsales/{id}/packingListPrint', Aaran\Entries\Controllers\ExportSales\ExportPackingListController::class)->name('exportsales.packingListPrint');
 
 
-
-
-
-
 //    Route::get('/purchase', \Aaran\Web\Livewire\Home\Index::class)->name('purchase');
 //    Route::get('/transactions', \Aaran\Web\Livewire\Home\Index::class)->name('transactions');
 //    Route::get('/showArticles', \Aaran\Web\Livewire\Home\Index::class)->name('showArticles');
-
-
 
 
 //    Route::get('/sales/{id}/einvoice', Aaran\Entries\Livewire\Sales\Einvoice::class)->name('sales.einvoice');
