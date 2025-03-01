@@ -6,8 +6,6 @@ use Aaran\Assets\Helper\ConvertTo;
 use Aaran\Entries\Models\Sale;
 use Aaran\Master\Models\Company;
 use Aaran\Master\Models\ContactDetail;
- use Aaran\MasterGst\Models\MasterGstEway;
-use Aaran\MasterGst\Models\MasterGstIrn;
 use App\Http\Controllers\Controller;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Collection;

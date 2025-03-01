@@ -81,12 +81,12 @@
                         <x-aaran-ui::table.cell-text right>
                             <a href="{{route('sales.upsert',[$row->id])}}"> {{$row->grand_total}}</a>
                         </x-aaran-ui::table.cell-text>
-{{--                        @if(\Aaran\Aadmin\Src\SaleEntry::hasEinvoice())--}}
+                        @if(\Aaran\Assets\Features\SaleEntry::hasEinvoice())
                             <x-aaran-ui::table.cell-text>
                                 <a href="{{route('sales.upsert',[$row->id])}}">
-{{--                                        <?php--}}
-{{--                                        $obj = \Aaran\Entries\Models\Sale::Irn($row->id);--}}
-{{--                                        ?>--}}
+                                        <?php
+                                        $obj = \Aaran\Entries\Models\Sale::Irn($row->id);
+                                        ?>
                                     @if(isset($obj))
                                         @if($obj->status=='Generated')
                                             <div
@@ -115,7 +115,7 @@
                                     @endif
                                 </a>
                             </x-aaran-ui::table.cell-text>
-{{--                        @endif--}}
+                        @endif
 
                         @if(\Aaran\Assets\Features\SaleEntry::hasEway()||\Aaran\Assets\Features\SaleEntry::hasEinvoice())
                             <x-aaran-ui::table.cell-text>
@@ -214,17 +214,17 @@
                         </x-aaran-ui::table.cell-text>
                         <x-aaran-ui::table.cell-text right>
                             <span class="font-bold">
-{{--                                {{\App\Helper\ConvertTo::decimal2($taxable)}}--}}
+                                {{\Aaran\Assets\Helper\ConvertTo::decimal2($taxable)}}
                             </span>
                         </x-aaran-ui::table.cell-text>
                         <x-aaran-ui::table.cell-text right>
                             <span class="font-bold">
-{{--                                {{\App\Helper\ConvertTo::decimal2($gst)}}--}}
+                                {{\Aaran\Assets\Helper\ConvertTo::decimal2($gst)}}
                             </span>
                         </x-aaran-ui::table.cell-text>
                         <x-aaran-ui::table.cell-text right>
                             <span class="text-lg font-bold text-green-500">
-{{--                                {{\App\Helper\ConvertTo::decimal2($grand_total)}}--}}
+                                {{\Aaran\Assets\Helper\ConvertTo::decimal2($grand_total)}}
                             </span>
                         </x-aaran-ui::table.cell-text>
                     </x-aaran-ui::table.row>
