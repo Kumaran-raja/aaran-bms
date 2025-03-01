@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Entries\Sales;
+namespace Aaran\Entries\Controllers\Sales;
 
+use Aaran\Assets\Helper\ConvertTo;
 use Aaran\Entries\Models\Sale;
 use Aaran\Master\Models\Company;
 use Aaran\Master\Models\ContactDetail;
  use Aaran\MasterGst\Models\MasterGstEway;
 use Aaran\MasterGst\Models\MasterGstIrn;
-use App\Helper\ConvertTo;
 use App\Http\Controllers\Controller;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Collection;
@@ -21,9 +21,13 @@ class SalesInvoiceController extends Controller
 
             $sale = $this->getSales($vid);
 
+            if (!$sale) {
+                abort(404, "Sale not found");
+            }
+
             Pdf::setOption(['dpi' => 150, 'defaultPaperSize' => 'a4', 'defaultFont' => 'sans-serif','fontDir']);
 
-            $pdf = PDF::loadView('pdf-view.sales.dom.offset_invoice1'
+            $pdf = PDF::loadView('aaran-ui::components.pdf-view.sales.dom.offset_invoice1'
                 , [
                     'obj' => $sale,
                     'rupees' => ConvertTo::ruppesToWords($sale->grand_total),
@@ -31,8 +35,8 @@ class SalesInvoiceController extends Controller
                     'cmp' => Company::printDetails(session()->get('company_id')),
                     'billing_address' => ContactDetail::printDetails($sale->billing_id),
                     'shipping_address' => ContactDetail::printDetails($sale->shipping_id),
-                    'irn'=>$this->getIrn($vid),
-                    'eWay'=>$this->getEway($vid),
+//                    'irn'=>$this->getIrn($vid),
+//                    'eWay'=>$this->getEway($vid),
                 ]);
 
             $pdf->render();
@@ -57,18 +61,19 @@ class SalesInvoiceController extends Controller
             'despatches.vname as despatch_name',
 //            'despatches.vdate as despatch_date',
             'transports.vname as transport_name',
-            'transports.desc as transport_id',
-            'transports.desc_1 as transport_no',
+//            'transports.desc as transport_id',
+//            'transports.desc_1 as transport_no',
             'ledgers.vname as ledger_name',
         )
             ->join('contacts', 'contacts.id', '=', 'sales.contact_id')
             ->join('orders', 'orders.id', '=', 'sales.order_id')
             ->join('styles', 'styles.id', '=', 'sales.style_id')
-            ->join('commons as despatches', 'despatches.id', '=', 'sales.despatch_id')
-            ->join('commons as transports', 'transports.id', '=', 'sales.transport_id')
-            ->join('commons as ledgers', 'ledgers.id', '=', 'sales.ledger_id')
+            ->join('despatches', 'despatches.id', '=', 'sales.despatch_id')
+            ->join('transports', 'transports.id', '=', 'sales.transport_id')
+            ->join('ledgers', 'ledgers.id', '=', 'sales.ledger_id')
             ->where('sales.id', '=', $vid)
-            ->get()->firstOrFail();
+            ->first();
+//            ->get()->firstOrFail();
     }
     public function getSaleItems($vid): Collection
     {
@@ -82,10 +87,10 @@ class SalesInvoiceController extends Controller
                 'sizes.vname as size_name',
             )
             ->join('products', 'products.id', '=', 'saleitems.product_id')
-            ->join('commons as hsncodes', 'hsncodes.id', '=', 'products.hsncode_id')
-            ->join('commons as units', 'units.id', '=', 'products.unit_id')
-            ->join('commons as colours', 'colours.id', '=', 'saleitems.colour_id')
-            ->join('commons as sizes', 'sizes.id', '=', 'saleitems.size_id')
+            ->join('hsncodes', 'hsncodes.id', '=', 'products.hsncode_id')
+            ->join('units', 'units.id', '=', 'products.unit_id')
+            ->join('colours', 'colours.id', '=', 'saleitems.colour_id')
+            ->join('sizes', 'sizes.id', '=', 'saleitems.size_id')
             ->where('sale_id', '=', $vid)
             ->get()
             ->transform(function ($data) {
@@ -112,14 +117,14 @@ class SalesInvoiceController extends Controller
                 ];
             });
     }
-    public function getIrn($vid)
-    {
-        return MasterGstIrn::where('sales_id',$vid)->first();
-    }
-    public function getEway($vid)
-    {
-        return MasterGstEway::where('sales_id',$vid)->first();
-    }
+//    public function getIrn($vid)
+//    {
+//        return MasterGstIrn::where('sales_id',$vid)->first();
+//    }
+//    public function getEway($vid)
+//    {
+//        return MasterGstEway::where('sales_id',$vid)->first();
+//    }
 
 
 

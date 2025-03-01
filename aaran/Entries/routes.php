@@ -5,8 +5,27 @@ use Illuminate\Support\Facades\Route;
 //Entries
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
+    // Sales
     Route::get('/sales', Aaran\Entries\Livewire\Sales\Index::class)->name('sales');
     Route::get('/sales/{id}/upsert', Aaran\Entries\Livewire\Sales\Upsert::class)->name('sales.upsert');
+    Route::get('/sales/{id}/print', Aaran\Entries\Controllers\Sales\SalesInvoiceController::class)->name('sales.print');
+    Route::get('/sales/{id}/eway', Aaran\Entries\Livewire\Sales\EwayBill::class)->name('sales.eway');
+    Route::get('/sales/{id}/einvoice', Aaran\Entries\Livewire\Sales\Einvoice::class)->name('sales.einvoice');
+
+    //Purchase
+    Route::get('/purchase', Aaran\Entries\Livewire\Purchase\Index::class)->name('purchase');
+    Route::get('/purchase/{id}/upsert', Aaran\Entries\Livewire\Purchase\Upsert::class)->name('purchase.upsert');
+    Route::get('/purchases/{id}/print', Aaran\Entries\Controllers\Purchases\PurchaseInvoiceController::class)->name('purchases.print');
+
+    //Payment
+    Route::get('transactions/{id}', Aaran\Entries\Livewire\Payment\Index::class)->name('transactions');
+
+    //Export Sales
+    Route::get('/exportsales', Aaran\Entries\Livewire\ExportSales\Index::class)->name('exportsales');
+    Route::get('/exportsales/{id}/upsert', Aaran\Entries\Livewire\ExportSales\Upsert::class)->name('exportsales.upsert');
+
+
+
 
 //    Route::get('/purchase', \Aaran\Web\Livewire\Home\Index::class)->name('purchase');
 //    Route::get('/transactions', \Aaran\Web\Livewire\Home\Index::class)->name('transactions');
@@ -14,7 +33,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
 
 
-//    Route::get('/sales/{id}/eway', Aaran\Entries\Livewire\Sales\EwayBill::class)->name('sales.eway');
+
 //    Route::get('/sales/{id}/einvoice', Aaran\Entries\Livewire\Sales\Einvoice::class)->name('sales.einvoice');
 //    Route::get('/sales/{id}/print', App\Http\Controllers\Entries\Sales\SalesInvoiceController::class)->name('sales.print');
 //    Route::get('/purchases/{id}/print', App\Http\Controllers\Entries\Purchases\PurchaseInvoiceController::class)->name('purchases.print');

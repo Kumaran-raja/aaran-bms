@@ -117,23 +117,22 @@
                             </x-aaran-ui::table.cell-text>
 {{--                        @endif--}}
 
-{{--                        @if(\Aaran\Aadmin\Src\SaleEntry::hasEway()||\Aaran\Aadmin\Src\SaleEntry::hasEinvoice())--}}
+                        @if(\Aaran\Assets\Features\SaleEntry::hasEway()||\Aaran\Assets\Features\SaleEntry::hasEinvoice())
                             <x-aaran-ui::table.cell-text>
                                 <div class="inline-flex items-center gap-x-4">
-{{--                                    @if(\Aaran\Aadmin\Src\SaleEntry::hasEinvoice())--}}
-                                        <x-aaran-ui::button.e-inv
-{{--                                            routes="{{route('sales.einvoice',[$row->id]) }}"/>--}}
-{{--                                        <x-aaran-ui::button.e-way routes="{{ route('sales.eway',[$row->id]) }}"/>--}}
-{{--                                    @endif--}}
-{{--                                    @if(\Aaran\Aadmin\Src\SaleEntry::hasEway())--}}
-{{--                                        <x-aaran-ui::button.e-way routes="{{ route('sales.eway',[$row->id]) }}"/>--}}
-{{--                                    @endif--}}
+                                    @if(\Aaran\Assets\Features\SaleEntry::hasEinvoice())
+                                        <x-aaran-ui::button.e-inv routes="{{route('sales.einvoice',[$row->id]) }}"/>
+                                        <x-aaran-ui::button.e-way routes="{{ route('sales.eway',[$row->id]) }}"/>
+                                    @endif
+                                    @if(\Aaran\Assets\Features\SaleEntry::hasEway())
+                                        <x-aaran-ui::button.e-way routes="{{ route('sales.eway',[$row->id]) }}"/>
+                                    @endif
                                 </div>
                             </x-aaran-ui::table.cell-text>
-{{--                        @endif--}}
+                        @endif
 
                         <x-aaran-ui::table.cell-text>
-{{--                            <x-aaran-ui::button.print-pdf routes="{{route('sales.print', [$row->id])}}"/>--}}
+                            <x-aaran-ui::button.print-pdf routes="{{route('sales.print', [$row->id])}}"/>
                         </x-aaran-ui::table.cell-text>
 
                         <td class="max-w-max print:hidden">

@@ -16,8 +16,6 @@ use Aaran\Master\Models\ContactDetail;
 use Aaran\Master\Models\Order;
 use Aaran\Master\Models\Product;
 use Aaran\Master\Models\Style;
-use Aaran\MasterGst\Models\MasterGstEway;
-use Aaran\MasterGst\Models\MasterGstIrn;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Database\Eloquent\Collection;

@@ -13,5 +13,7 @@
 <x-aaran-ui::menu.app.base.li-menuitem  :routes="'receipt-types'" :label="'Receipt Types'"/>
 <x-aaran-ui::menu.app.base.li-menuitem  :routes="'dispatches'" :label="'Dispatches'"/>
 <x-aaran-ui::menu.app.base.li-menuitem  :routes="'gst-percent'" :label="'Gst Percent'"/>
+<x-aaran-ui::menu.app.base.li-menuitem  :routes="'contact-types'" :label="'Contact Types'"/>
+<x-aaran-ui::menu.app.base.li-menuitem  :routes="'payment-modes'" :label="'Payment Modes'"/>
 
 

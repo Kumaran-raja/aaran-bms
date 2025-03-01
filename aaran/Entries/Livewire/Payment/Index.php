@@ -1,14 +1,11 @@
 <?php
 
-namespace App\Livewire\Entries\Payment;
+namespace Aaran\Entries\Livewire\Payment;
 
-use Aaran\Common\Models\Common;
-use Aaran\Logbook\Models\Logbook;
+use Aaran\Assets\Trait\CommonTraitNew;
+use Aaran\Common\Models\PaymentMode;
 use Aaran\Master\Models\Contact;
 use Aaran\Master\Models\Order;
-use Aaran\Transaction\Models\AccountBook;
-use Aaran\Transaction\Models\Transaction;
-use App\Livewire\Trait\CommonTraitNew;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Carbon;
 use Livewire\Attributes\On;
@@ -49,11 +46,11 @@ class Index extends Component
     {
         if ($id == 1) {
             $this->mode_id = 111;
-            $this->mode_name = Common::find(111)->vname;
+            $this->mode_name = PaymentMode::find()->vname;
             $this->vch_no = Transaction::nextNo($this->mode_id);
         } elseif ($id == 2) {
             $this->mode_id = 110;
-            $this->mode_name = Common::find(110)->vname;
+            $this->mode_name = PaymentMode::find(110)->vname;
             $this->vch_no = Transaction::nextNo($this->mode_id);
         }
 //        $this->trans_type_id = 108;
@@ -147,7 +144,7 @@ class Index extends Component
                 ];
                 $this->common->edit($Transaction, $extraFields);
 
-                $this->common->logEntry($this->vch_no, $this->mode_name, 'update', $this->mode_name . ' for ' . $this->contact_name . ' - ' . $this->mode_name . ' has been updated and the amount is ' . $this->common->vname . ' by ' . $this->trans_type_name);
+//                $this->common->logEntry($this->vch_no, $this->mode_name, 'update', $this->mode_name . ' for ' . $this->contact_name . ' - ' . $this->mode_name . ' has been updated and the amount is ' . $this->common->vname . ' by ' . $this->trans_type_name);
 
                 $this->contactUpdate();
                 $message = "Updated";

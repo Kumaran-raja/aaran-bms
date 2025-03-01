@@ -2,20 +2,21 @@
 
 namespace Aaran\Entries\Livewire\Sales;
 
+use Aaran\Assets\LivewireForms\MasterGstApi;
 use Aaran\Assets\Trait\CommonTraitNew;
-use Aaran\Common\Models\Common;
+use Aaran\Common\Models\City;
+use Aaran\Common\Models\Pincode;
+use Aaran\Common\Models\State;
+use Aaran\Common\Models\Transport;
 use Aaran\Entries\Models\Sale;
 use Aaran\Master\Models\Company;
 use Aaran\Master\Models\Contact;
 use Aaran\Master\Models\ContactDetail;
 use Aaran\Master\Models\Product;
-use Aaran\MasterGst\Models\MasterGstEway;
 use Aaran\MasterGst\Models\MasterGstIrn;
 use Aaran\MasterGst\Models\MasterGstToken;
-use App\Livewire\Forms\MasterGstApi;
-use App\Livewire\Trait\CommonTraitNew;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
@@ -61,8 +62,8 @@ class Einvoice extends Component
                 'products.vname as product_name',
                 'colours.vname as colour_name',
                 'sizes.vname as size_name',)->join('products', 'products.id', '=', 'saleitems.product_id')
-                ->join('commons as colours', 'colours.id', '=', 'saleitems.colour_id')
-                ->join('commons as sizes', 'sizes.id', '=', 'saleitems.size_id')->where('sale_id', '=',
+                ->join('colours', 'colours.id', '=', 'saleitems.colour_id')
+                ->join('sizes', 'sizes.id', '=', 'saleitems.size_id')->where('sale_id', '=',
                     $id)->get()->transform(function ($data) {
                     return [
                         'saleitem_id' => $data->id,
@@ -99,7 +100,7 @@ class Einvoice extends Component
         $contact = Contact::find($this->salesData->contact_id);
         $contactDetail = ContactDetail::where('contact_id', $contact->id)->first();
         $documentDate = date('d/m/Y', strtotime($this->salesData->invoice_date));
-        $transport = Common::find($this->salesData->transport_id);
+        $transport = Transport::find($this->salesData->transport_id);
         $jsonData = [
             "Version" => "1.1",
             "TranDtls" => [
@@ -115,33 +116,33 @@ class Einvoice extends Component
                 "Gstin" => $company->gstin,
                 "LglNm" => $company->vname,
                 "Addr1" => $company->address_1.','.$company->address_2,
-                "Loc" => Common::find($company->city_id)->vname,
-                "Pin" => Common::find($company->pincode_id)->vname,
-                "Stcd" => Common::find($company->state_id)->desc,
+                "Loc" => City::find($company->city_id)->vname,
+                "Pin" => Pincode::find($company->pincode_id)->vname,
+                "Stcd" => State::find($company->state_id)->desc,
 
             ],
             "BuyerDtls" => [
                 "Gstin" => $contact->gstin,
                 "LglNm" => $contact->vname,
-                "Pos" => Common::find($contactDetail->state_id)->desc,
+                "Pos" => State::find($contactDetail->state_id)->desc,
                 "Addr1" => $contactDetail->address_1.','.$contactDetail->address_2,
-                "Loc" => Common::find($contactDetail->city_id)->vname,
-                "Pin" => Common::find($contactDetail->pincode_id)->vname,
-                "Stcd" => Common::find($contactDetail->state_id)->desc,
+                "Loc" => City::find($contactDetail->city_id)->vname,
+                "Pin" => Pincode::find($contactDetail->pincode_id)->vname,
+                "Stcd" => State::find($contactDetail->state_id)->desc,
             ],
             "DispDtls" => [
                 "Nm" => $company->vname,
                 "Addr1" => $company->address_1.','.$company->address_2,
-                "Loc" => Common::find($company->city_id)->vname,
-                "Pin" => Common::find($company->pincode_id)->vname,
-                "Stcd" => Common::find($company->state_id)->desc,
+                "Loc" => City::find($company->city_id)->vname,
+                "Pin" => Pincode::find($company->pincode_id)->vname,
+                "Stcd" => State::find($company->state_id)->desc,
             ],
             "ShipDtls" => [
                 "LglNm" => $contact->vname,
                 "Addr1" => $contactDetail->address_1.','.$contactDetail->address_2,
-                "Loc" => Common::find($contactDetail->city_id)->vname,
-                "Pin" => Common::find($contactDetail->pincode_id)->vname,
-                "Stcd" => Common::find($contactDetail->state_id)->desc,
+                "Loc" => City::find($contactDetail->city_id)->vname,
+                "Pin" => Pincode::find($contactDetail->pincode_id)->vname,
+                "Stcd" => State::find($contactDetail->state_id)->desc,
             ],
 
             "ItemList" => [],
@@ -170,19 +171,24 @@ class Einvoice extends Component
             $itemData = [
                 "SlNo" => (string) ($index + 1),
                 "PrdDesc" => $productData->vname,
-                "HsnCd" => Sale::commons($productData->hsncode_id),
+//                "HsnCd" => Sale::commons($productData->hsncode_id),
+                "HsnCd" => $productData->hsn_code_id,
                 "BchDtls" => [
                     "Nm" => $productData->vname,
                 ],
                 "Qty" => $row['qty'],
-                "Unit" => Sale::commons($productData->unit_id),
+//                "Unit" => Sale::commons($productData->unit_id),
+                "Unit" => (string) $productData->unit_id,
                 "UnitPrice" => $row['price'],
                 "TotAmt" => $row['taxable'],
                 "AssAmt" => $row['taxable'],
                 "GstRt" => $row['gst_percent'],
                 "TotItemVal" => $row['subtotal'],
             ];
-            if (Sale::commons($productData->producttype_id) == 'Goods') {
+//            if (Sale::commons($productData->producttype_id) == 'Goods')
+             if ($productData->producttype_id == 'Goods')
+
+            {
                 $itemData["IsServc"] = 'N';
             } else {
                 $itemData["IsServc"] = 'Y';
@@ -219,7 +225,7 @@ class Einvoice extends Component
     {
         $apiToken = MasterGstToken::orderByDesc('id')->first();
         if ($apiToken) {
-            if (\Illuminate\Support\Carbon::now()->format('Y-m-d H:i:s') < $apiToken->expires_at) {
+            if (Carbon::now()->format('Y-m-d H:i:s') < $apiToken->expires_at) {
                 $this->token = $apiToken->token;
             } else {
                 $this->masterGstApi->authenticate();
@@ -315,7 +321,7 @@ class Einvoice extends Component
 
     public function render()
     {
-        return view('livewire.entries.sales.einvoice');
+        return view('entries::Sales.einvoice');
     }
     #endregion
 }

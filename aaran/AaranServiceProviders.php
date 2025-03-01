@@ -11,6 +11,7 @@ use Aaran\Core\Providers\EventServiceProvider;
 use Aaran\Docs\Providers\DocsServiceProvider;
 use Aaran\Entries\Providers\EntriesServiceProvider;
 use Aaran\Master\Providers\MasterServiceProvider;
+use Aaran\MasterGst\Providers\MasterGstServiceProvider;
 use Aaran\Web\Providers\WebServiceProvider;
 use Illuminate\Support\ServiceProvider;
 
@@ -36,6 +37,8 @@ class AaranServiceProviders extends ServiceProvider
         $this->app->register(MasterServiceProvider::class);
 
         $this->app->register(EntriesServiceProvider::class);
+
+        $this->app->register(MasterGstServiceProvider::class);
 
     }
 }

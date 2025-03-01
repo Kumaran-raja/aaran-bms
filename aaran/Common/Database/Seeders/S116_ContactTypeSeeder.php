@@ -23,7 +23,7 @@ class S116_ContactTypeSeeder extends Seeder
 
         ContactType::create([
             'id' => 3,
-            'vname' => 'Creditors',
+            'vname' => 'Debtors',
             'active_id' => '1'
         ]);
     }

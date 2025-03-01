@@ -36,4 +36,10 @@ class AssetsServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(__DIR__ . '/../Settings/garment.php', 'garment');
         $this->mergeConfigFrom(__DIR__ . '/../Settings/offset.php', 'offset');
     }
+
+    protected function loadMigrations(): void
+    {
+
+        $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
+    }
 }

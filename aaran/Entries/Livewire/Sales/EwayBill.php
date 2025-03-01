@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Livewire\Entries\Sales;
+namespace Aaran\Entries\Livewire\Sales;
 
-use Aaran\Common\Models\Common;
+use Aaran\Assets\LivewireForms\MasterGstApi;
+use Aaran\Assets\Trait\CommonTraitNew;
+use Aaran\Common\Models\City;
+use Aaran\Common\Models\Pincode;
+use Aaran\Common\Models\State;
+use Aaran\Common\Models\Transport;
 use Aaran\Entries\Models\Sale;
 use Aaran\Master\Models\Company;
 use Aaran\Master\Models\Contact;
 use Aaran\Master\Models\ContactDetail;
 use Aaran\Master\Models\Product;
-use Aaran\MasterGst\Models\MasterGstEway;
-use Aaran\MasterGst\Models\MasterGstIrn;
-use App\Livewire\Forms\MasterGstApi;
-use App\Livewire\Trait\CommonTraitNew;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
@@ -44,7 +44,7 @@ class EwayBill extends Component
     #region[mount]
     public function mount($id): void
     {
-        $this->e_wayBillDetails=\Aaran\MasterGst\Models\EwayBill::where('sales_id',$id)->first();
+        $this->e_wayBillDetails= \Aaran\MasterGst\Models\EwayBill::where('sales_id',$id)->first();
         if ($id != 0) {
             $obj = Sale::find($id);
             $this->salesData=$obj;
@@ -55,8 +55,8 @@ class EwayBill extends Component
                 'products.vname as product_name',
                 'colours.vname as colour_name',
                 'sizes.vname as size_name',)->join('products', 'products.id', '=', 'saleitems.product_id')
-                ->join('commons as colours', 'colours.id', '=', 'saleitems.colour_id')
-                ->join('commons as sizes', 'sizes.id', '=', 'saleitems.size_id')->where('sale_id', '=',
+                ->join('colours', 'colours.id', '=', 'saleitems.colour_id')
+                ->join('sizes', 'sizes.id', '=', 'saleitems.size_id')->where('sale_id', '=',
                     $id)->get()->transform(function ($data) {
                     return [
                         'saleitem_id' => $data->id,
@@ -92,7 +92,7 @@ class EwayBill extends Component
         $company = Company::find(session()->get('company_id'));
         $contact = Contact::find($this->salesData->contact_id);
         $contactDetail = ContactDetail::find($this->salesData->billing_id);
-        $transport=Common::find($this->salesData->transport_id);
+        $transport=Transport::find($this->salesData->transport_id);
         $bodyData = [
             "supplyType" => "O",
             "subSupplyType" => "1",
@@ -104,18 +104,18 @@ class EwayBill extends Component
             "fromTrdName" => $company->vname,
             "fromAddr1" => $company->address_1,
             "fromAddr2" =>$company->address_2,
-            "fromPlace" => Common::find($company->city_id)->vname,
-            "actFromStateCode" => (int)(Common::find($company->state_id)->desc),
-            "fromPincode" =>(int)( Common::find($company->pincode_id)->vname),
-            "fromStateCode" => (int)(Common::find($company->state_id)->desc),
+            "fromPlace" => City::find($company->city_id)->vname,
+            "actFromStateCode" => (int)(State::find($company->state_id)->desc),
+            "fromPincode" =>(int)( Pincode::find($company->pincode_id)->vname),
+            "fromStateCode" => (int)(State::find($company->state_id)->desc),
             "toGstin" => $contact->gstin,
             "toTrdName" =>$contact->vname,
             "toAddr1" => $contactDetail->address_1,
             "toAddr2" => $contactDetail->address_2,
-            "toPlace" => Common::find($contactDetail->city_id)->vname,
-            "toPincode" =>(int) (Common::find($contactDetail->pincode_id)->vname),
-            "actToStateCode" =>(int)(Common::find($contactDetail->state_id)->desc),
-            "toStateCode" =>(int)(Common::find($contactDetail->state_id)->desc),
+            "toPlace" => City::find($contactDetail->city_id)->vname,
+            "toPincode" =>(int) (Pincode::find($contactDetail->pincode_id)->vname),
+            "actToStateCode" =>(int)(State::find($contactDetail->state_id)->desc),
+            "toStateCode" =>(int)(State::find($contactDetail->state_id)->desc),
             "transactionType" => 4,
             "dispatchFromGSTIN" => $company->gstin,
             "dispatchFromTradeName" => $company->vname,
@@ -145,9 +145,11 @@ class EwayBill extends Component
             $itemData = [
                 "productName"=>$productData->vname,
                 "productDesc"=>$productData->vname,
-                "hsnCode" => Sale::commons($productData->hsncode_id),
+//                "hsnCode" => Sale::commons($productData->hsncode_id),
+                "hsnCode" => $productData->hsncode_id,
                 "quantity" => (int)($row['qty']),
-                "qtyUnit" => Sale::commons($productData->unit_id),
+//                "qtyUnit" => Sale::commons($productData->unit_id),
+                "qtyUnit" => $productData->unit_id,
                 "taxableAmount" => $row['taxable'],
             ];
             if ($this->salesData->sales_type == '1') {
@@ -162,7 +164,10 @@ class EwayBill extends Component
 
             $bodyData["itemList"][] = $itemData;
         }
-        $result=$this->masterGstApi->EwayBillGenerate(new Request(),$bodyData,$this->salesData->id);
+//        $result=$this->masterGstApi->EwayBillGenerate(new Request(),$bodyData,$this->salesData->id);
+        $response = $this->masterGstApi->EwayBillGenerate(new Request(), $bodyData, $this->salesData->id);
+        $result = $response->getData(true); // Convert JsonResponse to an array
+
 
         if (isset($result['data']['ewayBillNo'])) {
             $this->successMessage = 'E-wayBill generated successfully: ' . $result['data']['ewayBillNo'];
@@ -202,7 +207,7 @@ class EwayBill extends Component
     }
     public function render()
     {
-        return view('livewire.entries.sales.eway-bill');
+        return view('entries::Sales.eway-bill');
     }
     #endregion
 }
