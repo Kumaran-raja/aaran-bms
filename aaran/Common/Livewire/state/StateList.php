@@ -21,7 +21,7 @@ class StateList extends Component
     public function rules(): array
     {
         return [
-            'vname' => 'required|unique:states,vname',
+            'vname' => 'required' . ($this->vid ? '' : '|unique:states,vname'),
         ];
     }
 
