@@ -1,21 +1,24 @@
 <div>
     <x-slot name="header">Packing List</x-slot>
-    <x-forms.m-panel>
-        <div class="flex sm:flex-row flex-col  w-full sm:gap-0.5 gap-3">
-            <x-input.floating wire:model.live="nos" :label="'BOX NOS'"/>
+    <x-aaran-ui::forms.m-panel>
+        <div class="flex sm:flex-row flex-col w-full sm:gap-0.5 gap-3">
+            <x-aaran-ui::input.floating wire:model.live="nos" :label="'BOX NOS'"/>
             <div class="w-full">
-                <x-input.model-select wire:model.live="exportSalesItem_index" :label="'Item'">
+                <x-aaran-ui::input.model-select wire:model.live="exportSalesItem_index" :label="'Item'">
                     <option value="">Choose...</option>
                     @foreach($exportSalesItem as $index=>$SalesItem)
                         <option value="{{$index==0?'0.1':$index}}">{{$SalesItem->product_name}}</option>
                     @endforeach
-                </x-input.model-select>
+                </x-aaran-ui::input.model-select>
             </div>
-            <x-input.floating wire:model.live="net_wt" :label="'NET WT'"/>
-            <x-input.floating wire:model.live="grs_wt" :label="'GRS WT'"/>
-            <x-input.floating wire:model.live="dimension" :label="'BOX Dimension'"/>
-            <x-input.floating wire:model.live="cbm" :label="'CBM'"/>
-            <x-button.add wire:click="addItems"/>
+            <x-aaran-ui::input.floating wire:model.live="net_wt" :label="'NET WT'"/>
+            <x-aaran-ui::input.floating wire:model.live="grs_wt" :label="'GRS WT'"/>
+            <x-aaran-ui::input.floating wire:model.live="dimension" :label="'BOX Dimension'"/>
+            <x-aaran-ui::input.floating wire:model.live="cbm" :label="'CBM'"/>
+            <div class="pl-2 flex items-end">
+                <x-aaran-ui::button.add wire:click="addItems"/>
+            </div>
+
         </div>
 
         <div class="py-2 mt-5 overflow-x-auto">
@@ -107,10 +110,11 @@
                             wire:click.prevent="changeItems({{$index}})">{{$row['cbm']}}
                         </td>
                         <td class="text-center border border-gray-300">
-                            <x-button.print-pdf routes="{{route('exportsales.packingListPrint',[$exportSales_id])}}"/>
+                            <x-aaran-ui::button.print-pdf routes="{{route('exportsales.packingListPrint',[$exportSales_id])}}"/>
                         </td>
+
                         <td class="text-center border border-gray-300">
-                            <x-button.delete wire:click.prevent="removeItems({{$index}})"/>
+                            <x-aaran-ui::button.delete wire:click.prevent="removeItems({{$index}})"/>
                         </td>
 
                     </tr>
@@ -120,6 +124,6 @@
 
             </table>
         </div>
-    </x-forms.m-panel>
-    <x-forms.m-panel-bottom-button save back/>
+    </x-aaran-ui::forms.m-panel>
+    <x-aaran-ui::forms.m-panel-bottom-button save back/>
 </div>

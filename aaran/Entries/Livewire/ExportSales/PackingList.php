@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Livewire\Entries\ExportSales;
+namespace Aaran\Entries\Livewire\ExportSales;
 
-use App\Livewire\Trait\CommonTraitNew;
+
+use Aaran\Assets\Trait\CommonTraitNew;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
@@ -140,8 +141,8 @@ class PackingList extends Component
                 'colours.vname as colour_name',
             )
             ->join('products', 'export_sale_items.product_id', '=', 'products.id')
-            ->join('commons as sizes', 'export_sale_items.size_id', '=', 'sizes.id')
-            ->join('commons as colours', 'export_sale_items.colour_id', '=', 'colours.id')
+            ->join('sizes', 'export_sale_items.size_id', '=', 'sizes.id')
+            ->join('colours', 'export_sale_items.colour_id', '=', 'colours.id')
             ->where('export_sale_items.export_sales_id', $id)
             ->get();
 
@@ -180,7 +181,7 @@ class PackingList extends Component
     #region[render]
     public function render()
     {
-        return view('livewire.entries.export-sales.packing-list');
+        return view('entries::ExportSales.packing-list');
     }
     #endregion
 }

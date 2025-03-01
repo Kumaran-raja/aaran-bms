@@ -54,7 +54,7 @@
                         </x-aaran-ui::table.cell-text>
                         <x-aaran-ui::table.cell-text>
                             <a
-{{--                                href="{{route('exportsales.packingList',[$row->id])}}"--}}
+                                href="{{route('exportsales.packingList',[$row->id])}}"
                                class="relative group text-gray-500 flex justify-center items-center
                                 transition-colors duration-200 dark:hover:text-green-500
                                 dark:text-gray-300 hover:text-green-600 focus:outline-none animate group">
@@ -87,7 +87,7 @@
                             </a>
                         </x-aaran-ui::table.cell-text>
                         <x-aaran-ui::table.cell-text>
-{{--                            <x-aaran-ui::button.print-pdf routes="{{route('exportsales.print', [$row->id])}}"/>--}}
+                            <x-aaran-ui::button.print-pdf routes="{{route('exportsales.print', [$row->id])}}"/>
                         </x-aaran-ui::table.cell-text>
                         <td class="max-w-max print:hidden">
                             <div class="flex justify-center items-center">

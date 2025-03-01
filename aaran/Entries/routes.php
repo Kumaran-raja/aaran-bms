@@ -23,6 +23,11 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     //Export Sales
     Route::get('/exportsales', Aaran\Entries\Livewire\ExportSales\Index::class)->name('exportsales');
     Route::get('/exportsales/{id}/upsert', Aaran\Entries\Livewire\ExportSales\Upsert::class)->name('exportsales.upsert');
+    Route::get('/exportsales/{id}/packingList', Aaran\Entries\Livewire\ExportSales\PackingList::class)->name('exportsales.packingList');
+    Route::get('/exportsales/{id}/print', Aaran\Entries\Controllers\ExportSales\ExportInvoiceController::class)->name('exportsales.print');
+    Route::get('/exportsales/{id}/packingListPrint', Aaran\Entries\Controllers\ExportSales\ExportPackingListController::class)->name('exportsales.packingListPrint');
+
+
 
 
 
