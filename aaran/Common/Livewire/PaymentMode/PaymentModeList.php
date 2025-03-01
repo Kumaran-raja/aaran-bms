@@ -20,7 +20,7 @@ class PaymentModeList extends Component
     public function rules(): array
     {
         return [
-            'vname' => 'required|unique:payment_modes,vname',
+            'vname' => 'required' . ($this->vid ? '' : '|unique:payment_modes,vname'),
         ];
     }
 

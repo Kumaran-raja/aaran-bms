@@ -24,16 +24,16 @@
                 <div class="text-3xl uppercase font-bold">{{$cmp->get('company_name')}}</div>
                 <div class="flex-col flex text-xs space-y-0.5 text-gray-600 justify-center items-center">
                     <div class="text-xs inline-flex items-center space-x-2">
-                        <x-icons.icon-fill iconfill="location" class="w-4 h-3 fill-gray-600"/>
+                        <x-aaran-ui::icons.icon-fill iconfill="location" class="w-4 h-3 fill-gray-600"/>
                         <span>{{$cmp->get('address_1')}},{{$cmp->get('address_2')}},</span></div>
                     <div class="text-xs pl-6">{{$cmp->get('city')}}</div>
                     <div class="text-xs inline-flex items-center space-x-2">
-                        <x-icons.icon-fill iconfill="phone1" class="w-3 h-3 fill-gray-600"/>
+                        <x-aaran-ui::icons.icon-fill iconfill="phone1" class="w-3 h-3 fill-gray-600"/>
                         <span>{{$cmp->get('contact')}}</span> -
-                        <x-icons.icon-fill iconfill="envelope" class="w-3 h-3 fill-gray-600"/>
+                        <x-aaran-ui::icons.icon-fill iconfill="envelope" class="w-3 h-3 fill-gray-600"/>
                         <span>{{$cmp->get('email')}}</span></div>
                     <div class="text-xs inline-flex items-center space-x-2">
-                        <x-icons.icon-fill iconfill="e-inv" class="w-3 h-3 fill-gray-600"/>
+                        <x-aaran-ui::icons.icon-fill iconfill="e-inv" class="w-3 h-3 fill-gray-600"/>
                         <span>{{$cmp->get('gstin')}}</span></div>
                 </div>
             </div>
@@ -85,7 +85,7 @@
             <div class="w-[20%] h-[160px] border border-gray-300 flex items-center justify-center">
                 @if($irn)
                     <img class="w-[145px] h-auto rounded-sm"
-                         src="{{\App\Helper\qrcoder::generate($irn->signed_qrcode,22)}}"
+                         src="{{\Aaran\Assets\Helper\qrcoder::generate($irn->signed_qrcode,22)}}"
                          alt="{{$irn->signed_qrcode}}">
                 @endif
             </div>
@@ -320,8 +320,11 @@
                             class="w-1/5">:</span><span
                             class="font-semibold w-2/5">{{$obj->Vehtype}}</span></div>
                     <div class="inline-flex "><span class="w-2/5"> Generated Date</span><span
-                            class="w-1/5">:</span><span
-                            class="font-semibold w-2/5">{{ $eWay->ewbdt }}</span></div>
+                            class="w-1/5">:</span>
+                        <span
+                            class="font-semibold w-2/5">{{ $eWay->ewbdt }}
+                        </span>
+                    </div>
                     <div class="inline-flex "><span class="w-2/5"> Valid Upto</span><span class="w-1/5">:</span><span
                             class="font-semibold w-2/5">{{ $eWay->ewbvalidtill }}</span></div>
                 </div>
@@ -330,7 +333,7 @@
         <div class="w-[20%] h-[160px] border-l border-gray-300 flex items-center justify-center">
             @if($eWay)
                 <img class="w-[145px] h-auto rounded-sm"
-                     src="{{\App\Helper\qrcoder::generate($eWay->ewbno,2)}}"
+                     src="{{\Aaran\Assets\Helper\qrcoder::generate($eWay->ewbno,2)}}"
                      alt="{{$eWay->ewbno}}">
             @endif
         </div>
@@ -541,16 +544,16 @@
                 <div class="text-3xl uppercase font-bold">{{$cmp->get('company_name')}}</div>
                 <div class="flex-col flex text-xs space-y-0.5 text-gray-600 justify-center items-center">
                     <div class="text-xs inline-flex items-center space-x-2">
-                        <x-icons.icon-fill iconfill="location" class="w-4 h-3 fill-gray-600"/>
+                        <x-aaran-ui::icons.icon-fill iconfill="location" class="w-4 h-3 fill-gray-600"/>
                         <span>{{$cmp->get('address_1')}},{{$cmp->get('address_2')}},</span></div>
                     <div class="text-xs pl-6">{{$cmp->get('city')}}</div>
                     <div class="text-xs inline-flex items-center space-x-2">
-                        <x-icons.icon-fill iconfill="phone1" class="w-3 h-3 fill-gray-600"/>
+                        <x-aaran-ui::icons.icon-fill iconfill="phone1" class="w-3 h-3 fill-gray-600"/>
                         <span>{{$cmp->get('contact')}}</span> -
-                        <x-icons.icon-fill iconfill="envelope" class="w-3 h-3 fill-gray-600"/>
+                        <x-aaran-ui::icons.icon-fill iconfill="envelope" class="w-3 h-3 fill-gray-600"/>
                         <span>{{$cmp->get('email')}}</span></div>
                     <div class="text-xs inline-flex items-center space-x-2">
-                        <x-icons.icon-fill iconfill="e-inv" class="w-3 h-3 fill-gray-600"/>
+                        <x-aaran-ui::icons.icon-fill iconfill="e-inv" class="w-3 h-3 fill-gray-600"/>
                         <span>{{$cmp->get('gstin')}}</span></div>
                 </div>
             </div>
@@ -602,7 +605,7 @@
             <div class="w-[20%] h-[160px] border border-gray-300 flex items-center justify-center">
                 @if($irn)
                     <img class="w-[145px] h-auto rounded-sm"
-                         src="{{\App\Helper\qrcoder::generate($irn->signed_qrcode,22)}}"
+                         src="{{\Aaran\Assets\Helper\qrcoder::generate($irn->signed_qrcode,22)}}"
                          alt="{{$irn->signed_qrcode}}">
                 @endif
             </div>
@@ -847,7 +850,7 @@
         <div class="w-[20%] h-[160px] border-l border-gray-300 flex items-center justify-center">
             @if($eWay)
                 <img class="w-[145px] h-auto rounded-sm"
-                     src="{{\App\Helper\qrcoder::generate($eWay->ewbno,2)}}"
+                     src="{{\Aaran\Assets\Helper\qrcoder::generate($eWay->ewbno,2)}}"
                      alt="{{$eWay->ewbno}}">
             @endif
         </div>
@@ -1059,16 +1062,16 @@
                 <div class="text-3xl uppercase font-bold">{{$cmp->get('company_name')}}</div>
                 <div class="flex-col flex text-xs space-y-0.5 text-gray-600 justify-center items-center">
                     <div class="text-xs inline-flex items-center space-x-2">
-                        <x-icons.icon-fill iconfill="location" class="w-4 h-3 fill-gray-600"/>
+                        <x-aaran-ui::icons.icon-fill iconfill="location" class="w-4 h-3 fill-gray-600"/>
                         <span>{{$cmp->get('address_1')}},{{$cmp->get('address_2')}},</span></div>
                     <div class="text-xs pl-6">{{$cmp->get('city')}}</div>
                     <div class="text-xs inline-flex items-center space-x-2">
-                        <x-icons.icon-fill iconfill="phone1" class="w-3 h-3 fill-gray-600"/>
+                        <x-aaran-ui::icons.icon-fill iconfill="phone1" class="w-3 h-3 fill-gray-600"/>
                         <span>{{$cmp->get('contact')}}</span> -
-                        <x-icons.icon-fill iconfill="envelope" class="w-3 h-3 fill-gray-600"/>
+                        <x-aaran-ui::icons.icon-fill iconfill="envelope" class="w-3 h-3 fill-gray-600"/>
                         <span>{{$cmp->get('email')}}</span></div>
                     <div class="text-xs inline-flex items-center space-x-2">
-                        <x-icons.icon-fill iconfill="e-inv" class="w-3 h-3 fill-gray-600"/>
+                        <x-aaran-ui::icons.icon-fill iconfill="e-inv" class="w-3 h-3 fill-gray-600"/>
                         <span>{{$cmp->get('gstin')}}</span></div>
                 </div>
             </div>
@@ -1120,7 +1123,7 @@
             <div class="w-[20%] h-[160px] border border-gray-300 flex items-center justify-center">
                 @if($irn)
                     <img class="w-[145px] h-auto rounded-sm"
-                         src="{{\App\Helper\qrcoder::generate($irn->signed_qrcode,22)}}"
+                         src="{{\Aaran\Assets\Helper\qrcoder::generate($irn->signed_qrcode,22)}}"
                          alt="{{$irn->signed_qrcode}}">
                 @endif
             </div>
@@ -1365,7 +1368,7 @@
         <div class="w-[20%] h-[160px] border-l border-gray-300 flex items-center justify-center">
             @if($eWay)
                 <img class="w-[145px] h-auto rounded-sm"
-                     src="{{\App\Helper\qrcoder::generate($eWay->ewbno,2)}}"
+                     src="{{\Aaran\Assets\Helper\qrcoder::generate($eWay->ewbno,2)}}"
                      alt="{{$eWay->ewbno}}">
             @endif
         </div>
