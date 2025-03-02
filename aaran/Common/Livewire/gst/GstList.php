@@ -21,7 +21,7 @@ class GstList extends Component
     public function rules(): array
     {
         return [
-            'vname' => 'required|unique:gst_percents,vname',
+            'vname' => 'required' . ($this->vid ? '' : '|unique:gst_percents,vname'),
         ];
     }
 

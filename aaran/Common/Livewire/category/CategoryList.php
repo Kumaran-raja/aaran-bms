@@ -20,7 +20,7 @@ class CategoryList extends Component
     public function rules(): array
     {
         return [
-            'vname' => 'required:categories,vname',
+            'vname' => 'required' . ($this->vid ? '' : '|unique:categories,vname'),
         ];
     }
 

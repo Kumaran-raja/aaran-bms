@@ -20,7 +20,7 @@ class HsncodeList extends Component
     public function rules(): array
     {
         return [
-            'vname' => 'required:hsncodes,vname',
+            'vname' => 'required' . ($this->vid ? '' : '|unique:hsncodes,vname'),
         ];
     }
 

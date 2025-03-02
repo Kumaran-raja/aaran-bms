@@ -1,16 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Entries\ExportSales;
+namespace Aaran\Entries\Controllers\ExportSales;
 
+use Aaran\Assets\Helper\ConvertTo;
 use Aaran\Entries\Models\ExportSale;
 use Aaran\Master\Models\Company;
 use Aaran\Master\Models\ContactDetail;
-use App\Helper\ConvertTo;
 use App\Http\Controllers\Controller;
 use Barryvdh\DomPDF\Facade\Pdf;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use NumberFormatter;
 
 class ExportInvoiceController extends Controller
 {
@@ -18,7 +16,7 @@ class ExportInvoiceController extends Controller
     {
         $export_sales = $this->getExportSales($vid);
         pdf::setOption(['dpi' => 150, 'defaultPaperSize' => 'a4', 'defaultFont' => 'sans-serif', 'fontDir']);
-        $pdf = PDF::loadView('pdf-view.export.invoice',
+        $pdf = PDF::loadView('aaran-ui::components.pdf-view.export.invoice',
             [
                 'obj' => $export_sales,
                 'currency' => ConvertTo::currencyToWords($export_sales->total_taxable),
@@ -61,8 +59,8 @@ class ExportInvoiceController extends Controller
                 'colours.vname as colour_name',
                 'sizes.vname as size_name',)
             ->join('products', 'products.id', '=', 'export_sale_items.product_id')
-            ->join('commons as colours', 'colours.id', '=', 'export_sale_items.colour_id')
-            ->join('commons as sizes', 'sizes.id', '=', 'export_sale_items.size_id')
+            ->join('colours', 'colours.id', '=', 'export_sale_items.colour_id')
+            ->join('sizes', 'sizes.id', '=', 'export_sale_items.size_id')
             ->where('export_sales_id', '=', $vid)
             ->get()
             ->transform(function ($data) {
@@ -92,16 +90,16 @@ class ExportInvoiceController extends Controller
                 'contacts.vname as contact_name',
                 'contact_details.address_1 as address_1',
                 'contact_details.address_2 as address_2',
-                'city.vname as city_name',
-                'state.vname as state_name',
-                'pincode.vname as pincode_name',
-                'country.vname as country_name',)
+                'cities.vname as city_name',
+                'states.vname as state_name',
+                'pincodes.vname as pincode_name',
+                'countries.vname as country_name',)
             ->join('contacts', 'contacts.id', '=', 'export_sale_contacts.contact_id')
             ->join('contact_details', 'contact_details.contact_id', '=', 'export_sale_contacts.contact_id')
-            ->join('commons as city', 'city.id', '=', 'contact_details.city_id')
-            ->join('commons as state', 'state.id', '=', 'contact_details.state_id')
-            ->join('commons as pincode', 'pincode.id', '=', 'contact_details.pincode_id')
-            ->join('commons as country', 'country.id', '=', 'contact_details.contact_id')
+            ->join('cities', 'cities.id', '=', 'contact_details.city_id')
+            ->join('states', 'states.id', '=', 'contact_details.state_id')
+            ->join('pincodes', 'pincodes.id', '=', 'contact_details.pincode_id')
+            ->join('countries', 'countries.id', '=', 'contact_details.contact_id')
             ->where('export_sales_id', '=', $vid)->get()
             ->transform(function ($contact) {
                 return [
@@ -129,8 +127,8 @@ class ExportInvoiceController extends Controller
                 'colours.vname as colour_name',
             )
             ->join('products', 'export_sale_items.product_id', '=', 'products.id')
-            ->join('commons as sizes', 'export_sale_items.size_id', '=', 'sizes.id')
-            ->join('commons as colours', 'export_sale_items.colour_id', '=', 'colours.id')
+            ->join('sizes', 'export_sale_items.size_id', '=', 'sizes.id')
+            ->join('colours', 'export_sale_items.colour_id', '=', 'colours.id')
             ->where('export_sale_items.export_sales_id', $vid)
             ->get();
 

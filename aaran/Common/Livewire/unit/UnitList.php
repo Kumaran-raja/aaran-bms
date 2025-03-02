@@ -21,7 +21,7 @@ class UnitList extends Component
     public function rules(): array
     {
         return [
-            'vname' => 'required|unique:units,vname',
+            'vname' => 'required' . ($this->vid ? '' : '|unique:units,vname'),
         ];
     }
 

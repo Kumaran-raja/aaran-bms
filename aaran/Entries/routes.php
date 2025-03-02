@@ -9,6 +9,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/sales', Aaran\Entries\Livewire\Sales\Index::class)->name('sales');
     Route::get('/sales/{id}/upsert', Aaran\Entries\Livewire\Sales\Upsert::class)->name('sales.upsert');
     Route::get('/sales/{id}/print', Aaran\Entries\Controllers\Sales\SalesInvoiceController::class)->name('sales.print');
+    Route::get('/sales/{id}/invoice', Aaran\Entries\Controllers\Sales\InvController::class)->name('sales.invoice');
     Route::get('/sales/{id}/eway', Aaran\Entries\Livewire\Sales\EwayBill::class)->name('sales.eway');
     Route::get('/sales/{id}/einvoice', Aaran\Entries\Livewire\Sales\Einvoice::class)->name('sales.einvoice');
 
@@ -23,15 +24,14 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     //Export Sales
     Route::get('/exportsales', Aaran\Entries\Livewire\ExportSales\Index::class)->name('exportsales');
     Route::get('/exportsales/{id}/upsert', Aaran\Entries\Livewire\ExportSales\Upsert::class)->name('exportsales.upsert');
-
-
+    Route::get('/exportsales/{id}/packingList', Aaran\Entries\Livewire\ExportSales\PackingList::class)->name('exportsales.packingList');
+    Route::get('/exportsales/{id}/print', Aaran\Entries\Controllers\ExportSales\ExportInvoiceController::class)->name('exportsales.print');
+    Route::get('/exportsales/{id}/packingListPrint', Aaran\Entries\Controllers\ExportSales\ExportPackingListController::class)->name('exportsales.packingListPrint');
 
 
 //    Route::get('/purchase', \Aaran\Web\Livewire\Home\Index::class)->name('purchase');
 //    Route::get('/transactions', \Aaran\Web\Livewire\Home\Index::class)->name('transactions');
 //    Route::get('/showArticles', \Aaran\Web\Livewire\Home\Index::class)->name('showArticles');
-
-
 
 
 //    Route::get('/sales/{id}/einvoice', Aaran\Entries\Livewire\Sales\Einvoice::class)->name('sales.einvoice');

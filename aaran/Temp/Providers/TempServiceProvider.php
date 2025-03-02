@@ -12,7 +12,7 @@ class TempServiceProvider extends ServiceProvider
 
     public function register(): void
     {
-        $this->app->register(TempRouteServiceProvider::class);
+        $this->app->register(TransactionRouteServiceProvider::class);
         $this->loadConfigs();
         $this->loadViews();
     }

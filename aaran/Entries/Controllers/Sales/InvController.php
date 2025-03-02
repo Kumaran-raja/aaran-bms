@@ -12,14 +12,13 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Spatie\LaravelPdf\Facades\Pdf;
-use function Spatie\LaravelPdf\Support\pdf;
 
 class InvController extends Controller
 {
     public function __invoke($vid)
     {
         $sale = $this->getSales($vid);
-        return pdf('pdf-view.sales.spatie.garment', [
+        return Pdf::view('aaran-ui::components.pdf-view.sales.spatie.garment', [
             'obj' => $sale,
             'rupees' => ConvertTo::ruppesToWords($sale->grand_total),
             'list' => $this->getSaleItems($vid),
@@ -28,7 +27,7 @@ class InvController extends Controller
             'shipping_address' => ContactDetail::printDetails($sale->shipping_id),
             'irn'=>$this->getIrn($vid),
             'eWay'=>$this->getEway($vid),
-        ]);
+        ])->name('invoice.pdf');
     }
     public function getSales($vid): ?Sale
     {
@@ -42,18 +41,18 @@ class InvController extends Controller
             'styles.vname as style_name',
             'styles.desc as style_desc',
             'despatches.vname as despatch_name',
-//            'despatches.vdate as despatch_date',
+            'despatches.vdate as despatch_date',
             'transports.vname as transport_name',
-            'transports.desc as transport_id',
-            'transports.desc_1 as transport_no',
+//            'transports.desc as transport_id',
+//            'transports.desc_1 as transport_no',
             'ledgers.vname as ledger_name',
         )
             ->join('contacts', 'contacts.id', '=', 'sales.contact_id')
             ->join('orders', 'orders.id', '=', 'sales.order_id')
             ->join('styles', 'styles.id', '=', 'sales.style_id')
-            ->join('commons as despatches', 'despatches.id', '=', 'sales.despatch_id')
-            ->join('commons as transports', 'transports.id', '=', 'sales.transport_id')
-            ->join('commons as ledgers', 'ledgers.id', '=', 'sales.ledger_id')
+            ->join('despatches', 'despatches.id', '=', 'sales.despatch_id')
+            ->join('transports', 'transports.id', '=', 'sales.transport_id')
+            ->join('ledgers', 'ledgers.id', '=', 'sales.ledger_id')
             ->where('sales.id', '=', $vid)
             ->get()->firstOrFail();
     }
@@ -69,10 +68,10 @@ class InvController extends Controller
                 'sizes.vname as size_name',
             )
             ->join('products', 'products.id', '=', 'saleitems.product_id')
-            ->join('commons as hsncodes', 'hsncodes.id', '=', 'products.hsncode_id')
-            ->join('commons as units', 'units.id', '=', 'products.unit_id')
-            ->join('commons as colours', 'colours.id', '=', 'saleitems.colour_id')
-            ->join('commons as sizes', 'sizes.id', '=', 'saleitems.size_id')
+            ->join('hsncodes', 'hsncodes.id', '=', 'products.hsncode_id')
+            ->join('units', 'units.id', '=', 'products.unit_id')
+            ->join('colours', 'colours.id', '=', 'saleitems.colour_id')
+            ->join('sizes', 'sizes.id', '=', 'saleitems.size_id')
             ->where('sale_id', '=', $vid)
             ->get()
             ->transform(function ($data) {

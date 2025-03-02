@@ -22,6 +22,9 @@ use Aaran\Common\Livewire\receipttype;
 use Aaran\Common\Livewire\dispatch;
 use Aaran\Common\Livewire\PaymentMode;
 use Aaran\Common\Livewire\ContactType;
+use Aaran\Common\Livewire\AccountType;
+use Aaran\Common\Livewire\TransactionType;
+
 
 class CommonServiceProvider extends ServiceProvider
 {
@@ -59,6 +62,8 @@ class CommonServiceProvider extends ServiceProvider
         Livewire::component('common::dispatch-list', dispatch\DispatchList::class);
         Livewire::component('common::contact-type-list', ContactType\ContactTypeList::class);
         Livewire::component('common::payment-mode-list', PaymentMode\PaymentModeList::class);
+        Livewire::component('common::account-type-list', AccountType\AccountTypeList::class);
+        Livewire::component('common::transaction-type-list', TransactionType\TransactionTypeList::class);
 
     }
 

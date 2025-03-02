@@ -21,7 +21,7 @@ class DispatchList extends Component
     public function rules(): array
     {
         return [
-            'vname' => 'required:despatches,vname',
+            'vname' => 'required' . ($this->vid ? '' : '|unique:despatches,vname'),
         ];
     }
 

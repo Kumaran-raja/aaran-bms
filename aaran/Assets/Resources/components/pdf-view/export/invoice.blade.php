@@ -335,7 +335,7 @@
     @foreach($list as $index => $row)
         <tr class="text-sm center v-align-t ">
             <td height="38px" class="center border-r p-1">{{$index + 1}}</td>
-            <td class="center border-r p-1">{{\App\Enums\PackageType::tryFrom($row['pkgs_type'])->getName()}}</td>
+            <td class="center border-r p-1">{{\Aaran\Assets\Enums\PackageType::tryFrom($row['pkgs_type'])->getName()}}</td>
             <td class="center border-r p-1">{{$row['no_of_count']}} </td>
             <td class="left border-r p-1">
                 @if($row['description'])
@@ -393,7 +393,7 @@
     </tr>
     <tr>
         <td colspan="7" class="font-bold border-b p-5 uppercase">Amount
-            Chargeable: {{$currency}} {{\App\Enums\CurrencyType::tryFrom($obj->currency_type)->getCurrency()}} only
+            Chargeable: {{$currency}} {{\Aaran\Assets\Enums\CurrencyType::tryFrom($obj->currency_type)->getCurrency()}} only
         </td>
     </tr>
     <tr class="center border-b ">

@@ -21,7 +21,7 @@ class ReceiptTypeList extends Component
     public function rules(): array
     {
         return [
-            'vname' => 'required:receipttypes,vname',
+            'vname' => 'required' . ($this->vid ? '' : '|unique:receipttypes,vname'),
         ];
     }
 
